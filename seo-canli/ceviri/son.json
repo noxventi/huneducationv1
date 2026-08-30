@@ -1,0 +1,144 @@
+{
+ "https://tr.huneducation.com/": {
+  "oge": 350,
+  "ingilizce": [
+   "Email",
+   "Message",
+   "Name",
+   "Next",
+   "Next slide",
+   "Phone",
+   "Previous",
+   "Previous slide"
+  ]
+ },
+ "https://tr.huneducation.com/kurslar/": {
+  "oge": 676,
+  "ingilizce": []
+ },
+ "https://tr.huneducation.com/macaristan-universite-fiyatlari/": {
+  "oge": 245,
+  "ingilizce": [
+   "Email",
+   "Message",
+   "Name",
+   "Phone"
+  ]
+ },
+ "https://tr.huneducation.com/macaristan-universite-basvuru-sartlari/": {
+  "oge": 252,
+  "ingilizce": [
+   "Email",
+   "Message",
+   "Name",
+   "Phone"
+  ]
+ },
+ "https://tr.huneducation.com/hakkimizda/": {
+  "oge": 217,
+  "ingilizce": [
+   "Email",
+   "Message",
+   "Name",
+   "Phone"
+  ]
+ },
+ "https://tr.huneducation.com/iletisim/": {
+  "oge": 306,
+  "ingilizce": []
+ },
+ "https://tr.huneducation.com/macaristan-universiteleri/": {
+  "oge": 240,
+  "ingilizce": [
+   "Email",
+   "Message",
+   "Name",
+   "Phone"
+  ]
+ },
+ "https://tr.huneducation.com/macaristanda-tip-egitimi-ve-macaristanda-tip-okumak/": {
+  "oge": 215,
+  "ingilizce": [
+   "Email",
+   "Message",
+   "Name",
+   "Next",
+   "Phone",
+   "Previous"
+  ]
+ },
+ "https://tr.huneducation.com/macaristan-universiteleri-pilotluk-egitimi/": {
+  "oge": 216,
+  "ingilizce": [
+   "Email",
+   "Message",
+   "Name",
+   "Next",
+   "Phone",
+   "Previous"
+  ]
+ },
+ "https://tr.huneducation.com/neden-macaristanda-egitim/": {
+  "oge": 208,
+  "ingilizce": [
+   "Email",
+   "Message",
+   "Name",
+   "Phone"
+  ]
+ },
+ "https://tr.huneducation.com/course-city/budapest/": {
+  "oge": 188,
+  "ingilizce": [
+   "Next →"
+  ]
+ },
+ "https://tr.huneducation.com/course-category/muhendislik-mimarlik/": {
+  "oge": 196,
+  "ingilizce": [
+   "Next →"
+  ]
+ },
+ "https://tr.huneducation.com/course-level/lisans-babsc/": {
+  "oge": 196,
+  "ingilizce": [
+   "Next →"
+  ]
+ },
+ "https://tr.huneducation.com/kurs/spor-koclugu-hibrid-ma-tf/": {
+  "oge": 191,
+  "ingilizce": [
+   "Email",
+   "Message",
+   "Name",
+   "Phone"
+  ]
+ },
+ "https://tr.huneducation.com/kurs/uluslararasi-spor-diplomasisi-hibrid-ma-tf/": {
+  "oge": 199,
+  "ingilizce": [
+   "Email",
+   "Message",
+   "Name",
+   "Phone"
+  ]
+ },
+ "https://tr.huneducation.com/universite/szeged-universitesi-szte/": {
+  "oge": 242,
+  "ingilizce": [
+   "Email",
+   "Message",
+   "Name",
+   "Phone"
+  ]
+ },
+ "https://tr.huneducation.com/universite/macaristan-spor-bilimleri-universitesi/": {
+  "oge": 197,
+  "ingilizce": [
+   "Email",
+   "Message",
+   "Name",
+   "Phone"
+  ]
+ }
+}

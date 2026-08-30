@@ -37,11 +37,11 @@ URL = [
  'https://huneducation.com/course/biology-bsc-pte/',
  'https://huneducation.com/course/pharmacy/',
  'https://huneducation.com/course/marketing-masters-2/',
- 'https://tr.huneducation.com/course/mimarlik-pte/',
- 'https://tr.huneducation.com/course/meteoroloji-yl-elte/',
+ 'https://tr.huneducation.com/kurs/mimarlik-pte/',
+ 'https://tr.huneducation.com/kurs/meteoroloji-yl-elte/',
  'https://huneducation.com/university/university-of-pecs/',
  'https://huneducation.com/university/semmelweis-university/',
- 'https://tr.huneducation.com/university/szeged-universitesi-szte/',
+ 'https://tr.huneducation.com/universite/szeged-universitesi-szte/',
  # --- sayfalama ---
  'https://huneducation.com/courses/2/',
  # --- sitemap / robots ---

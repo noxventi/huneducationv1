@@ -1,0 +1,180 @@
+{
+ "https://tr.huneducation.com/": {
+  "oge": 350,
+  "ingilizce": [
+   "Email",
+   "Email (required)",
+   "Message",
+   "Name",
+   "Next",
+   "Next slide",
+   "Phone",
+   "Phone Number (required)",
+   "Previous",
+   "Previous slide",
+   "Send"
+  ]
+ },
+ "https://tr.huneducation.com/kurslar/": {
+  "oge": 676,
+  "ingilizce": []
+ },
+ "https://tr.huneducation.com/macaristan-universite-fiyatlari/": {
+  "oge": 245,
+  "ingilizce": [
+   "Email",
+   "Email (required)",
+   "Message",
+   "Name",
+   "Phone",
+   "Phone Number (required)",
+   "Send"
+  ]
+ },
+ "https://tr.huneducation.com/macaristan-universite-basvuru-sartlari/": {
+  "oge": 252,
+  "ingilizce": [
+   "Email",
+   "Email (required)",
+   "Message",
+   "Name",
+   "Phone",
+   "Phone Number (required)",
+   "Send"
+  ]
+ },
+ "https://tr.huneducation.com/hakkimizda/": {
+  "oge": 217,
+  "ingilizce": [
+   "Email",
+   "Email (required)",
+   "Message",
+   "Name",
+   "Phone",
+   "Phone Number (required)",
+   "Send"
+  ]
+ },
+ "https://tr.huneducation.com/iletisim/": {
+  "oge": 306,
+  "ingilizce": []
+ },
+ "https://tr.huneducation.com/macaristan-universiteleri/": {
+  "oge": 240,
+  "ingilizce": [
+   "Email",
+   "Email (required)",
+   "Message",
+   "Name",
+   "Phone",
+   "Phone Number (required)",
+   "Send"
+  ]
+ },
+ "https://tr.huneducation.com/macaristanda-tip-egitimi-ve-macaristanda-tip-okumak/": {
+  "oge": 215,
+  "ingilizce": [
+   "Email",
+   "Email (required)",
+   "Message",
+   "Name",
+   "Next",
+   "Phone",
+   "Phone Number (required)",
+   "Previous",
+   "Send"
+  ]
+ },
+ "https://tr.huneducation.com/macaristan-universiteleri-pilotluk-egitimi/": {
+  "oge": 216,
+  "ingilizce": [
+   "Email",
+   "Email (required)",
+   "Message",
+   "Name",
+   "Next",
+   "Phone",
+   "Phone Number (required)",
+   "Previous",
+   "Send"
+  ]
+ },
+ "https://tr.huneducation.com/neden-macaristanda-egitim/": {
+  "oge": 208,
+  "ingilizce": [
+   "Email",
+   "Email (required)",
+   "Message",
+   "Name",
+   "Phone",
+   "Phone Number (required)",
+   "Send"
+  ]
+ },
+ "https://tr.huneducation.com/course-city/budapest/": {
+  "oge": 188,
+  "ingilizce": [
+   "Next →"
+  ]
+ },
+ "https://tr.huneducation.com/course-category/muhendislik-mimarlik/": {
+  "oge": 196,
+  "ingilizce": [
+   "Next →"
+  ]
+ },
+ "https://tr.huneducation.com/course-level/lisans-babsc/": {
+  "oge": 196,
+  "ingilizce": [
+   "Next →"
+  ]
+ },
+ "https://tr.huneducation.com/kurs/spor-koclugu-hibrid-ma-tf/": {
+  "oge": 191,
+  "ingilizce": [
+   "Email",
+   "Email (required)",
+   "Message",
+   "Name",
+   "Phone",
+   "Phone Number (required)",
+   "Send"
+  ]
+ },
+ "https://tr.huneducation.com/kurs/uluslararasi-spor-diplomasisi-hibrid-ma-tf/": {
+  "oge": 199,
+  "ingilizce": [
+   "Email",
+   "Email (required)",
+   "Message",
+   "Name",
+   "Phone",
+   "Phone Number (required)",
+   "Send"
+  ]
+ },
+ "https://tr.huneducation.com/universite/szeged-universitesi-szte/": {
+  "oge": 242,
+  "ingilizce": [
+   "Email",
+   "Email (required)",
+   "Message",
+   "Name",
+   "Phone",
+   "Phone Number (required)",
+   "Send"
+  ]
+ },
+ "https://tr.huneducation.com/universite/macaristan-spor-bilimleri-universitesi/": {
+  "oge": 197,
+  "ingilizce": [
+   "Email",
+   "Email (required)",
+   "Message",
+   "Name",
+   "Phone",
+   "Phone Number (required)",
+   "Send"
+  ]
+ }
+}

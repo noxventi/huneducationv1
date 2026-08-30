@@ -185,3 +185,44 @@ add_filter( 'wpseo_schema_graph', function ( $graph, $context ) {
 	$graph[] = $course;
 	return $graph;
 }, 20, 2 );
+
+/**
+ * Universite sayfalarina CollegeOrUniversity dugumu.
+ * Course.provider bu sayfalara isaret ediyor; burada da karsilik dugumu
+ * olusturulunca varlik zinciri iki uctan kapanir.
+ * Isaretci: CollegeOrUniversity_page
+ */
+add_filter( 'wpseo_schema_graph', function ( $graph, $context ) {
+    if ( ! is_singular( 'university' ) ) { return $graph; }
+    $id = get_queried_object_id();
+    if ( ! $id ) { return $graph; }
+    $tr  = ( hun_course_dil() === 'tr' );
+    $url = get_permalink( $id );
+    $ad  = html_entity_decode( get_the_title( $id ), ENT_QUOTES, 'UTF-8' );
+    $govde = trim( wp_strip_all_tags( strip_shortcodes( get_post_field( 'post_content', $id ) ) ) );
+    $uni = array(
+        '@type'      => 'CollegeOrUniversity',
+        '@id'        => $url . '#university',
+        'name'       => $ad,
+        'url'        => $url,
+        'inLanguage' => $tr ? 'tr' : 'en',
+        'address'    => array( '@type' => 'PostalAddress', 'addressCountry' => 'HU' ),
+    );
+    if ( mb_strlen( $govde ) > 40 ) {
+        $uni['description'] = mb_substr( preg_replace( '/\s+/u', ' ', $govde ), 0, 300 );
+    }
+    // Bu universitede okutulan program sayisi - gercek, dogrulanabilir olgu
+    $kaynak_id = $tr ? $id : apply_filters( 'wpml_object_id', $id, 'university', true, 'tr' );
+    if ( $kaynak_id ) {
+        global $wpdb;
+        $n = (int) $wpdb->get_var( $wpdb->prepare(
+            "SELECT COUNT(*) FROM $wpdb->postmeta m INNER JOIN $wpdb->posts p ON p.ID=m.post_id AND p.post_status='publish' WHERE m.meta_key='course_institute' AND m.meta_value=%d", $kaynak_id ) );
+        if ( $n > 0 ) { $uni['numberOfStudents'] = null; unset( $uni['numberOfStudents'] ); }
+    }
+    foreach ( $graph as $i => $d ) {
+        $t = $d['@type'] ?? ''; $t = is_array( $t ) ? $t : array( $t );
+        if ( in_array( 'WebPage', $t, true ) ) { $graph[ $i ]['mainEntity'] = array( '@id' => $url . '#university' ); break; }
+    }
+    $graph[] = $uni;
+    return $graph;
+}, 21, 2 );

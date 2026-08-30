@@ -31,6 +31,22 @@
  *
  * Giris yapmis kullanici, yonetim paneli, AJAX ve REST istekleri tamamen
  * disarida birakildi; oralarda WordPress'in kendi nocache_headers()'i gecerli.
+ *
+ * OLCULEN SONUC (30 Agustos 2026)
+ * Canlida donen baslik: "Cache-Control: max-age=0" - buradaki tam dize degil.
+ * Sebep: .htaccess'te WP Rocket'tan kalma bir blok var ve Apache'nin
+ * mod_expires'i "ExpiresByType text/html access plus 0 seconds" ile PHP'nin
+ * bastigi Cache-Control'u ezip yerine max-age=0 yaziyor.
+ *
+ * BU BILEREK DUZELTILMEDI. Asil hedef - no-store'un kalkmasi - gerceklesti;
+ * bfcache artik calisiyor. Geriye kalan tek fark "private" kelimesinin
+ * bulunmamasi ve pratikte bir karsiligi yok: ortada CDN yok, yanit Set-Cookie
+ * tasiyor ve "public" yok, dolayisiyla ortak onbellekler zaten saklamaz.
+ * Bunun icin .htaccess'e dokunmak gerekirdi; canli sitede tek yazim hatasi
+ * tum siteyi 500'e dusurur. Sifira yakin kazanc icin alinacak risk degil.
+ *
+ * Buradaki header() satiri yine de birakildi: .htaccess ileride temizlenirse
+ * dogru baslik kendiliginden devreye girer.
  */
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;

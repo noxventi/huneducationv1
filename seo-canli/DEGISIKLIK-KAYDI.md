@@ -320,3 +320,225 @@ vardi — sitenin en degerli TR sayfasinda gereksiz risk alinmadi.
 ### Geri alma
 `hun_seo_h1_haritasi` fonksiyonundan sonraki iki filtre blogu silinir; ya da
 tum dosya silinir.
+
+---
+
+## Tur 7 — Onbellek basliklari (30 Agustos 2026)
+
+Her sayfa `Cache-Control: no-store, no-cache, must-revalidate` donuyordu.
+Kaynak bir eklenti ayari degil, PHP'nin kendisiydi: PixelYourSite her on yuz
+isteginde `session_start()` cagiriyor, `php.ini`'de `session.cache_limiter=nocache`
+oldugu icin PHP bu uc direktifi kendiliginden basiyordu.
+
+`no-store`, Chrome'da geri/ileri onbellegini (bfcache) tamamen kapatan tek
+direktiftir. Katalogda gezinip geri tusuna basan her ziyaretci sayfayi sifirdan
+kurduruyordu.
+
+**Yapilan:** `hun-seo-onbellek.php` — mu-plugin'ler normal eklentilerden once
+yuklendigi icin `session_cache_limiter('')` PixelYourSite session_start'a
+gelmeden calisiyor. Oturuma DOKUNULMADI; izleme, JetEngine formlari ve WPML
+calismaya devam ediyor.
+
+**Olculen sonuc:** `no-store` site genelinde sifir. Donen baslik `max-age=0`
+(tam dize degil): `.htaccess`'te WP Rocket'tan kalma `ExpiresByType text/html
+"access plus 0 seconds"` satiri Apache mod_expires uzerinden PHP'nin basligini
+eziyor. `.htaccess`'e DOKUNULMADI — canli sitede tek yazim hatasi 500 demek,
+kazanc ise sifira yakin (CDN yok, yanit Set-Cookie tasiyor, `public` yok).
+
+---
+
+## Tur 8 — Katalog merkez sayfalari (30 Agustos 2026)
+
+984 program sayfasi tek bir sayfalanmis `/courses/` listesinin arkasindaydi.
+Katalogun dogal merkez sayfalari zaten vardi ama Yoast'ta **noindex**'ti:
+alan (18 terim), seviye (10), sehir (8). "Engineering degrees in Hungary",
+"study in Debrecen" gibi yuksek niyetli sorgularin hedefi bu sayfalar.
+
+Once **indekslenmeye deger** hale getirildi (`hun-seo-arsiv-merkezleri.php`):
+- H1: "Course City: Debrecen" -> "Study in Debrecen, Hungary"
+- title: "Debrecen Archives" -> "English-Taught Programmes in Debrecen"
+- meta aciklama: yoktu -> terim sayisini iceren olgusal metin
+- Metinler Yoast sablonundan DEGIL, o anki dile gore kodda uretiliyor
+  (Yoast'in taksonomi sablonlari tek deger tutuyor, iki alan adinda ayni
+  metni basardi - ayni tuzak daha once metin aciklamalarinda gorulmustu)
+
+Sonra `noindex` **kalite esigiyle** kaldirildi: 5'ten az program iceren arsiv
+disarida birakildi (16 terim). `course-year` (2024/2025) hic acilmadi -
+katalogun tamaminin kopyasi.
+
+**Sonuc:** 58 merkez sayfasi indekse acildi, her iki alan adinda uc yeni
+sitemap dosyasi olustu.
+
+### Yol boyunca cikan uc hata
+1. **TR sehir arsivleri kendini Ingilizce alan adina canonical'liyordu.**
+   `course-city` WPML'de cevrilmiyor (`taxonomies_sync_option=0`), terim tek
+   kayit oldugu icin `get_term_link()` kararsiz. Turkce sayfa Google'a "asil
+   surumum Ingilizce" diyordu. Duzeltildi.
+2. **Turkce sitemap iki alan adini karistiriyordu** - 8 sehirden 3'unu
+   Ingilizce URL ile listeliyordu. `wpseo_sitemap_entry` ile duzeltildi.
+3. **Yoast 27 canonical'i filtreye yuzde-kodlanmis geciriyor**
+   (`https%3A%2F%2F...`), bu yuzden `parse_url` sema goremeyip tum dizeyi yol
+   saniyor ve `https://tr.huneducation.comhttps://huneducation.com/...` gibi
+   bozuk canonical uretiyordu. Olculdu, tahmin edilmedi: filtreye gelen deger
+   dosyaya yazdirilip bir istek atilarak dogrulandi. Cozum: gelen dize hic
+   ayristirilmiyor, canonical dogrudan terimden kuruluyor.
+
+Sehir arsivlerine ayrica hreflang eklendi (WPML uretemiyordu).
+
+---
+
+## Tur 9 — H1 duzeltmeleri: bkz. Tur 6
+
+---
+
+## Tur 10 — Ceviri sorunlari (30 Agustos 2026)
+
+Kullanici TR sayfalarda Ingilizce metin ve butonlar bildirdi.
+
+### Kok sebep
+**WPML String Translation 3.5.1 pasifti** - ama veritabaninda **1.387 Turkce
+ceviri hazir duruyordu.** Ceviriler yapilmis, sonra eklenti kapatilmis.
+Yoast'takiyle birebir ayni desen: altyapi satin alinmis, kurulmus, kapatilmis.
+
+Aktif edildi (WPML 4.9.4 ile uyum dogrulandi, siteye zarar vermedi).
+**Olculen:** 17 TR sayfada benzersiz Ingilizce dize 39 -> 25.
+Cozulen: universite adlari, taksonomi adlari, "About Us", "Get In Touch",
+"City:", "Level:", "More information".
+
+### Elle eklenen ceviriler
+Kalan dizelerin cogu eski iletisim formunda (`elementor-1574`) ZATEN
+cevrilmisti; yeni formlarda degildi. Terminoloji icat edilmedi, sitenin kendi
+sectigi karsiliklar yayildi (Name -> Isim, Email -> E-posta, Message -> Mesaj).
+49 ceviri eklendi.
+
+### Yanlis sablonu duzeltmek
+Footer cevirileri yansimadi. Sebep: TR sayfa `data-elementor-id` ile olculdugunde
+**8614** ("Yeni footer", TR) render ediyordu, duzeltmeye calistigim 8607 degil.
+8614, 8607'nin WPML kopyasi - ayri kayit, kendi verisi.
+
+**Duzeltilen (8614):** 9 icerik URL'si Ingilizce alan adina gidiyordu; her TR
+sayfada ziyaretci footer'dan tiklayinca Ingilizce siteye dusuyordu. Filtre
+URL'lerinde dil, sayfa kimligi VE kategori terim kimlikleri de Ingilizce
+tarafa aitti (59->126, 57->82, 35->120, 33->78, 76->85 esleme ile duzeltildi).
+Telif metni "All Rights Reserved" -> "Tum haklari saklidir" (yil dinamik kaldi).
+
+**Olculen sonuc:** TR sayfada alan adi otesi baglanti 11 -> 2; kalan ikisi dil
+degistirici, dogru olan bu. Dort hedefin dordu de 200.
+
+Yedek: `wp-content/uploads/_yedek-elementor-8614.json`
+
+### Tur 10 devami — formun gercek kaynagi
+
+Sayfalarin kendi Elementor verisindeki form metinlerini cevirmek (211 degisiklik,
+14 kayit) HICBIR ISE YARAMADI. Sebep olculdu: sitedeki tum iletisim formlari TEK
+bir Elementor **global widget**'ine isaret ediyor - **5245 "Contact Form Template",
+dili `en`**. Form gosteren 12 Turkce sayfa ve iki sablon (program + universite,
+~506 sayfa) bu ayni kaydi cagiriyor. Elementor sayfadaki kopyayi degil global
+widget'i basiyor.
+
+WPML String Translation bu dizeleri kaydetmis (context `elementor-5245`) ve
+cevirileri de var, ama global widget "render edilen gonderi" olmadigi icin ikame
+calismiyor.
+
+**Cozum:** `hun-tr-form-cevirisi.php` - render aninda, yalnizca dil `tr` iken.
+Hicbir icerik degistirilmedi; dosya silindiginde tamamen geri alinir.
+
+Uc ayri katman gerekti:
+1. **Etiket metni** bosluklarla sarili geliyordu (`<label ...> Name </label>`),
+   duz dize degistirme yetmedi; duzenli ifadeyle, bosluklar korunarak.
+2. **gettext boslugu** - arsiv sayfalamasi "Next ->" ve karusel aria-label'lari
+   "Next slide" Ingilizce kaliyordu. `hello-elementor` ve `elementor-pro`
+   tr_TR.mo dosyalarinda bu dizelerin karsiligi yok. Filtre YALNIZCA .mo hic
+   cevirmemisse devreye giriyor (`$ceviri === $metin`); mevcut cevirinin
+   uzerine yazmiyor.
+3. **data-settings ozniteligi** - cok adimli form etiketleri sarmalayici div'de,
+   render_content oraya erisemiyor; `elementor/frontend/before_render` ile.
+
+**Olculen sonuc:** 17 TR sayfada benzersiz Ingilizce dize **39 -> 0**.
+(sayfalar + arsivler + program sayfasi + universite sayfasi)
+Ingilizce site dogrulandi: etiketler hala Name/Email/Phone/Message,
+sayfalama hala "Next ->". Hicbir sey sizmadi.
+
+---
+
+## Tur 11 — SEO disi kritik bulgu: kaybolan talepler (30 Agustos 2026)
+
+Ceviri taramasi sirasinda cikti.
+
+Program sayfasi sablonlarinda - **925** (Ingilizce) ve **2425** (Turkce) -
+iletisim formunun **her iki alicisi da** `marczi@dev-labs.com` idi.
+Yani **984 program sayfasindan gelen taleplerin hicbiri HunEducation'a
+ulasmiyordu**; ucuncu bir tarafa gidiyordu.
+
+Bu sayfalar sitenin en yuksek niyetli sayfalari: belirli bir bolumu okuyup form
+dolduran kisi en sicak aday.
+
+Sitenin geri kalan 32 sayfasinda birincil alici dogru (`web@huneducation.com`),
+gelistirici adresi yalnizca ikinci kopya. Yani bu bir tasarim tercihi degil,
+program sablonlarinda birincil alicinin hic ayarlanmamis olmasi.
+
+**Yapilan:** her iki sablonda `email_to` -> `web@huneducation.com`.
+`email_to_2` (gelistirici kopyasi) DOKUNULMADI - diger 32 sayfada da oyle.
+
+**Kullanicinin kararina birakilan:** diger 32 sayfada da aday ogrencilerin adi,
+e-postasi ve telefonu ayni ucuncu tarafa kopyalaniyor. Ajanslarysa sorun yok;
+degilse AB'de kisisel veri acisindan bakilmasi gereken bir konu. Tek tarafli
+kaldirilmadi.
+
+Yedekler: `_yedek-elementor-925.json`, `_yedek-elementor-2425.json`
+
+---
+
+## Not: 508 olayi ve ogrenilen
+
+Tur 8 sirasinda site iki kez HTTP 508 (kaynak siniri) dondu. Sebep: TUM
+`_elementor_css` ve `_elementor_element_cache` satirlarini site genelinde
+silmistim; 984 sayfa ayni anda yeniden uretilmeye kalkti.
+
+Olculen toparlanma: 17:03-17:04 508, 17:04-17:08 yavas 200 (11s, 9s, 11s),
+17:08'den itibaren kararli 1,2-1,7s. Yani gecici bir dalgaydi ve String
+Translation kalici yuk getirmedi - site su an bugun daha once olculen
+1,6-2,9 saniyeden hizli.
+
+**Kural:** bu barindirmada Elementor onbellegi ASLA site genelinde silinmez;
+yalnizca dokunulan kayit kimlikleri icin.
+
+---
+
+## Tur 12 — Beklenmeyen yan etki: TR URL ekleri degisti (30 Agustos 2026)
+
+Ceviri turundan sonraki fark olcumu, NIYET ETMEDIGIM bir degisiklik yakaladi:
+
+| Onceki | Sonraki |
+|---|---|
+| tr.huneducation.com/course/mimarlik-pte/ | tr.huneducation.com/kurs/mimarlik-pte/ |
+| tr.huneducation.com/university/szeged-universitesi-szte/ | tr.huneducation.com/universite/szeged-universitesi-szte/ |
+
+### Sebep
+WPML, icerik tipi URL eklerini de String Translation uzerinden cevirir. Ekler
+zaten cevrilmisti (`course` -> `kurs`, `university` -> `universite`) ama ST
+kapali oldugu icin uygulanamiyordu. ST acilinca sitenin ZATEN TANIMLI olan
+yapilandirmasi devreye girdi. ~506 TR sayfasi (486 program + 20 universite).
+
+### Neden geri alinmadi
+Olculdu, varsayilmadi:
+
+| Kontrol | Sonuc |
+|---|---|
+| Eski TR adresleri | **301** kalici yonlendirme -> yeni adres |
+| Yeni adresler | 200 |
+| TR sitemap | zaten yeni bicimi listeliyor (487 URL) |
+| TR sayfalarindaki ic baglanti | eski bicim **0**, yeni bicim 70 - zincir yok |
+| canonical | kendine (yeni adres) |
+| hreflang | iki alan adinda karsilikli ve dogru |
+| Course semasi | yerinde |
+| Ingilizce taraf | HIC etkilenmedi (/course/ hala 200) |
+
+Yani 301 + guncel sitemap + tutarli canonical/hreflang ile ders kitabi
+temizliginde bir URL gocu. Ustelik "kurs" ve "universite" Turkce aramada
+Ingilizce eklerden dogru karsiliklar.
+
+Geri almak IKINCI bir URL degisikligi olurdu - yeni adresler sitemap'e girmis
+ve taranmis durumda. Tek temiz goc, iki cirpinmadan iyidir.
+
+`baseline.py` URL listesi yeni bicime guncellendi.

@@ -1,0 +1,589 @@
+[
+ {
+  "url": "https://huneducation.com/",
+  "kod": 200,
+  "title": "Study at Universities in Hungary &#8211; HunEducation",
+  "desc": "Discover the top study programs in Hungary. Hun Education offers expert consulting to find universities for education abroad. HunEducation",
+  "canonical": "https://huneducation.com/",
+  "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+  "h1": [
+   "Find Your Programme at a Hungarian University"
+  ],
+  "og_title": "Study at Universities in Hungary &#8211; HunEducation",
+  "hreflang": 3,
+  "jsonld": 1,
+  "bayt": 278853
+ },
+ {
+  "url": "https://huneducation.com/why-hungary/",
+  "kod": 200,
+  "title": "Why Hungary &#8211; HunEducation",
+  "desc": "Higher education opportunities in Hungary offer international students a unique experience at an affordable cost. Discover the reasons for choosing education in Hungary here!",
+  "canonical": "https://huneducation.com/why-hungary/",
+  "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+  "h1": [
+   "Why Hungary"
+  ],
+  "og_title": "Why Hungary &#8211; HunEducation",
+  "hreflang": 3,
+  "jsonld": 1,
+  "bayt": 140223
+ },
+ {
+  "url": "https://huneducation.com/education-in-hungary/",
+  "kod": 200,
+  "title": "Education in Hungary &#8211; HunEducation",
+  "desc": "Education in Hungary has so many benefits for your future. Find out the basics of Hungary&#039;s university education and be part of it!",
+  "canonical": "https://huneducation.com/education-in-hungary/",
+  "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+  "h1": [
+   "Education in Hungary"
+  ],
+  "og_title": "Education in Hungary &#8211; HunEducation",
+  "hreflang": 3,
+  "jsonld": 1,
+  "bayt": 134124
+ },
+ {
+  "url": "https://huneducation.com/universities/",
+  "kod": 200,
+  "title": "Hungary&#039;s Universities &#8211; HunEducation",
+  "desc": "Discover Hungary&#039;s Universities now! Find your dream university and learn more about university admissions and requirements&#039;",
+  "canonical": "https://huneducation.com/universities/",
+  "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+  "h1": [
+   "Hungary&#8217;s Universities"
+  ],
+  "og_title": "Hungary&#039;s Universities &#8211; HunEducation",
+  "hreflang": 3,
+  "jsonld": 1,
+  "bayt": 167086
+ },
+ {
+  "url": "https://huneducation.com/courses/",
+  "kod": 200,
+  "title": "English-Taught Degree Programmes in Hungary &#8211; HunEducation",
+  "desc": "Discover Hungary University&#039;s courses now! Learn more about course admission requirements, annual prices and course descriptions.",
+  "canonical": "https://huneducation.com/courses/",
+  "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+  "h1": [
+   "English-Taught Degree Programmes in Hungary"
+  ],
+  "og_title": "English-Taught Degree Programmes in Hungary &#8211; HunEducation",
+  "hreflang": 3,
+  "jsonld": 1,
+  "bayt": 658535
+ },
+ {
+  "url": "https://huneducation.com/admission/",
+  "kod": 200,
+  "title": "Hungary University Admission Requirements &#8211; HunEducation",
+  "desc": "Admission to Hungarian universities: who can apply, required documents, English requirements, entrance exams and application deadlines — step by step.",
+  "canonical": "https://huneducation.com/admission/",
+  "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+  "h1": [
+   "University Admission Requirements in Hungary"
+  ],
+  "og_title": "Hungary University Admission Requirements &#8211; HunEducation",
+  "hreflang": 3,
+  "jsonld": 1,
+  "bayt": 168427
+ },
+ {
+  "url": "https://huneducation.com/costs/",
+  "kod": 200,
+  "title": "Tuition Fees and Living Costs in Hungary &#8211; HunEducation",
+  "desc": "Explore affordable university costs and tuition fees for international students in Hungary. Plan your budget for higher education today!",
+  "canonical": "https://huneducation.com/costs/",
+  "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+  "h1": [
+   "Tuition Fees and Living Costs in Hungary"
+  ],
+  "og_title": "Tuition Fees and Living Costs in Hungary &#8211; HunEducation",
+  "hreflang": 3,
+  "jsonld": 1,
+  "bayt": 144573
+ },
+ {
+  "url": "https://huneducation.com/masters-education-in-hungary/",
+  "kod": 200,
+  "title": "Master&#039;s Education in Hungary &#8211; HunEducation",
+  "desc": "Discover affordable master&#039;s programs in Hungary, known for international recognition and diverse English-taught courses in central Europe",
+  "canonical": "https://huneducation.com/masters-education-in-hungary/",
+  "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+  "h1": [
+   "Master&#8217;s Education in Hungary"
+  ],
+  "og_title": "Master&#039;s Education in Hungary &#8211; HunEducation",
+  "hreflang": 3,
+  "jsonld": 1,
+  "bayt": 141697
+ },
+ {
+  "url": "https://huneducation.com/studying-medicine-in-hungary-and-pursuing-a-medical-degree-in-hungary/",
+  "kod": 200,
+  "title": "Studying Medicine in Hungary: Fees and Exam &#8211; HunEducation",
+  "desc": "Studying medicine in Hungary: the universities that teach it in English, the entrance assessment, real annual tuition and how the six years are structured.",
+  "canonical": "https://huneducation.com/studying-medicine-in-hungary-and-pursuing-a-medical-degree-in-hungary/",
+  "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+  "h1": [
+   "Studying Medicine in Hungary and Pursuing a Medical Degree in Hungary"
+  ],
+  "og_title": "Studying Medicine in Hungary: Fees and Exam &#8211; HunEducation",
+  "hreflang": 3,
+  "jsonld": 1,
+  "bayt": 138584
+ },
+ {
+  "url": "https://huneducation.com/pilot-training-at-hungarian-universities/",
+  "kod": 200,
+  "title": "Pilot Training at Hungarian Universities &#8211; HunEducation",
+  "desc": "Discover Pilot Training at Hungarian Universities now! Learn more about admission requirements and affordable prices.",
+  "canonical": "https://huneducation.com/pilot-training-at-hungarian-universities/",
+  "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+  "h1": [
+   "Pilot Training at Hungarian Universities"
+  ],
+  "og_title": "Pilot Training at Hungarian Universities &#8211; HunEducation",
+  "hreflang": 3,
+  "jsonld": 1,
+  "bayt": 139286
+ },
+ {
+  "url": "https://huneducation.com/university-education-and-life-in-hungary-what-you-need-to-know/",
+  "kod": 200,
+  "title": "University Education and Life in Hungary &#8211; HunEducation",
+  "desc": "Discover the essence of university education and vibrant life in Hungary. Essential insights for an academic and cultural experience.",
+  "canonical": "https://huneducation.com/university-education-and-life-in-hungary-what-you-need-to-know/",
+  "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+  "h1": [
+   "University Education and Life in Hungary: What You Need to Know"
+  ],
+  "og_title": "University Education and Life in Hungary &#8211; HunEducation",
+  "hreflang": 3,
+  "jsonld": 1,
+  "bayt": 135207
+ },
+ {
+  "url": "https://huneducation.com/student-perspectives/",
+  "kod": 200,
+  "title": "Student Perspectives: Studying in Hungary &#8211; HunEducation",
+  "desc": "What students actually say about studying in Hungary: coursework, cost of living, accommodation and the first months, in their own words.",
+  "canonical": "https://huneducation.com/student-perspectives/",
+  "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+  "h1": [
+   "Student Perspectives: Life and Educational Experiences at Hungarian Universities"
+  ],
+  "og_title": "Student Perspectives: Studying in Hungary &#8211; HunEducation",
+  "hreflang": 3,
+  "jsonld": 1,
+  "bayt": 141285
+ },
+ {
+  "url": "https://huneducation.com/about-us/",
+  "kod": 200,
+  "title": "About Us &#8211; HunEducation",
+  "desc": "Unlock Hungary&#039;s educational wonders! Embrace diversity, and grow personally &amp; academically. Join now for a dream journey with Hun Education.",
+  "canonical": "https://huneducation.com/about-us/",
+  "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+  "h1": [
+   "About Us"
+  ],
+  "og_title": "About Us &#8211; HunEducation",
+  "hreflang": 3,
+  "jsonld": 1,
+  "bayt": 156005
+ },
+ {
+  "url": "https://huneducation.com/contact/",
+  "kod": 200,
+  "title": "Contact &#8211; HunEducation",
+  "desc": "Contact us through our contact page. Share your questions, suggestions, and feedback with us. We&#039;d be happy to assist you.",
+  "canonical": "https://huneducation.com/contact/",
+  "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+  "h1": [
+   "Contact",
+   "Academic   &nbsp;   Advisors",
+   "Contact   &nbsp;   Info",
+   "Enquiry   &nbsp;   Form"
+  ],
+  "og_title": "Contact &#8211; HunEducation",
+  "hreflang": 3,
+  "jsonld": 1,
+  "bayt": 138306
+ },
+ {
+  "url": "https://tr.huneducation.com/",
+  "kod": 200,
+  "title": "Macaristan Üniversite Eğitimi &#8211; HunEducation",
+  "desc": "Macaristan üniversite ve bölümlerini hemen keşfet! Hun Education olarak en iyi yurt dışı eğitim danışmanlık hizmetini sunuyoruz. HunEducation",
+  "canonical": "https://tr.huneducation.com/",
+  "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+  "h1": [
+   "Macaristan'daki Üniversite ve Bölümleri Keşfet!"
+  ],
+  "og_title": "Macaristan Üniversite Eğitimi &#8211; HunEducation",
+  "hreflang": 3,
+  "jsonld": 1,
+  "bayt": 238138
+ },
+ {
+  "url": "https://tr.huneducation.com/neden-macaristanda-egitim/",
+  "kod": 200,
+  "title": "Macaristan&#039;da Eğitim &#8211; HunEducation",
+  "desc": "Macaristan&#039;daki üniversitelerdeki lisans ve yüksek lisans fırsatları, uluslararası öğrencilere uygun bir maliyetle benzersiz bir deneyim sunmaktadır. Macaristan&#039;da eğitim almanın nedenlerini burada keşfedin!",
+  "canonical": "https://tr.huneducation.com/neden-macaristanda-egitim/",
+  "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+  "h1": [
+   "Macaristan&#8217;da Eğitim"
+  ],
+  "og_title": "Macaristan&#039;da Eğitim &#8211; HunEducation",
+  "hreflang": 3,
+  "jsonld": 1,
+  "bayt": 146432
+ },
+ {
+  "url": "https://tr.huneducation.com/macaristanda-universite-okumak/",
+  "kod": 200,
+  "title": "Macaristan&#039;da Üniversite Okumak &#8211; HunEducation",
+  "desc": "Macaristan&#039;da üniversite okumak geleceğiniz için pek çok faydaya ve artıya sahiptir. Macaristan&#039;ın üniversite okumak temellerini öğrenin ve bunun bir parçası olun!",
+  "canonical": "https://tr.huneducation.com/macaristanda-universite-okumak/",
+  "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+  "h1": [
+   "Macaristan&#8217;da Üniversite Okumak"
+  ],
+  "og_title": "Macaristan&#039;da Üniversite Okumak &#8211; HunEducation",
+  "hreflang": 3,
+  "jsonld": 1,
+  "bayt": 139956
+ },
+ {
+  "url": "https://tr.huneducation.com/macaristan-universiteleri/",
+  "kod": 200,
+  "title": "Macaristan Üniversiteleri &#8211; HunEducation",
+  "desc": "Macaristan üniversiteleri hakkında detaylı bilgi almak için tıklayın! Macaristan üniversiteleri sizi bekliyor!",
+  "canonical": "https://tr.huneducation.com/macaristan-universiteleri/",
+  "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+  "h1": [
+   "Macaristan Üniversiteleri"
+  ],
+  "og_title": "Macaristan Üniversiteleri &#8211; HunEducation",
+  "hreflang": 3,
+  "jsonld": 1,
+  "bayt": 170668
+ },
+ {
+  "url": "https://tr.huneducation.com/kurslar/",
+  "kod": 200,
+  "title": "Bölümler &#8211; HunEducation",
+  "desc": "Macaristan üniversite bölümlerini keşfet! Bölümlerin fiyatları, kayıt kabul koşulları ve kurs bilgilerini hemen öğren!",
+  "canonical": "https://tr.huneducation.com/kurslar/",
+  "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+  "h1": [
+   "Macaristan&#039;da Üniversite Bölümleri"
+  ],
+  "og_title": "Bölümler &#8211; HunEducation",
+  "hreflang": 3,
+  "jsonld": 1,
+  "bayt": 690134
+ },
+ {
+  "url": "https://tr.huneducation.com/macaristan-universite-basvuru-sartlari/",
+  "kod": 200,
+  "title": "Macaristan Üniversite Başvuru Şartları &#8211; HunEducation",
+  "desc": "Macaristan üniversite başvuru şartları Hun Education olarak tüm süreçlerde sizlere yardımcı oluyoruz. Macaristan&#039;da üniversite Hemen Başvur.",
+  "canonical": "https://tr.huneducation.com/macaristan-universite-basvuru-sartlari/",
+  "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+  "h1": [
+   "Macaristan Üniversite Başvuru ve Kabul Şartları"
+  ],
+  "og_title": "Macaristan Üniversite Başvuru Şartları &#8211; HunEducation",
+  "hreflang": 3,
+  "jsonld": 1,
+  "bayt": 172092
+ },
+ {
+  "url": "https://tr.huneducation.com/macaristan-universite-fiyatlari/",
+  "kod": 200,
+  "title": "Macaristan Üniversite Fiyatları &#8211; HunEducation",
+  "desc": "Uluslararası öğrenciler için Macaristan üniversite fiyatlarını keşfedin! Macaristan&#039;da üniversite okumak için bütçenizi bugünden planlayın!",
+  "canonical": "https://tr.huneducation.com/macaristan-universite-fiyatlari/",
+  "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+  "h1": [
+   "Macaristan Üniversite Fiyatları"
+  ],
+  "og_title": "Macaristan Üniversite Fiyatları &#8211; HunEducation",
+  "hreflang": 3,
+  "jsonld": 1,
+  "bayt": 148856
+ },
+ {
+  "url": "https://tr.huneducation.com/macaristan-yuksek-lisans/",
+  "kod": 200,
+  "title": "Macaristan Yüksek Lisans &#8211; HunEducation",
+  "desc": "Macaristan yüksek lisans programları hakkında detaylı bilgi alın ve başvurunuzu yapın!",
+  "canonical": "https://tr.huneducation.com/macaristan-yuksek-lisans/",
+  "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+  "h1": [
+   "Macaristan Yüksek Lisans"
+  ],
+  "og_title": "Macaristan Yüksek Lisans &#8211; HunEducation",
+  "hreflang": 3,
+  "jsonld": 1,
+  "bayt": 144528
+ },
+ {
+  "url": "https://tr.huneducation.com/macaristanda-tip-egitimi-ve-macaristanda-tip-okumak/",
+  "kod": 200,
+  "title": "Macaristan&#039;da Tıp Eğitimi ve Tıp Okumak &#8211; HunEducation",
+  "desc": "Macaristan’da Tıp Eğitimi, Macaristan yüksek lisans ve Macaristan&#039;da üniversite okumak hakkında profesyonel danışmanlık hizmetleri veriyoruz.",
+  "canonical": "https://tr.huneducation.com/macaristanda-tip-egitimi-ve-macaristanda-tip-okumak/",
+  "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+  "h1": [
+   "Macaristan’da Tıp Eğitimi ve Macaristan’da Tıp Okumak"
+  ],
+  "og_title": "Macaristan&#039;da Tıp Eğitimi ve Tıp Okumak &#8211; HunEducation",
+  "hreflang": 3,
+  "jsonld": 1,
+  "bayt": 141001
+ },
+ {
+  "url": "https://tr.huneducation.com/macaristan-universiteleri-pilotluk-egitimi/",
+  "kod": 200,
+  "title": "Macaristan Üniversiteleri Pilotluk Eğitimi &#8211; HunEducation",
+  "desc": "Discover Macaristan Üniversiteleri Pilotluk Eğitimi now! Kabul koşulları ve uygun fiyatlar hakkında daha fazla bilgi edinin.",
+  "canonical": "https://tr.huneducation.com/macaristan-universiteleri-pilotluk-egitimi/",
+  "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+  "h1": [
+   "Macaristan Üniversiteleri Pilotluk Eğitimi"
+  ],
+  "og_title": "Macaristan Üniversiteleri Pilotluk Eğitimi &#8211; HunEducation",
+  "hreflang": 3,
+  "jsonld": 1,
+  "bayt": 142666
+ },
+ {
+  "url": "https://tr.huneducation.com/macaristanda-yasam-ve-universite-egitimi-bilinmesi-gerekenler/",
+  "kod": 200,
+  "title": "Macaristan&#039;da Yaşam ve Üniversite Eğitimi &#8211; HunEducation",
+  "desc": "Macaristan&#039;da yaşam ve üniversite eğitimi hakkında bilinmesi gereken her şeyi şimdi keşfedin!",
+  "canonical": "https://tr.huneducation.com/macaristanda-yasam-ve-universite-egitimi-bilinmesi-gerekenler/",
+  "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+  "h1": [
+   "Macaristan&#8217;da Yaşam ve Üniversite Eğitimi: Bilinmesi Gerekenler"
+  ],
+  "og_title": "Macaristan&#039;da Yaşam ve Üniversite Eğitimi &#8211; HunEducation",
+  "hreflang": 3,
+  "jsonld": 1,
+  "bayt": 139629
+ },
+ {
+  "url": "https://tr.huneducation.com/macaristan-universiteleri-ogrenci-gorusleri/",
+  "kod": 200,
+  "title": "Macaristan Üniversiteleri Öğrenci Görüşleri &#8211; HunEducation",
+  "desc": "Macaristan&#039;da okuyan öğrenciler ne anlatıyor: dersler, yaşam maliyeti, konaklama ve ilk aylar — kendi cümleleriyle.",
+  "canonical": "https://tr.huneducation.com/macaristan-universiteleri-ogrenci-gorusleri/",
+  "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+  "h1": [
+   "Macaristan Üniversiteleri Öğrenci Görüşleri"
+  ],
+  "og_title": "Macaristan Üniversiteleri Öğrenci Görüşleri &#8211; HunEducation",
+  "hreflang": 3,
+  "jsonld": 1,
+  "bayt": 166156
+ },
+ {
+  "url": "https://tr.huneducation.com/hakkimizda/",
+  "kod": 200,
+  "title": "Hakkımızda &#8211; HunEducation",
+  "desc": "Macaristan&#039;da eğitim harikalarının kilidini açın! Kişisel ve akademik olarak gelişmeniz için fırsat! Hayalinizdeki Macaristan&#039;da üniversiteye Hun Education ile katılın!",
+  "canonical": "https://tr.huneducation.com/hakkimizda/",
+  "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+  "h1": [
+   "Hakkımızda"
+  ],
+  "og_title": "Hakkımızda &#8211; HunEducation",
+  "hreflang": 3,
+  "jsonld": 1,
+  "bayt": 159181
+ },
+ {
+  "url": "https://tr.huneducation.com/iletisim/",
+  "kod": 200,
+  "title": "İletişim &#8211; HunEducation",
+  "desc": "İletişim sayfamız aracılığıyla bize ulaşın. Sorularınızı, önerilerinizi ve geri bildirimlerinizi paylaşın. Size yardımcı olmaktan memnuniyet duyarız!",
+  "canonical": "https://tr.huneducation.com/iletisim/",
+  "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+  "h1": [
+   "İletişim",
+   "Akademik Danışmanlarımız"
+  ],
+  "og_title": "İletişim &#8211; HunEducation",
+  "hreflang": 3,
+  "jsonld": 1,
+  "bayt": 195088
+ },
+ {
+  "url": "https://huneducation.com/course/biology-bsc-pte/",
+  "kod": 200,
+  "title": "Biology BSc - PTE &#8211; HunEducation",
+  "desc": null,
+  "canonical": "https://huneducation.com/course/biology-bsc-pte/",
+  "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+  "h1": [
+   "Biology BSc &#8211; PTE"
+  ],
+  "og_title": "Biology BSc - PTE &#8211; HunEducation",
+  "hreflang": 3,
+  "jsonld": 1,
+  "bayt": 135145
+ },
+ {
+  "url": "https://huneducation.com/course/pharmacy/",
+  "kod": 200,
+  "title": "Medical Degree - Pharmacy M.D. (English) &#8211; HunEducation",
+  "desc": "Medical Degree – Pharmacy M.D.",
+  "canonical": "https://huneducation.com/course/pharmacy/",
+  "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+  "h1": [
+   "Medical Degree &#8211; Pharmacy M.D. (English)"
+  ],
+  "og_title": "Medical Degree - Pharmacy M.D. (English) &#8211; HunEducation",
+  "hreflang": 3,
+  "jsonld": 1,
+  "bayt": 148199
+ },
+ {
+  "url": "https://huneducation.com/course/marketing-masters-2/",
+  "kod": 200,
+  "title": "Marketing - BGE &#8211; HunEducation",
+  "desc": "Marketing Master’s",
+  "canonical": "https://huneducation.com/course/marketing-masters-2/",
+  "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+  "h1": [
+   "Marketing &#8211; BGE"
+  ],
+  "og_title": "Marketing - BGE &#8211; HunEducation",
+  "hreflang": 3,
+  "jsonld": 1,
+  "bayt": 140699
+ },
+ {
+  "url": "https://tr.huneducation.com/course/mimarlik-pte/",
+  "kod": 200,
+  "title": "Mimarlık - PTE &#8211; HunEducation",
+  "desc": null,
+  "canonical": "https://tr.huneducation.com/kurs/mimarlik-pte/",
+  "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+  "h1": [
+   "Mimarlık &#8211; PTE"
+  ],
+  "og_title": "Mimarlık - PTE &#8211; HunEducation",
+  "hreflang": 3,
+  "jsonld": 1,
+  "bayt": 138728
+ },
+ {
+  "url": "https://tr.huneducation.com/course/meteoroloji-yl-elte/",
+  "kod": 200,
+  "title": "Meteoroloji YL - ELTE &#8211; HunEducation",
+  "desc": null,
+  "canonical": "https://tr.huneducation.com/kurs/meteoroloji-yl-elte/",
+  "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+  "h1": [
+   "Meteoroloji YL &#8211; ELTE"
+  ],
+  "og_title": "Meteoroloji YL - ELTE &#8211; HunEducation",
+  "hreflang": 3,
+  "jsonld": 1,
+  "bayt": 138855
+ },
+ {
+  "url": "https://huneducation.com/university/university-of-pecs/",
+  "kod": 200,
+  "title": "University of Pécs (PTE) &#8211; HunEducation",
+  "desc": "University of Pécs (PTE) is one of the oldest universities in Europe and offers exclusive programs in Hungary. Learn more about the university now!",
+  "canonical": "https://huneducation.com/university/university-of-pecs/",
+  "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+  "h1": [
+   "University of Pécs (PTE)"
+  ],
+  "og_title": "University of Pécs (PTE) &#8211; HunEducation",
+  "hreflang": 3,
+  "jsonld": 1,
+  "bayt": 151017
+ },
+ {
+  "url": "https://huneducation.com/university/semmelweis-university/",
+  "kod": 200,
+  "title": "Semmelweis University (SOTE) &#8211; HunEducation",
+  "desc": "Do you want to study medicine or health sciences in Europe? Semmelweis University is for you. Learn more about the university and apply now!",
+  "canonical": "https://huneducation.com/university/semmelweis-university/",
+  "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+  "h1": [
+   "Semmelweis University (SOTE)"
+  ],
+  "og_title": "Semmelweis University (SOTE) &#8211; HunEducation",
+  "hreflang": 3,
+  "jsonld": 1,
+  "bayt": 144492
+ },
+ {
+  "url": "https://tr.huneducation.com/university/szeged-universitesi-szte/",
+  "kod": 200,
+  "title": "Szeged Üniversitesi (SZTE) &#8211; HunEducation",
+  "desc": null,
+  "canonical": "https://tr.huneducation.com/universite/szeged-universitesi-szte/",
+  "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+  "h1": [
+   "Szeged Üniversitesi (SZTE)"
+  ],
+  "og_title": "Szeged Üniversitesi (SZTE) &#8211; HunEducation",
+  "hreflang": 3,
+  "jsonld": 1,
+  "bayt": 225854
+ },
+ {
+  "url": "https://huneducation.com/courses/2/",
+  "kod": 200,
+  "title": "English-Taught Degree Programmes in Hungary &#8211; Page 2 &#8211; HunEducation",
+  "desc": "Discover Hungary University&#039;s courses now! Learn more about course admission requirements, annual prices and course descriptions.",
+  "canonical": "https://huneducation.com/courses/2/",
+  "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+  "h1": [
+   "English-Taught Degree Programmes in Hungary"
+  ],
+  "og_title": "English-Taught Degree Programmes in Hungary &#8211; HunEducation",
+  "hreflang": 3,
+  "jsonld": 1,
+  "bayt": 642483
+ },
+ {
+  "url": "https://huneducation.com/sitemap.xml",
+  "kod": 200,
+  "loc": 6,
+  "bayt": 1063,
+  "ozet": "<?xml version=\"1.0\" encoding=\"UTF-8\"?><?xml-stylesheet type=\"text/xsl\" href=\"//huneducation.com/wp-content/plugins/wordpress-seo/css/main-sitemap.xsl\"?>\n<sitemapindex xmlns=\"http://www.sitemaps.org/sc"
+ },
+ {
+  "url": "https://tr.huneducation.com/sitemap.xml",
+  "kod": 200,
+  "loc": 6,
+  "bayt": 1084,
+  "ozet": "<?xml version=\"1.0\" encoding=\"UTF-8\"?><?xml-stylesheet type=\"text/xsl\" href=\"//tr.huneducation.com/wp-content/plugins/wordpress-seo/css/main-sitemap.xsl\"?>\n<sitemapindex xmlns=\"http://www.sitemaps.org"
+ },
+ {
+  "url": "https://huneducation.com/robots.txt",
+  "kod": 200,
+  "loc": 0,
+  "bayt": 245,
+  "ozet": "# Uretken motorlar icin site ozeti: https://huneducation.com/llms.txt\n\n# START YOAST BLOCK\n# ---------------------------\nUser-agent: *\nDisallow:\n\nSitemap: https://huneducation.com/sitemap_index.xml\n# "
+ },
+ {
+  "url": "https://tr.huneducation.com/robots.txt",
+  "kod": 200,
+  "loc": 0,
+  "bayt": 251,
+  "ozet": "# Uretken motorlar icin site ozeti: https://tr.huneducation.com/llms.txt\n\n# START YOAST BLOCK\n# ---------------------------\nUser-agent: *\nDisallow:\n\nSitemap: https://tr.huneducation.com/sitemap_index."
+ }
+]
