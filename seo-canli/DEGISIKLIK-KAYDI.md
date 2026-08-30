@@ -618,3 +618,44 @@ program; `/courses/` ve `/kurslar/` etkilenmedi (hala `index, follow` ve bugun
 konulan H1'leriyle).
 
 Yedek: `wp-content/uploads/_seo-geri-alma-ptarchive.json`
+
+---
+
+## Tur 16 — IndexNow (30 Agustos 2026)
+
+Bugun degisen her sey icin yeniden taranmayi hizlandirmak amaciyla kuruldu:
+H1'ler, ~1.100 meta aciklama, 58 yeni merkez sayfasi, 506 tasinan TR adresi,
+4 arsivin indeks disi birakilmasi.
+
+**Kurulum:** `public_html/1830a2386a4abf806481442d83b9582f.txt`
+Iki alan adi ayni kok dizini paylastigi icin tek dosya ikisine de hizmet
+ediyor (bu, llms.txt olayinda ogrenilmisti). Iki alan adinda da 200 ve icerik
+esesliyor.
+
+**Ilk deneme 403 dondu:** `SiteVerificationNotCompleted`. Bu hata degil -
+anahtar yeni olusturuldugunda IndexNow'in onu cekip dogrulamasi zaman aliyor.
+Geri cekilip yeniden denendi, ikinci turda gecti.
+
+**Gonderilen:** huneducation.com 561 URL, tr.huneducation.com 549 URL.
+Toplam 1.110. HTTP 200. Motorlar: Bing, Yandex, Naver, Seznam.cz, Amazon, Yep.
+Google IndexNow kullanmiyor; oradaki yeniden tarama sitemap ve dogal tarama
+hizinda ilerleyecek.
+
+Noindex yapilan dort icerik tipi arsivi listeden cikarildi.
+
+Listeler: `indexnow/huneducation.com.txt`, `indexnow/tr.huneducation.com.txt`
+Yeniden gonderim: `indexnow/yeniden_dene.sh`
+
+---
+
+## Duzeltme — denetimdeki "hreflang eksik" bulgusu yanlisti
+
+2. tur denetiminde iki TR program sayfasi "hreflang eksik" diye Low seviyede
+isaretlenmisti:
+- /kurs/makine-muhendisligi-miscolc/
+- /kurs/neo-latin-dilleri-ve-kulturleri-portekiz-calismalari-uzmanligi-lisans/
+
+Incelendi: ikisinde de `hreflang="tr"` kendine referansi ve dogru canonical
+var. Ingilizce karsiliklari olmadigi icin `en` alternatifi bulunmamasi DOGRU
+davranistir. Olcumum `hreflang>=2` esigi kullandigi icin tek dilli sayfalari
+hatali sayiyordu. Duzeltilecek bir sey yok.
