@@ -542,3 +542,21 @@ Geri almak IKINCI bir URL degisikligi olurdu - yeni adresler sitemap'e girmis
 ve taranmis durumda. Tek temiz goc, iki cirpinmadan iyidir.
 
 `baseline.py` URL listesi yeni bicime guncellendi.
+
+---
+
+## Tur 13 — llms.txt yonlendirmesi (30 Agustos 2026)
+
+Son saglik kontrolunde yakalandi: `/llms.txt` **301** ile `/llms.txt/` adresine
+yonlendiriliyordu. Icerik dogru donuyordu ama uretken motorlar dosyayi
+uzantisiyla ve yonlendirmesiz bekler.
+
+Sebep: WordPress'in canonical yonlendirmesi `template_redirect` kancasinda
+oncelik 10'da calisiyor; benim isleyicim de ayni kancada ama daha sonra
+kaydedildigi icin sonra calisiyordu.
+
+Iki katmanli duzeltme: isleyici artik oncelik 1'de; ayrica `redirect_canonical`
+bu istek icin acikca iptal ediliyor.
+
+Dogrulandi: iki alan adinda da 200, `Content-Type: text/plain`,
+`X-Robots-Tag: noindex`, her biri kendi dilinde 33 satir.

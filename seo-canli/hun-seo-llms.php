@@ -50,7 +50,7 @@ add_action( 'template_redirect', function () {
 	header( 'X-Robots-Tag: noindex' );
 	echo $metin; // phpcs:ignore WordPress.Security.EscapeOutput
 	exit;
-} );
+}, 1 );
 
 function hun_llms_sayim( $tip ) {
 	$q = new WP_Query( array(
@@ -132,3 +132,15 @@ add_action( 'save_post_page', function () {
 	delete_transient( 'hun_llms_txt_tr' );
 	delete_transient( 'hun_llms_txt_en' );
 } );
+
+/**
+ * WordPress /llms.txt adresini /llms.txt/ olarak 301'liyordu.
+ * Uretken motorlar dosyayi uzantisiyla, yonlendirmesiz bekliyor.
+ * Iki katmanli onlem: handler artik template_redirect'te oncelik 1 ile
+ * (WP'nin canonical yonlendirmesi ayni kancada oncelik 10'da) ve ayrica
+ * canonical yonlendirme bu istek icin acikca iptal ediliyor.
+ */
+add_filter( 'redirect_canonical', function ( $yeni ) {
+	if ( get_query_var( 'hun_llms' ) ) { return false; }
+	return $yeni;
+}, 10, 1 );
