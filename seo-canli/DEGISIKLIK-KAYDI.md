@@ -766,3 +766,76 @@ Dogrulandi: 28 sayfa, 984 program, 40 universite, 22 eklenti, 7 mu-plugin,
 - Veritabaninda 7.384 revizyon (~36 MB), parcalanmis bos alan,
   `wp_cbnetpo_ping_optimizer` (31.965 satir), Action Scheduler gunlukleri.
   Bunlar artik guvenle temizlenebilir - disk bosaldi.
+
+---
+
+## Tur 18 — Asil sebep: sitenin kendine attigi cron istekleri (30 Agustos 2026)
+
+Staging silindikten (1,45 GB) sonra 508'ler DEVAM ETTI. Yani disk sorunun
+bir parcasiydi, tamami degil.
+
+### Olculen
+SSL gunlugunde 1.999 istegin dagilimi:
+
+| Kaynak | Istek |
+|---|---|
+| `WordPress/7.1; https://huneducation.com` | 469 |
+| `WordPress/7.1; https://tr.huneducation.com` | 232 |
+| **Toplam (tek IP: sunucunun kendisi)** | **701 = %35** |
+
+Trafigin ucte biri sitenin KENDINE attigi loopback istegiydi.
+
+### Sebep
+- `DISABLE_WP_CRON` tanimsiz: her sayfa goruntulemesi bir cron loopback'i
+  tetikliyor, her loopback ayri bir PHP islemi.
+- Action Scheduler varsayilan olarak **ayni anda 5 kuyruk calistiricisi**
+  aciyor. Hesabin entry-process siniri **20**. Yani cron tek basina
+  kapasitenin dortte birini yiyebiliyor.
+- Kuyrukta 33 gecikmis, 110 basarisiz is vardi.
+
+Bu, dis trafik dustugu halde yukun neden 3,3-3,9'da kaldigini acikliyor.
+
+### Yapilan
+`hun-zamanlanmis-is-freni.php`:
+- es zamanli calistirici 5 -> 1
+- parti boyutu 25 -> 10
+- sure siniri 30 -> 15 sn
+
+Kuyruk temizligi:
+- 110 basarisiz is silindi
+- 6.718 eski tamamlanmis is silindi
+- **20.486 oksuz log satiri** silindi
+- 32 oksuz WP Rocket isi silindi (18 Mayis 2026 tarihli, attempts=0;
+  sahibi eklenti PASIF oldugu icin hicbir zaman calismayacaklardi)
+
+Action Scheduler tablolari **14,3 MB -> 0,2 MB**. Veritabani 297 -> 282,8 MB.
+
+### Olculen sonuc
+| Zaman | Durum |
+|---|---|
+| 23:11-23:12 | 200 ama 11,8-13,2 sn |
+| 23:13:29 | son 508 |
+| **23:13:55 - 23:22** | **20/20 basarili, 1,17-1,76 sn** |
+
+Toplam trafik 150-260/dk -> 66-160/dk.
+
+### KALAN IS - kullanici yapmali
+Loopback'ler hala dakikada 30-54. Cunku `DISABLE_WP_CRON` hala tanimsiz.
+Kalici cozum:
+
+1. ONCE cPanel > Cron Jobs, her 5 dakikada bir:
+   `cd /home/huneduca/public_html && /usr/local/bin/php wp-cron.php >/dev/null 2>&1`
+2. SONRA wp-config.php'ye: `define('DISABLE_WP_CRON', true);`
+
+Sira onemli: tersi olursa zamanlanmis isler tamamen durur.
+cPanel erisimim yok, cron isini ben kuramam.
+
+### Gunun ozeti: uc ayri sebep
+1. Disk %103 + veritabani %100 (staging silindi, 1,45 GB acildi)
+2. IndexNow sonrasi bot dalgasi (Crawl-delay eklendi)
+3. Cron loopback dongusu (Action Scheduler freni + kuyruk temizligi)
+
+Ucu de gercekti. Ucunu de sirayla yanlis tahmin ettim, sonra olcerek duzelttim.
+Altta yatan tek gercek: 20 entry process ve ~1 sn yanit suresiyle bu site
+ayni anda ancak birkac ziyaretci kaldirabiliyor. Onbellek bunu 20 katina
+cikarir; onu da PixelYourSite oturumu engelliyor.

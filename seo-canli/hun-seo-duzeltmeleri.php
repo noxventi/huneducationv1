@@ -195,3 +195,30 @@ add_filter( 'elementor/widget/render_content', function ( $icerik, $widget ) {
         $icerik
     );
 }, 20, 2 );
+
+/**
+ * TARAMA HIZI FRENI - 30 Agustos 2026
+ *
+ * OLCULEN OLAY: IndexNow'a 1.110 URL bildirildikten bir dakika sonra trafik
+ * 80 istek/dk'dan 480'e cikti (YandexBot 239/dk, bingbot 91/dk). Sayfa
+ * onbellegi olmayan ve TTFB'si ~1 sn olan sitede bu saniyede 8 tam PHP
+ * render'i demek; barindirma hesabinin kaynak siniri asildi ve site
+ * yaklasik 15 dakika boyunca 508 dondu.
+ *
+ * Yandex ve Bing Crawl-delay direktifini DIKKATE ALIR (Google almaz, ama
+ * Google zaten kendi hizini sunucu yanitina gore ayarliyor).
+ *
+ * BU GECICI BIR ONLEMDIR. Kalici cozum sayfa onbellegi; o devreye girince
+ * bu blok kaldirilmali, aksi halde tarama hizini gereksiz yere kisitlar.
+ */
+add_filter( 'robots_txt', function ( $metin ) {
+	$fren = "\n# Tarama hizi freni - sunucu kapasitesi nedeniyle (30.08.2026)\n"
+		. "User-agent: YandexBot\nCrawl-delay: 10\n\n"
+		. "User-agent: bingbot\nCrawl-delay: 10\n\n"
+		. "User-agent: Amazonbot\nCrawl-delay: 10\n\n"
+		. "User-agent: SeznamBot\nCrawl-delay: 10\n\n"
+		. "User-agent: PetalBot\nCrawl-delay: 20\n\n"
+		. "User-agent: SemrushBot\nCrawl-delay: 30\n\n"
+		. "User-agent: AhrefsBot\nCrawl-delay: 30\n";
+	return $metin . $fren;
+}, 20 );
