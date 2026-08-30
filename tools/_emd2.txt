@@ -1,0 +1,13 @@
+admission.html               summary> <ul> <li><time datetime="2026-08-05">5 Aug 2026</time> — Content passed editorial and SEO review; source statements updated.</
+admission.html               s updated.</li> <li><time datetime="2026-08-03">3 Aug 2026</time> — Page published; fee ranges, application calendar and entrance exam re
+universities.html            rammes</a></td></tr> <tr><td><b>University of Miskolc</b></td><td>—</td><td>State</td><td>Engineering and Architecture · Business and Eco
+universities.html            )</li> <li><b>Szeged</b>: University of Szeged (SZTE)</li> <li><b>—</b>: University of Miskolc</li> </ul> <h2 id="choosing">How to choos
+universities.html            summary> <ul> <li><time datetime="2026-08-05">5 Aug 2026</time> — Content passed editorial and SEO review; source statements updated.</
+universities.html            s updated.</li> <li><time datetime="2026-08-03">3 Aug 2026</time> — Page published; fee ranges, application calendar and entrance exam re
+kurslar.html                 <p>Bu, aradığınız programın Macaristan'da bulunmadığı anlamına gelmez — kataloğumuz doğrulanmış kayıtlarla sınırlıdır. Filtreleri g
+gen_pages.py                 en']) if TR else u['en'], sehir=sehirler.get(u['sehir'], '—'), sehir_id=u['sehir'], tur=turler.get(u['tur
+gen_pages.py                 e datetime="2026-08-05">{'05.08.2026' if TR else '5 Aug 2026'}</time> — {W['chg1']}</li> <li><time datetime="2026-08-03">{'03.08.2026' if
+gen_pages.py                 e datetime="2026-08-03">{'03.08.2026' if TR else '3 Aug 2026'}</time> — {W['chg2']}</li> </ul> </details>''' def acta(title, text): r
+en_content2.py               s'], u['id']) for u in sorted(UNIS, key=lambda x: (x['sehir'] == '—', x['sehir'], x['ad']))) by_city = {} for u in UNIS: by_city.set
+en_content2.py               v)) for c, v in sorted(by_city.items(), key=lambda kv: (kv[0] == '—', -len(kv[1])))) qa_uni = [ ("Which university can I apply to?",
+pages_content3.py            e> </div>''' write(S['about'], page( S['about'], 'Hakkımızda — 1999’dan Beri Macaristan Odaklı Danışmanlık | Hun Education', "Hu

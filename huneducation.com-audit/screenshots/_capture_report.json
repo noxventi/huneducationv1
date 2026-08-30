@@ -1,0 +1,162 @@
+[
+  {
+    "slug": "home",
+    "url": "https://huneducation.com/",
+    "viewport": "desktop",
+    "success": true,
+    "metrics": {
+      "scrollWidth": 1440,
+      "clientWidth": 1440,
+      "horizontalOverflow": 0,
+      "h1Text": "Search Your Favorite Course Here",
+      "domContentLoaded": 3280.199999988079,
+      "loadEventEnd": 5085.699999988079,
+      "docHeight": 8213
+    },
+    "load_time_s": 5.59
+  },
+  {
+    "slug": "home",
+    "url": "https://huneducation.com/",
+    "viewport": "mobile",
+    "success": true,
+    "metrics": {
+      "scrollWidth": 390,
+      "clientWidth": 390,
+      "horizontalOverflow": 0,
+      "h1Text": "Search Your Favorite Course Here",
+      "domContentLoaded": 3364.100000023842,
+      "loadEventEnd": 5173,
+      "docHeight": 14790
+    },
+    "load_time_s": 5.69
+  },
+  {
+    "slug": "courses",
+    "url": "https://huneducation.com/courses/",
+    "viewport": "desktop",
+    "success": true,
+    "metrics": {
+      "scrollWidth": 1440,
+      "clientWidth": 1440,
+      "horizontalOverflow": 0,
+      "h1Text": "Courses",
+      "domContentLoaded": 3615.300000011921,
+      "loadEventEnd": 4888.600000023842,
+      "docHeight": 8679
+    },
+    "load_time_s": 5.78
+  },
+  {
+    "slug": "courses",
+    "url": "https://huneducation.com/courses/",
+    "viewport": "mobile",
+    "success": true,
+    "metrics": {
+      "scrollWidth": 390,
+      "clientWidth": 390,
+      "horizontalOverflow": 0,
+      "h1Text": "Courses",
+      "domContentLoaded": 3153.600000023842,
+      "loadEventEnd": 4764.800000011921,
+      "docHeight": 10227
+    },
+    "load_time_s": 5.8
+  },
+  {
+    "slug": "course-pharmacy",
+    "url": "https://huneducation.com/course/pharmacy/",
+    "viewport": "desktop",
+    "success": true,
+    "metrics": {
+      "scrollWidth": 1440,
+      "clientWidth": 1440,
+      "horizontalOverflow": 0,
+      "h1Text": "Medical Degree \u2013 Pharmacy M.D. (English)",
+      "domContentLoaded": 4259.200000047684,
+      "loadEventEnd": 5417.600000023842,
+      "docHeight": 3577
+    },
+    "load_time_s": 5.92
+  },
+  {
+    "slug": "course-pharmacy",
+    "url": "https://huneducation.com/course/pharmacy/",
+    "viewport": "mobile",
+    "success": true,
+    "metrics": {
+      "scrollWidth": 390,
+      "clientWidth": 390,
+      "horizontalOverflow": 0,
+      "h1Text": "Medical Degree \u2013 Pharmacy M.D. (English)",
+      "domContentLoaded": 3729,
+      "loadEventEnd": 5428.699999988079,
+      "docHeight": 4858
+    },
+    "load_time_s": 5.94
+  },
+  {
+    "slug": "tr-macaristanda-universite",
+    "url": "https://tr.huneducation.com/macaristanda-universite/",
+    "viewport": "desktop",
+    "success": true,
+    "metrics": {
+      "scrollWidth": 1440,
+      "clientWidth": 1440,
+      "horizontalOverflow": 0,
+      "h1Text": "Macaristan'daki \u00dcniversite ve B\u00f6l\u00fcmleri Ke\u015ffet!",
+      "domContentLoaded": 4507.5,
+      "loadEventEnd": 5738.600000023842,
+      "docHeight": 7131
+    },
+    "load_time_s": 6.25
+  },
+  {
+    "slug": "tr-macaristanda-universite",
+    "url": "https://tr.huneducation.com/macaristanda-universite/",
+    "viewport": "mobile",
+    "success": true,
+    "metrics": {
+      "scrollWidth": 390,
+      "clientWidth": 390,
+      "horizontalOverflow": 0,
+      "h1Text": "Macaristan'daki \u00dcniversite ve B\u00f6l\u00fcmleri Ke\u015ffet!",
+      "domContentLoaded": 3815.800000011921,
+      "loadEventEnd": 4862.700000047684,
+      "docHeight": 12006
+    },
+    "load_time_s": 5.46
+  },
+  {
+    "slug": "tr-kurslar",
+    "url": "https://tr.huneducation.com/kurslar/",
+    "viewport": "desktop",
+    "success": true,
+    "metrics": {
+      "scrollWidth": 1440,
+      "clientWidth": 1440,
+      "horizontalOverflow": 0,
+      "h1Text": "B\u00f6l\u00fcmler",
+      "domContentLoaded": 3108.2999999523163,
+      "loadEventEnd": 4178.299999952316,
+      "docHeight": 8878
+    },
+    "load_time_s": 5.2
+  },
+  {
+    "slug": "tr-kurslar",
+    "url": "https://tr.huneducation.com/kurslar/",
+    "viewport": "mobile",
+    "success": true,
+    "metrics": {
+      "scrollWidth": 390,
+      "clientWidth": 390,
+      "horizontalOverflow": 0,
+      "h1Text": "B\u00f6l\u00fcmler",
+      "domContentLoaded": 3183.600000023842,
+      "loadEventEnd": 4207.200000047684,
+      "docHeight": 12522
+    },
+    "load_time_s": 5.31
+  }
+]

@@ -1,0 +1,1263 @@
+/* ============================================================
+   Bileşenler + hareket ilkelleri
+   ============================================================ */
+
+/* ------------------------------------------------------------
+   1. Reveal / split-text ilkelleri
+   Progressive enhancement: JS yoksa `.js-on` hiç eklenmez ve
+   içerik %100 görünür kalır. Animasyon asla içeriği geciktirmez.
+   ------------------------------------------------------------ */
+
+.js-on [data-reveal] {
+  opacity: 0;
+  will-change: transform, opacity;
+  transition:
+    opacity 0.75s var(--e-out) var(--reveal-delay, calc(var(--i, 0) * 70ms)),
+    transform 0.9s var(--e-out) var(--reveal-delay, calc(var(--i, 0) * 70ms)),
+    filter 0.9s var(--e-out) var(--reveal-delay, calc(var(--i, 0) * 70ms));
+}
+.js-on [data-reveal='up'] {
+  transform: translate3d(0, 34px, 0);
+}
+.js-on [data-reveal='up-sm'] {
+  transform: translate3d(0, 16px, 0);
+}
+.js-on [data-reveal='left'] {
+  transform: translate3d(-36px, 0, 0);
+}
+.js-on [data-reveal='right'] {
+  transform: translate3d(36px, 0, 0);
+}
+.js-on [data-reveal='scale'] {
+  transform: scale(0.94);
+}
+.js-on [data-reveal='blur'] {
+  filter: blur(14px);
+  transform: translate3d(0, 22px, 0);
+}
+.js-on [data-reveal='clip'] {
+  clip-path: inset(0 0 100% 0);
+  opacity: 1;
+  transition: clip-path 1s var(--e-out) var(--reveal-delay, calc(var(--i, 0) * 70ms));
+}
+.js-on [data-reveal].is-in {
+  opacity: 1;
+  transform: none;
+  filter: none;
+  will-change: auto;
+}
+/* Kırpma penceresi yalnız 'clip' varyantının son durumunda kalır ve
+   kutudan taşan mürekkebi de kapsayacak kadar geniş açılır.
+   inset(0 0 0 0) TÜM reveal'lara uygulanıyordu; .display 1.11 satır
+   yüksekliğinde son satırın alt uzantıları (y, g, ğ, ş) kutudan
+   ~0.08em taştığı için başlıklar alttan kesik görünüyordu. */
+.js-on [data-reveal='clip'].is-in {
+  clip-path: inset(-0.3em);
+}
+
+/* Kelime bazlı maske açılışı.
+   KRİTİK: maske penceresi satır kutusudur. `.display` sınıfı 0.98
+   satır yüksekliği veriyor; Türkçe alt uzantılı kelimeler ("olduğundan"
+   — ğ) 1.262em yer kapladığı için overflow:hidden bunları kırpıyordu.
+   Pencere, mürekkebi kapsayacak kadar açılır — dolgu hilesi kaydırma
+   mesafesiyle (105%) uyuşmadığı için kaldırıldı. */
+.split-mask {
+  line-height: 1.28;
+}
+.sw {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: top;
+  /* Pencere alta doğru 0.14em büyütülür: 1.28 satır yüksekliğinde bile
+     mürekkep altı maske kenarıyla burun burunaydı (yarım boşluk ≈ 0),
+     DPR yuvarlamasıyla y/g/ş kuyruklarından 1px tıraşlanabiliyordu.
+     Negatif kenar boşluğu aynı miktarı geri alır; satır aralığı ve
+     komşu satırların konumu değişmez. */
+  padding-bottom: 0.14em;
+  margin-bottom: -0.14em;
+}
+.sw-i {
+  display: inline-block;
+  will-change: transform;
+}
+.js-on .split-mask .sw-i {
+  /* +0.14em, pencereye eklenen dolguyu telafi eder: gizli durumda İ/Ö
+     gibi tepesi yüksek harfler genişleyen pencereden içeri sızmasın. */
+  transform: translate3d(0, calc(105% + 0.14em), 0) rotate(3deg);
+  transition:
+    transform 1.05s var(--e-out) calc(var(--i, 0) * 55ms + var(--base-delay, 0ms));
+}
+.js-on .split-mask.is-in .sw-i {
+  transform: none;
+}
+
+/* Scroll ile kelime kelime aydınlanan metin (§ manifesto) */
+.scrub-text .sw-i {
+  color: var(--scrub-dim, color-mix(in oklab, currentColor 22%, transparent));
+  transition: color 0.28s linear;
+}
+.scrub-text .sw-i.lit {
+  color: currentColor;
+}
+
+/* ------------------------------------------------------------
+   2. Butonlar
+   ------------------------------------------------------------ */
+
+.btn {
+  --btn-bg: var(--navy-900);
+  --btn-fg: #fff;
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6em;
+  min-height: 52px;
+  padding: 0.85em 1.6em;
+  border-radius: 999px;
+  background: var(--btn-bg);
+  color: var(--btn-fg);
+  font-family: var(--font-display);
+  font-size: var(--step--1);
+  font-weight: 600;
+  letter-spacing: -0.005em;
+  line-height: 1;
+  isolation: isolate;
+  overflow: hidden;
+  transform: translate3d(var(--mx, 0px), var(--my, 0px), 0);
+  transition:
+    transform 0.45s var(--e-out),
+    box-shadow 0.35s var(--e-out),
+    color 0.3s var(--e-out);
+}
+
+/* Dolgu, imlecin girdiği yönden büyüyerek gelir */
+.btn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: var(--btn-hover, var(--cobalt-500));
+  transform: translate3d(0, 101%, 0);
+  transition: transform 0.5s var(--e-out);
+}
+.btn:hover::before,
+.btn:focus-visible::before {
+  transform: translate3d(0, 0, 0);
+}
+
+/* Etiket yukarı kayar, kopyası altından gelir.
+   KRİTİK: pencere yüksekliği line-height ile belirlenir ve 1.5'tir.
+   line-height:1 kullanılırsa "ş, ğ, ç" alt uzantıları ile "Ü, İ" üst
+   işaretleri overflow:hidden tarafından kırpılır ve metin taşmış görünür.
+   Kopya tam olarak bir kutu boyu aşağıda durduğu için kaydırma mesafesi
+   (-100%) her zaman pencereyle birebir örtüşür. */
+.btn__label {
+  display: block;
+  overflow: hidden;
+  line-height: 1.5;
+}
+.btn__label > span {
+  position: relative;
+  display: block;
+  white-space: nowrap;
+  text-align: center;
+  transition: transform 0.44s var(--e-out);
+}
+.btn__label > span::after {
+  content: attr(data-t);
+  position: absolute;
+  inset: 100% 0 auto 0;
+  text-align: center;
+}
+.btn:hover .btn__label > span,
+.btn:focus-visible .btn__label > span {
+  transform: translateY(-100%);
+}
+/* Hareket azaltıldığında metin sabit kalır, yalnız dolgu değişir */
+@media (prefers-reduced-motion: reduce) {
+  .btn__label > span,
+  .btn:hover .btn__label > span {
+    transform: none !important;
+  }
+}
+
+/* Birincil aksiyon: logodan gelen kobalt.
+   Dolgu koyudan açığa doğru gelir — düz renk yerine hafif bir derinlik verir. */
+.btn--primary {
+  --btn-bg: var(--cobalt-600);
+  --btn-hover: linear-gradient(180deg, var(--cobalt-500), var(--cobalt-600));
+  box-shadow: var(--sh-glow);
+}
+.btn--primary:hover,
+.btn--primary:focus-visible {
+  box-shadow: var(--sh-glow-strong);
+}
+
+/* Koyu zeminde birincil buton yeterince ayrışsın diye bir ton açılır */
+.section--dark .btn--primary,
+.on-dark .btn--primary {
+  --btn-bg: var(--cobalt-500);
+  --btn-hover: linear-gradient(180deg, var(--cobalt-400), var(--cobalt-500));
+}
+
+.btn--dark {
+  --btn-bg: var(--navy-900);
+  --btn-hover: var(--cobalt-600);
+}
+
+.btn--ghost {
+  --btn-bg: transparent;
+  --btn-fg: var(--fg);
+  --btn-hover: var(--navy-900);
+  border: 1.5px solid color-mix(in oklab, var(--navy-900) 24%, transparent);
+}
+.btn--ghost:hover,
+.btn--ghost:focus-visible {
+  --btn-fg: #fff;
+  border-color: var(--navy-900);
+}
+.on-dark .btn--ghost,
+.section--dark .btn--ghost {
+  --btn-fg: var(--on-dark);
+  --btn-hover: #fff;
+  border-color: var(--line-dark);
+}
+.on-dark .btn--ghost:hover,
+.section--dark .btn--ghost:hover {
+  --btn-fg: var(--navy-950);
+  border-color: #fff;
+}
+
+.btn--wa {
+  --btn-bg: transparent;
+  --btn-fg: currentColor;
+  --btn-hover: var(--wa-green);
+  border: 1.5px solid color-mix(in oklab, var(--wa-green) 55%, transparent);
+}
+.btn--wa:hover {
+  --btn-fg: #06210f;
+}
+
+.btn--lg {
+  min-height: 62px;
+  padding: 1em 2.1em;
+  font-size: var(--step-0);
+}
+.btn--sm {
+  min-height: 44px;
+  padding: 0.6em 1.15em;
+  font-size: var(--step--2);
+}
+
+/* Metin bağlantısı — alt çizgi ortadan açılır */
+.link {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45em;
+  font-weight: 600;
+  padding-block: 2px;
+}
+.link::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 1.5px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.45s var(--e-out);
+}
+.link:hover::after,
+.link:focus-visible::after {
+  transform: scaleX(1);
+}
+.link svg {
+  transition: transform 0.4s var(--e-out);
+}
+.link:hover svg {
+  transform: translateX(4px);
+}
+/* Cümle içindeki bağlantı düz `inline` olmalı.
+   inline-flex kutusu satırlara BÖLÜNEMEZ: "490 İngilizce programı"
+   gibi uzun bir bağlantı tek parça kalıyor, sığmayınca komple alt
+   satıra atlıyor ve üstündeki satırın sonunda kocaman bir boşluk
+   bırakıyordu. Ok işaretli tekil bağlantılar (kartlardaki "Programları
+   görün →") inline-flex kalır; onların svg hizası buna bağlı. */
+:is(p, li, dd) .link {
+  display: inline;
+  padding-block: 0;
+  /* Gerçek alt çizgi kullanılır. ::after çizgisi mutlak konumlu tek bir
+     kutu; iki satıra bölünen bir bağlantıda yalnız ilk parçanın altına
+     çiziliyor ve metnin ortasından geçiyordu. text-decoration satırla
+     birlikte bölünür. */
+  text-decoration: underline;
+  text-decoration-color: color-mix(in oklab, currentColor 42%, transparent);
+  text-underline-offset: 0.22em;
+  text-decoration-thickness: 1.5px;
+}
+:is(p, li, dd) .link::after {
+  content: none;
+}
+:is(p, li, dd) .link:hover {
+  color: #fff;
+  text-decoration-color: currentColor;
+}
+
+/* ------------------------------------------------------------
+   3. Özel imleç (yalnız hassas işaretleyicide)
+   ------------------------------------------------------------ */
+.cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 900;
+  pointer-events: none;
+  /* mix-blend-mode: difference kaldirildi. Koyu zeminde beyaz basligin
+     uzerine gelindiginde halkanin ictindeki harfleri TERSLIYOR ve metin
+     kesilmis gibi gorunuyordu. Halka artik yariseffaf beyaz: efekt
+     duruyor, altindaki yaziyi bozmuyor. */
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+.cursor.is-live {
+  opacity: 1;
+}
+.cursor__dot,
+.cursor__ring {
+  position: absolute;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+}
+.cursor__dot {
+  width: 6px;
+  height: 6px;
+  background: #fff;
+}
+.cursor__ring {
+  width: 34px;
+  height: 34px;
+  border: 1.5px solid rgb(255 255 255 / 0.55);
+  transition:
+    width 0.35s var(--e-out),
+    height 0.35s var(--e-out),
+    background 0.35s var(--e-out),
+    border-color 0.35s var(--e-out);
+}
+.cursor.is-hot .cursor__ring {
+  width: 62px;
+  height: 62px;
+  background: rgb(255 255 255 / 0.14);
+  border-color: transparent;
+}
+.cursor.is-hot .cursor__dot {
+  opacity: 0;
+}
+.cursor__label {
+  position: absolute;
+  transform: translate(-50%, -50%) scale(0.6);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #fff;
+  white-space: nowrap;
+  opacity: 0;
+  transition:
+    opacity 0.25s,
+    transform 0.35s var(--e-out);
+}
+.cursor.has-label .cursor__label {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
+}
+@media (hover: none), (pointer: coarse) {
+  .cursor {
+    display: none;
+  }
+}
+
+/* ------------------------------------------------------------
+   4. Header
+   ------------------------------------------------------------ */
+.hdr {
+  position: fixed;
+  inset: 0 0 auto 0;
+  z-index: 400;
+  --hdr-fg: #fff;
+  color: var(--hdr-fg);
+  transition:
+    transform 0.55s var(--e-out),
+    color 0.4s var(--e-out);
+}
+.hdr__bar {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: var(--sp-5);
+  height: var(--header-h);
+  max-width: var(--maxw);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+  transition: height 0.45s var(--e-out);
+}
+/* Cam zemin scroll ile açılır */
+.hdr::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: color-mix(in oklab, var(--paper) 82%, transparent);
+  backdrop-filter: blur(18px) saturate(1.4);
+  -webkit-backdrop-filter: blur(18px) saturate(1.4);
+  border-bottom: 1px solid var(--line);
+  opacity: var(--hdr-solid, 0);
+  transition: opacity 0.4s var(--e-out);
+}
+.hdr.is-solid {
+  --hdr-fg: var(--navy-900);
+  --hdr-solid: 1;
+}
+.hdr.is-solid .hdr__bar {
+  height: 60px;
+}
+.hdr.is-hidden {
+  transform: translate3d(0, -102%, 0);
+}
+
+.hdr__logo {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  flex: none;
+  z-index: 2;
+}
+/* Boyut ve optik telafi tokens.css'te tek yerden yönetilir (--logo-h).
+   Yüzdesel kayma elemanın kendi yüksekliğine bağlı olduğu için her
+   boyutta hizalama kendiliğinden korunur. */
+.hdr__logo img {
+  width: auto;
+  height: var(--logo-h);
+  transform: translateY(var(--logo-optical));
+  transition:
+    filter 0.4s var(--e-out),
+    height 0.45s var(--e-out),
+    transform 0.5s var(--e-spring);
+}
+/* Header kompaktlaşınca logo da orantılı küçülür */
+.hdr.is-solid .hdr__logo img {
+  height: var(--logo-h-compact);
+}
+.hdr__logo:hover img {
+  transform: translateY(var(--logo-optical)) scale(1.04);
+}
+/* Logo lacivert bir lockup; koyu zeminde okunmaz.
+   Beyaza yalnız GERÇEKTEN koyu zemin üstündeyken dönmeli:
+   `hdr--over-dark` sadece koyu hero'lu sayfalarda verilir. İç sayfalarda
+   header açık zeminde durur ve logo kendi renginde kalır. */
+.hdr--over-dark:not(.is-solid) .hdr__logo img,
+.section--dark .hdr__logo img,
+.ftr .hdr__logo img {
+  filter: brightness(0) invert(1);
+}
+
+.hdr__nav {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 0.15rem;
+  margin-inline: auto;
+}
+
+/* Kayan gösterge: imlecin bulunduğu menü öğesini takip eder, imleç
+   menüden çıkınca aktif sayfaya geri döner. Tek bir elemandır —
+   her linke ayrı çizgi koymak yerine translate+scale ile taşınır,
+   böylece hareket GPU'da kalır ve genişlik animasyonu layout tetiklemez.
+   Referans genişlik 100px; gerçek genişlik scaleX ile kurulur. */
+.hdr__glide {
+  position: absolute;
+  left: 0;
+  bottom: 2px;
+  width: 100px;
+  height: 2px;
+  border-radius: 2px;
+  background: linear-gradient(90deg, var(--cobalt-500), var(--cobalt-400));
+  transform-origin: left center;
+  transform: translate3d(var(--gx, 0px), 0, 0) scaleX(var(--gs, 0));
+  opacity: var(--go, 0);
+  pointer-events: none;
+  will-change: transform;
+  transition:
+    transform 0.46s var(--e-out),
+    opacity 0.28s var(--e-out);
+}
+/* Koyu (şeffaf) header'da bir ton açılır ki fotoğraf üstünde okunsun */
+.hdr--over-dark:not(.is-solid) .hdr__glide {
+  background: linear-gradient(90deg, var(--cobalt-400), var(--cobalt-300));
+}
+@media (prefers-reduced-motion: reduce) {
+  .hdr__glide {
+    transition-duration: 1ms;
+  }
+}
+.hdr__link {
+  position: relative;
+  padding: 0.5rem 0.55rem;
+  font-size: 0.85rem;
+  font-weight: 500;
+  border-radius: 999px;
+  white-space: nowrap;
+  transition: color 0.3s;
+}
+.hdr__link::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: currentColor;
+  opacity: 0;
+  transform: scale(0.85);
+  transition:
+    opacity 0.3s var(--e-out),
+    transform 0.4s var(--e-out);
+}
+.hdr__link:hover::before,
+.hdr__link:focus-visible::before {
+  opacity: 0.07;
+  transform: scale(1);
+}
+/* Aktif sayfa: gösterge çizgisi zaten altında durur, metin de renklenir */
+.hdr.is-solid .hdr__link[aria-current='page'] {
+  color: var(--cobalt-600);
+}
+.hdr__link[aria-current='page'] {
+  font-weight: 600;
+}
+
+/* ---- Açılır menü ----
+   Üst başlık bir <button>; kendisi bir sayfaya gitmez, yalnızca paneli
+   açar. Panel hidden ile kapanır (erişilebilirlik ağacından da çıkar),
+   açılırken opacity/translate ile gelir. */
+.hdr__item {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+.hdr__link--drop {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-family: inherit;
+  color: inherit;
+  cursor: pointer;
+}
+.hdr__caret {
+  flex: none;
+  transition: transform 0.3s var(--e-out);
+}
+.hdr__link--drop[aria-expanded='true'] .hdr__caret {
+  transform: rotate(180deg);
+}
+.hdr__link--drop.is-active {
+  font-weight: 600;
+}
+.hdr.is-solid .hdr__link--drop.is-active {
+  color: var(--cobalt-600);
+}
+
+.hdr__menu {
+  position: absolute;
+  top: calc(100% + 0.45rem);
+  left: 50%;
+  z-index: 5;
+  display: grid;
+  gap: 1px;
+  min-width: 232px;
+  padding: 0.35rem;
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-m);
+  box-shadow: var(--sh-2);
+  transform: translate(-50%, -6px);
+  opacity: 0;
+  transition:
+    opacity 0.22s var(--e-out),
+    transform 0.28s var(--e-out);
+}
+.hdr__menu[hidden] {
+  display: none;
+}
+.hdr__item.is-open .hdr__menu {
+  transform: translate(-50%, 0);
+  opacity: 1;
+}
+.hdr__menu a {
+  padding: 0.55rem 0.75rem;
+  border-radius: calc(var(--radius-m) - 5px);
+  font-size: 0.85rem;
+  font-weight: 500;
+  line-height: 1.3;
+  color: var(--fg);
+  white-space: nowrap;
+  transition: background 0.22s, color 0.22s;
+}
+.hdr__menu a:hover,
+.hdr__menu a:focus-visible {
+  background: color-mix(in oklab, var(--cobalt-500) 8%, #fff);
+  color: var(--cobalt-600);
+}
+.hdr__menu a[aria-current='page'] {
+  background: color-mix(in oklab, var(--cobalt-500) 12%, #fff);
+  color: var(--cobalt-600);
+  font-weight: 600;
+}
+@media (prefers-reduced-motion: reduce) {
+  .hdr__menu,
+  .hdr__caret {
+    transition-duration: 1ms;
+  }
+}
+
+.hdr__side {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex: none;
+}
+
+.lang {
+  display: flex;
+  align-items: center;
+  padding: 3px;
+  border: 1px solid currentColor;
+  border-radius: 999px;
+  opacity: 0.9;
+}
+.lang a {
+  padding: 0.25rem 0.6rem;
+  border-radius: 999px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  transition: background 0.3s, color 0.3s;
+}
+.lang a[aria-current='true'] {
+  background: currentColor;
+}
+.lang a[aria-current='true'] span {
+  mix-blend-mode: difference;
+  filter: invert(1) grayscale(1) contrast(9);
+}
+
+.icon-btn {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid color-mix(in oklab, currentColor 30%, transparent);
+  transition:
+    background 0.35s var(--e-out),
+    color 0.35s var(--e-out),
+    transform 0.35s var(--e-out),
+    border-color 0.35s;
+}
+.icon-btn:hover {
+  background: currentColor;
+  transform: translateY(-2px);
+}
+.icon-btn:hover svg {
+  mix-blend-mode: difference;
+  filter: invert(1) grayscale(1) contrast(9);
+}
+
+.hdr__burger {
+  display: none;
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  border: 1px solid color-mix(in oklab, currentColor 30%, transparent);
+  position: relative;
+}
+.hdr__burger i {
+  position: absolute;
+  left: 50%;
+  width: 17px;
+  height: 1.5px;
+  background: currentColor;
+  transform: translateX(-50%);
+  transition: transform 0.42s var(--e-out), opacity 0.25s;
+}
+.hdr__burger i:nth-child(1) {
+  top: 18px;
+}
+.hdr__burger i:nth-child(2) {
+  top: 23px;
+}
+.hdr__burger i:nth-child(3) {
+  top: 28px;
+}
+body.nav-open .hdr__burger i:nth-child(1) {
+  transform: translateX(-50%) translateY(5px) rotate(45deg);
+}
+body.nav-open .hdr__burger i:nth-child(2) {
+  opacity: 0;
+}
+body.nav-open .hdr__burger i:nth-child(3) {
+  transform: translateX(-50%) translateY(-5px) rotate(-45deg);
+}
+
+/* Scroll ilerleme çizgisi */
+.hdr__progress {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 2px;
+  width: 100%;
+  transform: scaleX(var(--page-p, 0));
+  transform-origin: left;
+  background: linear-gradient(90deg, var(--cobalt-500), var(--ember-500));
+  opacity: var(--hdr-solid, 0);
+}
+
+/* ------------------------------------------------------------
+   5. Mobil menü
+   ------------------------------------------------------------ */
+.mnav {
+  position: fixed;
+  inset: 0;
+  z-index: 390;
+  display: flex;
+  flex-direction: column;
+  padding: calc(var(--header-h) + 1.5rem) var(--gutter) 2rem;
+  background: var(--navy-950);
+  color: var(--on-dark);
+  clip-path: inset(0 0 100% 0);
+  transition: clip-path 0.75s var(--e-in-out);
+  overflow-y: auto;
+  visibility: hidden;
+}
+body.nav-open .mnav {
+  clip-path: inset(0 0 0 0);
+  visibility: visible;
+}
+.mnav__list a {
+  display: block;
+  padding: 0.5rem 0;
+  font-family: var(--font-display);
+  font-size: var(--step-3);
+  font-weight: 700;
+  letter-spacing: -0.035em;
+  opacity: 0;
+  transform: translateY(30px);
+  transition:
+    opacity 0.5s var(--e-out),
+    transform 0.6s var(--e-out);
+}
+body.nav-open .mnav__list a {
+  opacity: 1;
+  transform: none;
+  transition-delay: calc(0.22s + var(--i) * 0.055s);
+}
+/* Mobil akordiyon: üst başlık listedeki bağlantılarla aynı görünür,
+   yanında dönen bir ok taşır. */
+.mnav__toggle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.6rem;
+  width: 100%;
+  /* WCAG 2.2 dokunma hedefi: sitenin geri kalanıyla aynı 44 px eşiği */
+  min-height: 44px;
+  font: inherit;
+  color: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+.mnav__toggle .hdr__caret {
+  width: 14px;
+  height: 14px;
+  opacity: 0.6;
+}
+.mnav__toggle[aria-expanded='true'] .hdr__caret {
+  transform: rotate(180deg);
+}
+.mnav__sub[hidden] {
+  display: none;
+}
+.mnav__sub {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin: 0.4rem 0 1.1rem;
+}
+.mnav__sub a {
+  display: flex;
+  align-items: center;
+  min-height: 44px;
+  font-family: var(--font-body);
+  font-size: var(--step--1);
+  font-weight: 500;
+  padding: 0.3rem 0.95rem;
+  border: 1px solid var(--line-dark);
+  border-radius: 999px;
+  color: var(--on-dark-soft);
+}
+.mnav__foot {
+  margin-top: auto;
+  padding-top: 2rem;
+  display: grid;
+  gap: 0.75rem;
+}
+
+/* ------------------------------------------------------------
+   6. Mobil sabit CTA barı
+   ------------------------------------------------------------ */
+.mobile-bar {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 350;
+  display: none;
+  gap: 0.5rem;
+  padding: 0.6rem var(--gutter) calc(0.6rem + env(safe-area-inset-bottom));
+  background: color-mix(in oklab, var(--paper) 88%, transparent);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-top: 1px solid var(--line);
+  transform: translateY(110%);
+  transition: transform 0.5s var(--e-out);
+}
+.mobile-bar.is-up {
+  transform: none;
+}
+.mobile-bar .btn {
+  flex: 1;
+  min-height: 48px;
+}
+
+/* ------------------------------------------------------------
+   7. Kartlar
+   ------------------------------------------------------------ */
+.card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-l);
+  overflow: hidden;
+  transition:
+    transform 0.5s var(--e-out),
+    box-shadow 0.5s var(--e-out),
+    border-color 0.4s;
+}
+.card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--sh-3);
+  border-color: transparent;
+}
+.card__media {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 4 / 3;
+  background: var(--mist-200);
+}
+.card__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scale(1.02);
+  transition: transform 0.9s var(--e-out), filter 0.6s;
+}
+.card:hover .card__media img {
+  transform: scale(1.08);
+}
+.card__body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  padding: var(--sp-5);
+  flex: 1;
+}
+.card__title {
+  font-size: var(--step-1);
+  letter-spacing: -0.03em;
+}
+.card__meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-top: auto;
+  padding-top: 0.8rem;
+}
+
+/* ------------------------------------------------------------
+   8. Akordiyon (SSS)
+   ------------------------------------------------------------ */
+.acc {
+  border-top: 1px solid var(--line);
+}
+.section--dark .acc {
+  border-color: var(--line-dark);
+}
+.acc__item {
+  border-bottom: 1px solid var(--line);
+}
+.section--dark .acc__item {
+  border-color: var(--line-dark);
+}
+.acc__btn {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--sp-4);
+  width: 100%;
+  padding: clamp(1.1rem, 2.4vw, 1.7rem) 0;
+  text-align: left;
+  font-family: var(--font-display);
+  font-size: var(--step-1);
+  font-weight: 600;
+  letter-spacing: -0.028em;
+  line-height: 1.25;
+  color: inherit;
+  transition: color 0.3s;
+}
+.acc__btn:hover {
+  color: var(--cobalt-600);
+}
+.section--dark .acc__btn:hover {
+  color: var(--cobalt-300);
+}
+.acc__num {
+  font-family: var(--font-mono);
+  font-size: var(--step--2);
+  font-weight: 500;
+  opacity: 0.45;
+  margin-top: 0.45em;
+  flex: none;
+}
+.acc__ico {
+  position: relative;
+  flex: none;
+  width: 22px;
+  height: 22px;
+  margin-left: auto;
+  margin-top: 0.3em;
+}
+.acc__ico::before,
+.acc__ico::after {
+  content: '';
+  position: absolute;
+  inset: 50% 0 auto 0;
+  height: 1.5px;
+  background: currentColor;
+  transition: transform 0.45s var(--e-out);
+}
+.acc__ico::after {
+  transform: rotate(90deg);
+}
+.acc__item.is-open .acc__ico::after {
+  transform: rotate(0deg);
+}
+/* Yükseklik animasyonu: grid 0fr → 1fr (JS ile ölçüm gerekmez) */
+.acc__panel {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.55s var(--e-in-out);
+}
+.acc__item.is-open .acc__panel {
+  grid-template-rows: 1fr;
+}
+.acc__inner {
+  overflow: hidden;
+}
+.acc__inner > div {
+  padding: 0 0 clamp(1.2rem, 2.5vw, 1.9rem) calc(var(--sp-4) + 2.4ch);
+  max-width: 68ch;
+  color: var(--fg-soft);
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 0.4s var(--e-out) 0.1s, transform 0.5s var(--e-out) 0.1s;
+}
+.section--dark .acc__inner > div {
+  color: var(--on-dark-soft);
+}
+.acc__item.is-open .acc__inner > div {
+  opacity: 1;
+  transform: none;
+}
+
+/* ------------------------------------------------------------
+   9. Form
+   ------------------------------------------------------------ */
+.field {
+  position: relative;
+  display: block;
+}
+.field__label {
+  display: block;
+  font-size: var(--step--1);
+  font-weight: 500;
+  margin-bottom: 0.4rem;
+}
+.field__req {
+  color: var(--ember-500);
+}
+.field__ctl {
+  width: 100%;
+  min-height: 52px;
+  padding: 0.85rem 1.1rem;
+  background: #fff;
+  border: 1.5px solid var(--mist-300);
+  border-radius: var(--radius-m);
+  font-size: var(--step-0);
+  transition:
+    border-color 0.25s,
+    box-shadow 0.25s,
+    background 0.25s;
+}
+.field__ctl:focus {
+  outline: none;
+  border-color: var(--cobalt-500);
+  box-shadow: 0 0 0 4px color-mix(in oklab, var(--cobalt-500) 18%, transparent);
+}
+.field__ctl[aria-invalid='true'] {
+  border-color: var(--ember-600);
+  box-shadow: 0 0 0 4px color-mix(in oklab, var(--ember-500) 16%, transparent);
+}
+select.field__ctl {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%235b6488' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 1rem center;
+  background-size: 18px;
+  padding-right: 2.8rem;
+  cursor: pointer;
+}
+.field__err {
+  display: block;
+  font-size: var(--step--1);
+  color: var(--ember-600);
+  margin-top: 0.35rem;
+  min-height: 1.2em;
+}
+.field__hint {
+  display: block;
+  font-size: var(--step--2);
+  color: var(--fg-mute);
+  margin-top: 0.35rem;
+}
+.check {
+  display: flex;
+  gap: 0.7rem;
+  align-items: flex-start;
+  font-size: var(--step--1);
+  line-height: 1.5;
+  cursor: pointer;
+}
+.check input {
+  flex: none;
+  width: 22px;
+  height: 22px;
+  margin-top: 1px;
+  accent-color: var(--cobalt-500);
+}
+.check a {
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+/* ------------------------------------------------------------
+   10. Marquee (hız duyarlı)
+   ------------------------------------------------------------ */
+.marquee {
+  position: relative;
+  display: flex;
+  overflow: hidden;
+  mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
+}
+.marquee__row {
+  display: flex;
+  flex: none;
+  gap: var(--mq-gap, 3.5rem);
+  padding-right: var(--mq-gap, 3.5rem);
+  will-change: transform;
+}
+
+/* ------------------------------------------------------------
+   11. Yardımcı: parlayan çizgi / ayraç
+   ------------------------------------------------------------ */
+.rule {
+  height: 1px;
+  background: var(--line);
+  transform: scaleX(var(--rp, 1));
+  transform-origin: left;
+}
+.section--dark .rule {
+  background: var(--line-dark);
+}
+
+/* Görsel üstü gren dokusu — düz gradyanlara film hissi verir */
+.grain::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.5;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='0.42'/%3E%3C/svg%3E");
+}
+
+/* ------------------------------------------------------------
+   12. Duyarlı davranış
+   ------------------------------------------------------------ */
+/* Eşik ölçülerek belirlendi: logo+menü+CTA = ~1094px, kap genişliği 0.92×vw.
+   1094/0.92 ≈ 1190 → güvenli pay için 1220px'in altında drawer'a düşer. */
+@media (max-width: 1220px) {
+  .hdr__nav,
+  .hdr__side .btn--primary {
+    display: none;
+  }
+  /* Dil seçici drawer'a düşmez: ziyaretçi dili değiştirmek için menü
+     açmak zorunda kalmasın diye WhatsApp ikonunun solunda kalır. */
+  .hdr__side .lang {
+    display: flex;
+  }
+  .hdr__burger {
+    display: block;
+  }
+  .hdr__logo {
+    margin-right: auto;
+  }
+  .mobile-bar {
+    display: flex;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .js-on [data-reveal],
+  .js-on .split-mask .sw-i {
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
+    clip-path: none !important;
+    transition-duration: 1ms !important;
+  }
+  .cursor {
+    display: none;
+  }
+  .marquee__row {
+    transform: none !important;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 1ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}
+
+/* ============================================================
+   13. Mobil dokunma hedefleri (WCAG 2.2 — min 44×44 px)
+   Ölçülerek eklendi: link, footer bağlantıları, iletişim satırları
+   ve logo bu eşiğin altındaydı. Görsel boyut değişmez; tıklama
+   alanı dikey dolgu ile büyütülür, hizayı bozmamak için negatif
+   margin ile telafi edilir.
+   ============================================================ */
+@media (max-width: 900px) {
+  /* ---- Kaydırma sırasında yeniden bileşiklenen bulanıklıklar ----
+     Başlık şeridi ve alt CTA barı ekranda kalıcı; ikisi de
+     backdrop-filter kullanıyordu. Sabit duran bir öğenin arkasını
+     bulanıklaştırmak her kaydırma karesinde yeniden hesaplanır ve
+     telefonda GPU belleğini sürekli meşgul eder — sekmenin kendiliğinden
+     yenilenmesinin bilinen sebeplerinden. Mobilde zemin donuk yapılır;
+     okunabilirlik aynı, maliyet sıfır. */
+  .hdr::before {
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    background: var(--paper);
+  }
+  .mobile-bar {
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    background: var(--paper);
+  }
+
+  .link {
+    min-height: 44px;
+    padding-block: 10px;
+    align-items: center;
+  }
+  /* Alt çizgi metnin altında kalsın, büyütülmüş kutunun dibinde değil */
+  .link::after {
+    bottom: 10px;
+  }
+  /* Cümle içi bağlantı bu büyütmenin DIŞINDA kalır. WCAG 2.2 SC 2.5.8
+     satır içi hedefleri zaten muaf tutuyor ("bir cümlenin içinde ya da
+     boyutu çevresindeki metnin satır yüksekliğiyle sınırlı"). Kural
+     buraya da uygulandığında her bağlantı 44 px'lik bir kutuya dönüşüp
+     paragrafın satır aralığını üçe katlıyordu. Dokunma alanı yine
+     büyütülür ama negatif margin ile telafi edilir: satır yüksekliği
+     değişmez. */
+  :is(p, li, dd) .link {
+    min-height: 0;
+    padding-block: 6px;
+    margin-block: -6px;
+    align-items: normal;
+  }
+  :is(p, li, dd) .link::after {
+    bottom: 6px;
+  }
+
+  .ftr__col a,
+  .ftr__contact {
+    min-height: 44px;
+    display: flex !important;
+    align-items: center;
+    padding-block: 6px;
+  }
+
+  .hdr__logo {
+    min-height: 44px;
+    align-items: center;
+  }
+
+  /* Onay kutusu: etiketin tamamı zaten hedef, kutu da parmağa uygun */
+  .check {
+    min-height: 44px;
+    align-items: center;
+    padding-block: 4px;
+  }
+  .check input {
+    width: 24px;
+    height: 24px;
+    margin-top: 0;
+  }
+
+  /* Dil seçici dar ekranda header'da kalır; dokunma hedefi 44 px olur
+     ama görsel yükseklik değişmesin diye dolgu simetrik verilir. */
+  .lang a {
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+    padding-inline: 0.55rem;
+  }
+  .lang {
+    padding: 0;
+  }
+
+  /* Akordiyon ve filtre çipleri zaten büyük; ikon butonları hizalanır */
+  .icon-btn {
+    width: 46px;
+    height: 46px;
+  }
+}

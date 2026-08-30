@@ -1,0 +1,13 @@
+# Python
+__pycache__/
+*.py[cod]
+
+# Isletim sistemi
+Thumbs.db
+desktop.ini
+.DS_Store
+
+# Gecici calisma dosyalari (uretilebilir, surumlenmesi gereksiz)
+seo-canli/_b64.txt
+seo-canli/_payload.txt
+huneducation.com-audit/_rapor.html

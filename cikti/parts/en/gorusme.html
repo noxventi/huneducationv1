@@ -1,0 +1,75 @@
+<section class="final section--dark" id="gorusme" aria-labelledby="final-h">
+  <div class="final__bg" aria-hidden="true">
+    <img src="{ASSETS}/img/20-mezuniyet-ve-gelecek.webp" alt="" loading="lazy" decoding="async" srcset="{ASSETS}/img/20-mezuniyet-ve-gelecek-760.webp 760w, {ASSETS}/img/20-mezuniyet-ve-gelecek.webp 1672w" sizes="(max-width: 900px) 92vw, 640px" width="1672" height="941">
+  </div>
+  <div class="shell final__inner">
+    <div class="final__copy">
+      <p class="eyebrow" data-reveal="up-sm">Last step</p>
+      <h2 class="display h-xl split-mask" id="final-h" data-split>Not sure which programme is right for you?</h2>
+      <p class="lede" data-reveal="up" data-reveal-delay="500">
+        Let us go through your academic record and your goals together. The consultation is free and
+        commits you to nothing.
+      </p>
+    </div>
+
+    <form class="final__form" novalidate data-lead-form>
+      <p class="final__form-title">Request a free consultation</p>
+
+      <div class="final__row">
+        <label class="field">
+          <span class="field__label">Full name <span class="field__req" aria-hidden="true">*</span></span>
+          <input class="field__ctl" name="ad" type="text" autocomplete="name" required aria-describedby="err-ad">
+          <span class="field__err" id="err-ad" role="alert"></span>
+        </label>
+        <label class="field">
+          <span class="field__label">Phone <span class="field__req" aria-hidden="true">*</span></span>
+          <input class="field__ctl" name="tel" type="tel" inputmode="tel" placeholder="+44 7700 900000" autocomplete="tel" required aria-describedby="err-tel">
+          <span class="field__err" id="err-tel" role="alert"></span>
+        </label>
+      </div>
+
+      <div class="final__row">
+        <label class="field">
+          <span class="field__label">Email <span class="field__req" aria-hidden="true">*</span></span>
+          <input class="field__ctl" name="eposta" type="email" autocomplete="email" required aria-describedby="err-eposta">
+          <span class="field__err" id="err-eposta" role="alert"></span>
+        </label>
+        <label class="field">
+          <span class="field__label">Level you are interested in</span>
+          <select class="field__ctl" name="seviye">
+            <option value="">Please choose</option>
+            <option>Foundation</option><option>Bachelor&rsquo;s</option><option>Master&rsquo;s</option><option>Medicine / dentistry / pharmacy</option><option>Not sure yet</option>
+          </select>
+        </label>
+      </div>
+
+      <label class="check">
+        <input type="checkbox" name="kvkk" required>
+        <span>I consent to my personal data being processed in order to assess my consultation request.
+          <a href="{LINK:privacy-notice}" target="_blank" rel="noopener">Privacy Notice</a></span>
+      </label>
+      <span class="field__err" id="err-kvkk" role="alert"></span>
+
+      <button class="btn btn--primary btn--lg final__submit" type="submit" data-magnetic>
+        <span class="btn__label"><span data-t="Book a Free Consultation">Book a Free Consultation</span></span>
+      </button>
+
+      <p class="final__alt">
+        Prefer to write?
+        <a class="link" href="https://wa.me/" data-wa>Ask us on WhatsApp</a>
+      </p>
+
+      <!-- Hidden attribution fields - PRD 13 -->
+      <input type="hidden" name="ilk_kaynak"><input type="hidden" name="son_kaynak">
+      <input type="hidden" name="giris_sayfasi"><input type="hidden" name="lead_sayfasi">
+      <input type="hidden" name="ilgi_program"><input type="hidden" name="gclid">
+
+      <div class="final__done" data-form-done hidden role="status">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
+        <h3>We have your request</h3>
+        <p>An adviser will come back to you during working hours. If you prefer, you can carry on the conversation on WhatsApp right away.</p>
+        <a class="btn btn--wa" href="https://wa.me/" data-wa><span class="btn__label"><span data-t="Continue on WhatsApp">Continue on WhatsApp</span></span></a>
+      </div>
+    </form>
+  </div>
+</section>

@@ -1,0 +1,101 @@
+{
+ "https://tr.huneducation.com/": {
+  "oge": 350,
+  "ingilizce": [
+   "Email",
+   "Email (required)",
+   "Message",
+   "Name",
+   "Next",
+   "Next slide",
+   "Phone",
+   "Phone Number (required)",
+   "Previous",
+   "Previous slide",
+   "Search Courses",
+   "Search autocomplete input",
+   "Search form",
+   "Search input",
+   "Search magnifier button",
+   "Search settings form",
+   "Select options..",
+   "Send",
+   "Taxonomy select for course-category",
+   "Taxonomy select for course-city",
+   "Taxonomy select for course-level",
+   "Taxonomy select for course-month",
+   "Taxonomy select for course-year",
+   "© 2026 All Rights Reserved."
+  ]
+ },
+ "https://tr.huneducation.com/kurslar/": {
+  "oge": 676,
+  "ingilizce": [
+   "Search Courses",
+   "Search autocomplete input",
+   "Search form",
+   "Search input",
+   "Search magnifier button",
+   "Search settings form",
+   "Select options..",
+   "Taxonomy select for course-category",
+   "Taxonomy select for course-city",
+   "Taxonomy select for course-level",
+   "Taxonomy select for course-month",
+   "Taxonomy select for course-year",
+   "© 2026 All Rights Reserved."
+  ]
+ },
+ "https://tr.huneducation.com/macaristan-universite-fiyatlari/": {
+  "oge": 245,
+  "ingilizce": [
+   "Email",
+   "Email (required)",
+   "Message",
+   "Name",
+   "Phone",
+   "Phone Number (required)",
+   "Send",
+   "© 2026 All Rights Reserved."
+  ]
+ },
+ "https://tr.huneducation.com/macaristan-universite-basvuru-ve-kabul-sartlari/": {
+  "hata": true
+ },
+ "https://tr.huneducation.com/hakkimizda/": {
+  "oge": 217,
+  "ingilizce": [
+   "Email",
+   "Email (required)",
+   "Message",
+   "Name",
+   "Phone",
+   "Phone Number (required)",
+   "Send",
+   "© 2026 All Rights Reserved."
+  ]
+ },
+ "https://tr.huneducation.com/iletisim/": {
+  "oge": 306,
+  "ingilizce": [
+   "© 2026 All Rights Reserved."
+  ]
+ },
+ "https://tr.huneducation.com/course-city/budapest/": {
+  "oge": 188,
+  "ingilizce": [
+   "Next →",
+   "© 2026 All Rights Reserved."
+  ]
+ },
+ "https://tr.huneducation.com/course-category/muhendislik-mimarlik/": {
+  "oge": 196,
+  "ingilizce": [
+   "Next →",
+   "© 2026 All Rights Reserved."
+  ]
+ },
+ "https://tr.huneducation.com/universiteler/": {
+  "hata": true
+ }
+}

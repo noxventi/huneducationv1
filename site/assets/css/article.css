@@ -1,0 +1,753 @@
+/* ============================================================
+   İçerik sayfaları — PRD §11.4 "citation-ready" düzeni
+   Her yüksek değerli rehber aynı iskeleti kullanır:
+   kısa cevap → içindekiler → tablo → adımlar → istisnalar →
+   birinci el gözlem → kaynaklar → SSS → yazar/tarih → değişiklik → CTA
+   ============================================================ */
+
+.page-article {
+  background: var(--paper);
+}
+
+/* ---- Sayfa başlığı ---- */
+.ahero {
+  padding: calc(var(--header-h) + clamp(2.2rem, 5vw, 3.6rem)) 0 clamp(1.5rem, 3vw, 2.4rem);
+  background: linear-gradient(180deg, var(--mist-200) 0%, var(--paper) 100%);
+}
+.ahero__inner {
+  max-width: 74ch;
+}
+.ahero h1 {
+  font-size: clamp(2rem, 4.6vw, 3.4rem);
+  margin: 0.9rem 0 1rem;
+  letter-spacing: -0.038em;
+}
+.ahero__sub {
+  font-size: var(--step-1);
+  line-height: 1.5;
+  color: var(--fg-soft);
+  max-width: 62ch;
+}
+
+/* Yazar + tarih şeridi — E-E-A-T (PRD §11.9) */
+.byline {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem 1.4rem;
+  margin-top: 1.6rem;
+  padding-top: 1.2rem;
+  border-top: 1px solid var(--line);
+  font-size: var(--step--2);
+  color: var(--fg-mute);
+}
+.byline b {
+  color: var(--fg);
+  font-weight: 600;
+}
+.byline__item {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+.byline__item svg {
+  color: var(--cobalt-600);
+  flex: none;
+}
+
+/* ---- İki kolon: içindekiler + gövde ---- */
+.alayout {
+  display: grid;
+  /* minmax(0, …): 1fr'nin varsayılan min-width:auto değeri geniş
+     tablolarda sütunu şişirip sayfayı yatay kaydırıyordu. */
+  grid-template-columns: minmax(210px, 250px) minmax(0, 1fr);
+  min-width: 0;
+  gap: clamp(1.5rem, 4vw, 3.5rem);
+  align-items: start;
+  padding-block: clamp(2rem, 4vw, 3.5rem) clamp(3rem, 7vw, 6rem);
+}
+.toc {
+  position: sticky;
+  top: calc(var(--header-h) + 1.2rem);
+  max-height: calc(100svh - var(--header-h) - 3rem);
+  overflow-y: auto;
+  scrollbar-width: thin;
+}
+.toc h2 {
+  font-size: var(--step--2);
+  margin-bottom: 0.9rem;
+}
+.toc__toggle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  font-family: var(--font-mono);
+  font-size: inherit;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--fg-mute);
+  cursor: default;
+}
+/* Ok işareti yalnız katlanabilir olduğu yerde görünür */
+.toc__caret {
+  display: none;
+  width: 10px;
+  height: 10px;
+  border-right: 1.5px solid currentColor;
+  border-bottom: 1.5px solid currentColor;
+  transform: rotate(45deg) translate(-2px, -2px);
+  transition: transform 0.35s var(--e-out);
+}
+.toc a {
+  position: relative;
+  display: block;
+  padding: 0.4rem 0 0.4rem 0.9rem;
+  border-left: 2px solid var(--mist-300);
+  font-size: var(--step--1);
+  line-height: 1.35;
+  color: var(--fg-soft);
+  transition: color 0.25s, border-color 0.25s, padding-left 0.3s var(--e-out);
+}
+.toc a:hover {
+  color: var(--cobalt-600);
+  padding-left: 1.15rem;
+}
+.toc a.is-current {
+  color: var(--navy-900);
+  font-weight: 600;
+  border-color: var(--cobalt-500);
+}
+
+/* ---- Gövde tipografisi ---- */
+.prose {
+  max-width: 72ch;
+  min-width: 0;
+}
+.prose > * + * {
+  margin-top: 1.15rem;
+}
+.prose h2 {
+  font-size: clamp(1.5rem, 2.9vw, 2.1rem);
+  letter-spacing: -0.034em;
+  margin-top: clamp(2.4rem, 5vw, 3.6rem);
+  scroll-margin-top: calc(var(--header-h) + 1.5rem);
+}
+.prose h3 {
+  font-size: var(--step-1);
+  letter-spacing: -0.028em;
+  margin-top: 1.9rem;
+  scroll-margin-top: calc(var(--header-h) + 1.5rem);
+}
+.prose p,
+.prose li {
+  color: var(--fg-soft);
+  line-height: 1.65;
+}
+.prose strong,
+.prose b {
+  color: var(--fg);
+  font-weight: 600;
+}
+.prose a:not(.btn):not(.link) {
+  color: var(--cobalt-600);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-thickness: 1px;
+  transition: color 0.2s;
+}
+.prose a:not(.btn):not(.link):hover {
+  color: var(--ember-600);
+}
+.prose ul,
+.prose ol {
+  display: grid;
+  gap: 0.55rem;
+  padding-left: 1.3rem;
+}
+.prose ul {
+  list-style: none;
+  padding-left: 0;
+}
+.prose ul > li {
+  position: relative;
+  padding-left: 1.4rem;
+}
+.prose ul > li::before {
+  content: '';
+  position: absolute;
+  left: 0.25rem;
+  top: 0.62em;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--cobalt-400);
+}
+.prose ol {
+  list-style: decimal;
+}
+.prose ol::marker {
+  color: var(--cobalt-600);
+}
+
+/* ---- Kısa cevap kutusu (AI alıntısı ve featured snippet için) ---- */
+.answer {
+  display: grid;
+  gap: 0.7rem;
+  padding: clamp(1.2rem, 2.6vw, 1.7rem);
+  border-radius: var(--radius-l);
+  background: linear-gradient(180deg, color-mix(in oklab, var(--cobalt-500) 9%, #fff), #fff);
+  border: 1px solid color-mix(in oklab, var(--cobalt-500) 22%, transparent);
+  box-shadow: var(--sh-1);
+}
+.answer__label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5em;
+  font-family: var(--font-mono);
+  font-size: var(--step--2);
+  font-weight: 500;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+  color: var(--cobalt-600);
+}
+.answer p {
+  font-size: var(--step-1);
+  line-height: 1.5;
+  color: var(--navy-900);
+  margin: 0;
+}
+.answer ul {
+  margin-top: 0.2rem;
+}
+
+/* ---- Veri tablosu ---- */
+.tablewrap {
+  overflow-x: auto;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-m);
+  background: #fff;
+  scrollbar-width: thin;
+}
+.dtable {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--step--1);
+  min-width: 34rem;
+}
+.dtable caption {
+  padding: 0.9rem 1rem 0;
+  text-align: left;
+  font-size: var(--step--2);
+  color: var(--fg-mute);
+}
+.dtable th,
+.dtable td {
+  padding: 0.75rem 1rem;
+  text-align: left;
+  border-bottom: 1px solid var(--line);
+  vertical-align: top;
+}
+.dtable thead th {
+  font-family: var(--font-mono);
+  font-size: var(--step--2);
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--fg-mute);
+  background: var(--paper-dim);
+  white-space: nowrap;
+}
+.dtable tbody tr:last-child td {
+  border-bottom: 0;
+}
+.dtable tbody tr {
+  transition: background 0.2s;
+}
+.dtable tbody tr:hover {
+  background: color-mix(in oklab, var(--cobalt-500) 4%, transparent);
+}
+.dtable .num {
+  font-family: var(--font-mono);
+  white-space: nowrap;
+}
+.dtable td b {
+  color: var(--fg);
+}
+/* Tablo hücresindeki eylem bağlantıları parmakla seçilebilir olmalı */
+.dtable td a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 32px;
+  white-space: nowrap;
+}
+@media (max-width: 760px) {
+  .dtable td a {
+    min-height: 44px;
+  }
+}
+
+/* ---- Adım listesi ---- */
+.steps {
+  display: grid;
+  gap: 0.8rem;
+  counter-reset: s;
+  padding: 0 !important;
+  list-style: none !important;
+}
+.steps > li {
+  position: relative;
+  counter-increment: s;
+  display: grid;
+  grid-template-columns: 38px 1fr;
+  gap: 1rem;
+  padding: 1.05rem 1.2rem;
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-m);
+  padding-left: 1.2rem !important;
+}
+.steps > li::before {
+  content: counter(s, decimal-leading-zero);
+  position: static;
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: var(--navy-900);
+  color: #fff;
+  font-family: var(--font-mono);
+  font-size: var(--step--2);
+}
+.steps h3 {
+  margin: 0 0 0.3rem;
+  font-size: var(--step-0);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--fg);
+}
+.steps p {
+  margin: 0;
+  font-size: var(--step--1);
+}
+
+/* ---- Kaynaklar ---- */
+.sources {
+  padding: clamp(1.1rem, 2.4vw, 1.5rem);
+  border-radius: var(--radius-m);
+  background: var(--paper-dim);
+  border: 1px solid var(--line);
+}
+.sources h2 {
+  margin-top: 0 !important;
+  font-size: var(--step-0) !important;
+  font-family: var(--font-mono);
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--fg-mute);
+}
+.sources ol {
+  margin-top: 0.8rem;
+  font-size: var(--step--2);
+}
+.sources li {
+  line-height: 1.5;
+}
+
+/* ---- Değişiklik günlüğü ---- */
+.changelog {
+  margin-top: 1rem;
+  font-size: var(--step--2);
+}
+.changelog summary {
+  cursor: pointer;
+  font-family: var(--font-mono);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--fg-mute);
+  padding: 0.5rem 0;
+}
+.changelog summary:hover {
+  color: var(--cobalt-600);
+}
+.changelog ul {
+  margin-top: 0.6rem;
+}
+.changelog time {
+  font-family: var(--font-mono);
+  color: var(--fg);
+}
+
+/* ---- Sayfa içi CTA ---- */
+.acta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.2rem;
+  margin-top: clamp(2.4rem, 5vw, 3.5rem);
+  padding: clamp(1.4rem, 3vw, 2.2rem);
+  border-radius: var(--radius-l);
+  background: var(--navy-900);
+  color: var(--on-dark);
+}
+.acta h2 {
+  margin: 0 0 0.35rem !important;
+  font-size: var(--step-2) !important;
+  color: #fff;
+}
+.acta p {
+  margin: 0;
+  font-size: var(--step--1);
+  color: var(--on-dark-soft);
+  max-width: 48ch;
+}
+.acta__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+}
+
+/* ---- Görsel ----
+   Makale içinde tek fotoğraf. Yükseklik aspect-ratio ile baştan
+   ayrıldığı için görsel yüklenirken metin zıplamaz (CLS). Alt yazı
+   görselin kaynağını ve ne gösterdiğini söyler; süs değil, bilgi. */
+.figure {
+  margin: clamp(1.8rem, 3.5vw, 2.6rem) 0;
+}
+/* Dikey fotoğraf metin sütununun tamamını kaplarsa bir buçuk ekran boyu
+   olur ve okuma kesilir. Yükseklik sınırı konur; genişlik kendiliğinden
+   küçülür, oran korunur, kırpma olmaz. */
+.figure img {
+  display: block;
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: min(62vh, 560px);
+  margin-inline: auto;
+  border-radius: var(--radius-m);
+  background: color-mix(in oklab, var(--navy-900) 6%, #fff);
+}
+.figure figcaption {
+  margin-top: 0.6rem;
+  font-size: var(--step--2);
+  line-height: 1.5;
+  color: var(--fg-mute);
+}
+
+/* Yan yana iki görsel: tek fotoğrafın anlatamadığı karşılaştırmalarda
+   (farklı şehirler, farklı kampüsler) kullanılır. */
+.figure--pair {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 0.9rem;
+}
+.figure--pair figcaption {
+  grid-column: 1 / -1;
+  margin-top: 0.2rem;
+}
+
+/* ---- Kaydırılabilir görsel şeridi ----
+   Metnin arasına giren, yatay kaydırılan minimal galeri. Izgara yerine
+   şerit tercih edildi: sayfayı uzatmadan çok sayıda fotoğraf taşır ve
+   dokunmatikte doğal bir hareket.
+
+   tabindex="0" bilinçli: kaydırılabilir bir bölge klavyeyle de
+   gezilebilmeli, aksi hâlde fare olmayan kullanıcı içeriğe ulaşamaz.
+   scroll-snap her kartı hizada durdurur. */
+.strip {
+  display: flex;
+  gap: 0.75rem;
+  margin: clamp(1.6rem, 3vw, 2.4rem) 0;
+  padding-bottom: 0.5rem;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: thin;
+  scrollbar-color: color-mix(in oklab, var(--navy-900) 22%, transparent) transparent;
+}
+.strip::-webkit-scrollbar {
+  height: 6px;
+}
+.strip::-webkit-scrollbar-thumb {
+  background: color-mix(in oklab, var(--navy-900) 22%, transparent);
+  border-radius: 999px;
+}
+.strip:focus-visible {
+  outline: 3px solid var(--ember-500);
+  outline-offset: 4px;
+  border-radius: var(--radius-m);
+}
+.strip figure {
+  flex: 0 0 clamp(220px, 58vw, 320px);
+  margin: 0;
+  scroll-snap-align: start;
+}
+.strip img {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  border-radius: var(--radius-m);
+  background: color-mix(in oklab, var(--navy-900) 6%, #fff);
+}
+.strip figcaption {
+  margin-top: 0.5rem;
+  font-size: var(--step--2);
+  line-height: 1.45;
+  color: var(--fg-mute);
+}
+/* Koyu zeminli bölümlerde şerit metni de açılır */
+.section--dark .strip figcaption,
+.on-dark .strip figcaption {
+  color: var(--on-dark-mute);
+}
+@media (prefers-reduced-motion: reduce) {
+  .strip {
+    scroll-behavior: auto;
+  }
+}
+
+/* Üniversite ızgarası: her kart bir kurum. Görsel sabit oranda
+   kırpılır ki satırlar hizalı kalsın. */
+.ugal {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 1rem;
+  margin: clamp(1.8rem, 3.5vw, 2.6rem) 0;
+}
+.ugal figure {
+  margin: 0;
+}
+.ugal img {
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+  border-radius: var(--radius-m);
+  background: color-mix(in oklab, var(--navy-900) 6%, #fff);
+}
+.ugal figcaption {
+  margin-top: 0.5rem;
+  font-size: var(--step--2);
+  line-height: 1.4;
+  color: var(--fg-mute);
+}
+.ugal figcaption b {
+  display: block;
+  font-size: var(--step--1);
+  font-weight: 600;
+  color: var(--fg);
+}
+
+/* ---- Kanıt bandı ----
+   Rehber sayfalarının başında duran sayı ızgarası. Okuyucu metne girmeden
+   önce kararını destekleyen üç dört rakamı görüyor. Sayılar num-mono ile
+   yazılıyor ki tablolardaki rakamlarla aynı ritmi tutsun. */
+.stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 1px;
+  margin: clamp(1.6rem, 3vw, 2.2rem) 0;
+  background: var(--line);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-m);
+  overflow: hidden;
+}
+.stats > div {
+  display: grid;
+  align-content: start;
+  gap: 0.3rem;
+  padding: 1.15rem 1.2rem;
+  background: #fff;
+}
+.stats b {
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 3.4vw, 1.95rem);
+  line-height: 1;
+  letter-spacing: -0.03em;
+  color: var(--cobalt-600);
+  font-variant-numeric: tabular-nums;
+}
+.stats span {
+  font-size: var(--step--2);
+  line-height: 1.4;
+  color: var(--fg-mute);
+}
+
+/* ---- Metin içi çağrı ----
+   Uzun rehberlerde bölüm araları. Paragraf gibi akar ama kenarındaki
+   şeritle metinden ayrılır; okuyucu sayfanın sonunu beklemeden dönebilir. */
+.inline-cta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.9rem;
+  margin: clamp(1.6rem, 3vw, 2.2rem) 0 !important;
+  padding: 1.05rem 1.2rem;
+  border-left: 3px solid var(--cobalt-500);
+  border-radius: 0 var(--radius-m) var(--radius-m) 0;
+  background: color-mix(in oklab, var(--cobalt-500) 5%, #fff);
+  font-size: var(--step--1) !important;
+  line-height: 1.5;
+}
+.inline-cta .btn {
+  margin-left: auto;
+  flex: none;
+}
+
+/* ---- İlgili sayfalar ---- */
+.related {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 0.9rem;
+  margin-top: clamp(2rem, 4vw, 3rem);
+}
+.rcard {
+  display: grid;
+  gap: 0.35rem;
+  padding: 1.1rem 1.2rem;
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-m);
+  transition: transform 0.4s var(--e-out), box-shadow 0.4s var(--e-out), border-color 0.3s;
+}
+.rcard:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--sh-2);
+  border-color: transparent;
+}
+.rcard span {
+  font-family: var(--font-mono);
+  font-size: var(--step--2);
+  color: var(--cobalt-600);
+}
+.rcard b {
+  font-family: var(--font-display);
+  font-size: var(--step-0);
+  letter-spacing: -0.025em;
+}
+.rcard p {
+  font-size: var(--step--2);
+  color: var(--fg-mute);
+  line-height: 1.45;
+}
+
+/* ---- Duyarlı ---- */
+@media (max-width: 900px) {
+  .alayout {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .toc {
+    position: static;
+    max-height: none;
+    padding: 1rem 1.2rem;
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-m);
+  }
+  .toc a {
+    padding-block: 0.5rem;
+  }
+}
+
+/* ============================================================
+   MOBİL — içerik ve katalog sayfaları
+   ============================================================ */
+@media (max-width: 760px) {
+  /* Gövde içindeki satır arası bağlantılar da 20 px'ti.
+     Satır yüksekliğini bozmadan dikey tıklama alanı büyütülür. */
+  .prose p a:not(.btn):not(.link),
+  .prose li a:not(.btn):not(.link),
+  .prose dd a:not(.btn):not(.link) {
+    display: inline-block;
+    padding-block: 6px;
+    margin-block: -6px;
+  }
+
+  /* Breadcrumb bağlantısı 20 px'ti; WCAG 2.2 AA eşiği 24 px */
+  .crumbs {
+    gap: 0.4rem;
+    flex-wrap: wrap;
+    margin-bottom: 0.9rem;
+  }
+  .crumbs a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 32px;
+    padding-inline: 2px;
+  }
+
+  /* İçindekiler mobilde katlanır: 9 bağlantılık blok, içeriği
+     ekranın altına itiyordu. Açılabilir kutu hem yer kazandırır
+     hem de gezinmeyi isteğe bağlı kılar. */
+  .toc {
+    padding: 0;
+    overflow: visible;
+  }
+  .toc h2 {
+    margin: 0;
+  }
+  .toc__toggle {
+    min-height: 52px;
+    padding: 0 1.1rem;
+    cursor: pointer;
+  }
+  .toc__caret {
+    display: block;
+  }
+  .toc__list {
+    display: grid;
+    gap: 0.1rem;
+    padding: 0 1.1rem 0.9rem;
+  }
+  /* Katlanmış durum */
+  .toc.is-collapsed .toc__list {
+    display: none;
+  }
+  .toc.is-collapsed .toc__caret {
+    transform: rotate(-135deg) translate(-2px, -2px);
+  }
+  .toc a {
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+  }
+
+  /* Tablolar: kenardan kenara kayar, kesik kenar "devamı var" der */
+  .tablewrap {
+    margin-inline: calc(var(--gutter) * -1);
+    border-inline: 0;
+    border-radius: 0;
+  }
+  .dtable {
+    min-width: 26rem;
+  }
+  .dtable th,
+  .dtable td {
+    padding: 0.7rem 0.85rem;
+  }
+  .dtable thead th:first-child,
+  .dtable tbody td:first-child {
+    padding-left: var(--gutter);
+  }
+
+  /* Adım kartları ve CTA */
+  .steps > li {
+    grid-template-columns: 32px 1fr;
+    gap: 0.8rem;
+    padding: 0.95rem 1rem !important;
+  }
+  .steps > li::before {
+    width: 32px;
+    height: 32px;
+  }
+  .acta {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .acta__actions .btn {
+    width: 100%;
+  }
+}

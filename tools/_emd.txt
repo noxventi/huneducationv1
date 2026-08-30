@@ -1,0 +1,87 @@
+en_content.py        does <b>not</b> mean " "admission without assessment — most medicine, engineering, architecture and arts program
+en_content.py        entistry, pharmacy</b></td><td>Chemistry and biology exam — oral or written</td><td>6–10 weeks</td></tr> <tr><td>
+en_content.py        um">€60 – €400</td><td>Monthly</td><td>Places are limited — apply early</td></tr> <tr><td><b>Room in a shared fla
+en_content.py        __label">Annual total</span> <p><b>€8,500 – €14,000</b> — tuition and living costs included, at bachelor's level.
+en_content.py        us accommodation, " "living costs, visa and insurance — the realistic annual budget range.", 'Cost guide',
+en_content.py        t a realistic total budget ' 'for one year looks like — item by item.', body_costs, S['costs'], [HOME, ('
+en_content2.py       ============================================= # 3) PILLAR — STUDY IN HUNGARY # ======================================
+en_content2.py       e points that could be risky for recognition in your case — but we do not guarantee the outcome.</p> <h2 id="faq">Fr
+en_content2.py       t costs and what the degree means when you ' 'go home — everything you need before you decide.', body_pillar,
+en_content2.py       ) for u in sorted(UNIS, key=lambda x: (x['sehir'] == '—', x['sehir'], x['ad']))) by_city = {} for u in UNIS:
+en_content2.py       pend(u['ad']) city_list = '\n'.join( ' <li><b>%s</b> — %s</li>' % (c, ', '.join(v)) for c, v in sorted(by_ci
+en_content2.py       c, v in sorted(by_city.items(), key=lambda kv: (kv[0] == '—', -len(kv[1])))) qa_uni = [ ("Which university can I
+en_content3.py       s an academic consultancy that has focused on one country — Hungary — since 1999, and was the first Turkish educati
+en_content3.py       mic consultancy that has focused on one country — Hungary — since 1999, and was the first Turkish education consult
+en_content3.py       come harder, and which way rents are moving in which city — not from a general study-abroad brochure, but from workin
+en_content3.py       he fact that the consultancy fee is separate from tuition — all clear before the consultation.</p></div></li> <li><
+en_content3.py       '' write(S['about'], page( S['about'], 'About Us — Hungary-Focused Consultancy Since 1999 | Hun Education',
+en_content3.py       dge built by learning one country ' 'again every year — and we tell you what we do not know.', body_about, S[
+en_content3.py       write(S['contact'], page( S['contact'], 'Contact — Free Consultation | Hun Education', "Get in touch wit
+en_content4.py       <ul> <li><b>The Hungarian universities you apply to</b> — to submit your application file</li> <li><b>Hungarian c
+en_content4.py       <li><b>Hungarian consulates and official authorities</b> — for visa and residence procedures</li> <li><b>Accommoda
+en_content4.py       ence procedures</li> <li><b>Accommodation providers</b> — for dormitory or rental applications, at your request</li
+en_content4.py       , at your request</li> <li><b>Our service providers</b> — hosting, email and CRM infrastructure (acting as processo
+en_content4.py       ion', "How HUN EDUCATION KFT. processes personal data — purposes, legal bases, transfers, retention and " "yo
+en_content4.py       data we process, for what purpose and on what legal basis — and what rights you ' 'have over it.', body_priva
+en_content4.py       modation processes, your identity, contact, education and — where required — financial data must be transferred to <b
+en_content4.py       s, your identity, contact, education and — where required — financial data must be transferred to <b>universities, of
+en_content4.py       Publishing your experience in the student stories section — with your initial or full name, your university and your
+en_content4.py       initial or full name, your university and your programme — happens only with your <b>separate written permission</b>
+en_content4.py       communications and ' 'publishing photographs or video — and how to withdraw it.', 'Consent Statement', 'T
+en_content4.py       d from (e.g. search, an advert) with your form submission — it only reaches us if you submit a form</td><td>Until you
+en_content4.py       services involved and our data ' 'security principles — in full, as they are.', body_cookies, 'Cookie Policy'
+en_home.py           ===========================================\n BÖLÜM 2 — HERO', '<!-- ===========================================
+en_home.py           ls together, and stay with you at\n' ' every step — from the application and offer to your visa, accommodatio
+en_home.py           ===========================================\n BÖLÜM 3 — GÜVEN BANDI', '<!-- ====================================
+en_home.py           ===========================================\n BÖLÜM 4 — PROGRAM BULUCU (3 adım)', '<!-- ========================
+en_home.py           ('Ne seçeceğinizden emin değil misiniz? Bu tamamen normal —\n' ' <a class="link" href="#gorusme">danışmanımız s
+en_home.py           in', 'Not sure what to choose? That is completely normal —\n' ' <a class="link" href="#gorusme">let an adviser
+en_home.py           ===========================================\n BÖLÜM 5 — POPÜLER ALANLAR (yatay pin galerisi)', '<!-- ===========
+en_home2.py          ===========================================\n BÖLÜM 6 — SÜREÇ (pinned, 6 adım)', '<!-- =========================
+en_home2.py          ===========================================\n BÖLÜM 7 — NEDEN HUN EDUCATION (scroll ile aydınlanan metin)', '<!-
+en_home2.py          ation and\n' ' how to prepare for student life here — and we stay beside you at every stage of the process.'),
+en_home2.py          ===========================================\n BÖLÜM 8 — ÖNE ÇIKAN ÜNİVERSİTELER (etkileşimli harita)', '<!-- ===
+en_home2.py          conditions may be\n' ' changed by the universities — treat the university’s own official page as definitive.</
+en_home2.py          ===========================================\n BÖLÜM 9 — ÖĞRENCİ HİKÂYELERİ', '<!-- =============================
+en_home2.py          ==========================================\n BÖLÜM 10 — MALİYET GÖRÜNÜRLÜĞÜ', '<!-- ============================
+en_home2.py          ==========================================\n BÖLÜM 11 — REHBER', '<!-- =========================================
+en_home3.py          ==========================================\n BÖLÜM 12 — SSS', '<!-- ============================================
+en_home3.py          şartı değildir. Ancak bu "sınavsız kabul" anlamına gelmez — birçok programın kendi\n' ' giriş sınavı vardır
+en_home3.py          does not mean “admission without\n' ' an exam” — many programmes set an entrance exam of their own:</p>'),
+en_home3.py          two intakes a year:</p>'), ('<p><b>Eylül (güz) dönemi</b> — üniversitelerin çoğu Eylül\'de başladığı için başvuruları
+en_home3.py          ı istenir.<br>\n' ' <b>Şubat (bahar) dönemi</b> — <b>Ekim sonuna, en geç Kasım</b> ayına kadar başvurmanız
+en_home3.py          anız gerekir.</p>', '<p><b>September (autumn) intake</b> — most universities start in September, so applications are
+en_home3.py          e</b>.<br>\n' ' <b>February (spring) intake</b> — you need to apply by <b>the end of October, and November
+en_home3.py          ==========================================\n BÖLÜM 13 — FİNAL CTA', '<!-- ======================================
+en_home3.py          k us on WhatsApp</a>'), ('<!-- Gizli attribution alanları — PRD §13 -->', '<!-- Hidden attribution fields - PRD 13 --
+en_programs.py       eri degisir. Eslesmeyen kalip olursa script bunu bildirir — sessizce Turkce kalan bir blok olmasin diye. """ import i
+en_programs.py       ınız programın Macaristan\'da bulunmadığı anlamına gelmez — kataloğumuz\n' ' doğrulanmış kayıtlarla sınırl
+en_programs.py       e programme you are looking for does not exist in Hungary — our\n' ' catalogue is limited to verified reco
+en_programs.py       st 3–5 realistic programmes based on your academic record — and\n' ' explain why the others were ruled out
+fix_admission.py     n calendar for applying to a " "university in Hungary — from the apostille to the student visa, step by step.",""
+gen_pages.py         # -*- coding: utf-8 -*- """ Hun Education — iki dilli içerik sayfası üreticisi. python gen_pages
+gen_pages.py         sabitlerinden geliyor. Üniversite tablosu tek kaynaktan — assets/data/catalog.js — okunur. """ import io, os, re, s
+gen_pages.py         Üniversite tablosu tek kaynaktan — assets/data/catalog.js — okunur. """ import io, os, re, sys, json ROOT = os.path.
+gen_pages.py         else u['en'], sehir=sehirler.get(u['sehir'], '—'), sehir_id=u['sehir'], tur=turle
+gen_pages.py         macaristan-universite-fiyatlari # gibi) ve sıralaması var — kısaltmak kayıp olurdu. # # Son 4 çift yalnızca yeni tasa
+gen_pages.py         2026-08-05">{'05.08.2026' if TR else '5 Aug 2026'}</time> — {W['chg1']}</li> <li><time datetime="2026-08-03">{'03
+gen_pages.py         2026-08-03">{'03.08.2026' if TR else '3 Aug 2026'}</time> — {W['chg2']}</li> </ul> </details>''' def acta(title,
+gen_pages.py         , h1, sub, body, crumb_name): """Yasal sayfa iskeleti — makale sayfalarından ayrı, çünkü içindekiler ve chang
+pages_content.py     İçerik huneducation.com verisinden # yeniden yazılmıştır — birebir kopya değildir. # ============================
+pages_content.py     değildir. Ancak bu <b>sınavsız kabul anlamına gelmez</b> — sağlık, " "mühendislik, mimarlık ve sanat programlar
+pages_content.py     hekimliği, eczacılık</b></td><td>Kimya ve biyoloji sınavı — sözlü ya da yazılı</td><td>6–10 hafta</td></tr> <tr><
+pages_content.py     _label">Yıllık toplam</span> <p><b>8.500 – 14.000 €</b> — eğitim ve yaşam giderleri dahil, lisans seviyesi için.
+pages_content2.py    i olabilecek noktaları görüşmede birlikte değerlendiririz — ancak sonuç hakkında garanti vermeyiz.</p> <h2 id="sss">
+pages_content2.py    ) for u in sorted(UNIS, key=lambda x: (x['sehir'] == '—', x['sehir'], x['ad']))) by_city = {} for u in UNIS:
+pages_content2.py    pend(u['ad']) city_list = '\n'.join( ' <li><b>%s</b> — %s</li>' % (c, ', '.join(v)) for c, v in sorted(by_ci
+pages_content2.py    c, v in sorted(by_city.items(), key=lambda kv: (kv[0] == '—', -len(kv[1])))) qa_uni = [ ("Hangi üniversiteye baş
+pages_content3.py    takip ediyoruz.</p> <p>Bu tercihin pratik karşılığı şudur — hangi üniversitenin hangi dönemde ne istediğini, hangi bö
+pages_content3.py    write(S['about'], page( S['about'], 'Hakkımızda — 1999’dan Beri Macaristan Odaklı Danışmanlık | Hun Educati
+pages_content3.py    yeniden öğrenerek biriken bir bilgiyle ' 'çalışıyoruz — ve neyi bilmediğimizi de söylüyoruz.', body_hak, S['a
+pages_content3.py    write(S['contact'], page( S['contact'], 'İletişim — Ücretsiz Ön Görüşme | Hun Education', "Hun Education
+pages_content4.py    <ul> <li><b>Başvurduğunuz Macaristan üniversiteleri</b> — başvuru dosyanızın iletilmesi</li> <li><b>Macaristan ko
+pages_content4.py    <li><b>Macaristan konsoloslukları ve resmî makamlar</b> — vize ve ikamet işlemleri</li> <li><b>Konaklama sağlayıc
+pages_content4.py    kamet işlemleri</li> <li><b>Konaklama sağlayıcıları</b> — yurt/kiralık daire başvurusu, talebiniz hâlinde</li> <l
+pages_content4.py    lebiniz hâlinde</li> <li><b>Hizmet sağlayıcılarımız</b> — barındırma, e-posta ve CRM altyapısı (veri işleyen sıfatı
+pages_content4.py    ın (ör. arama, reklam) form gönderiminizle eşleştirilmesi — yalnız form gönderirseniz bize ulaşır</td><td>Tarayıcı ve
+pages_content4.py    üncü taraf hizmetler ve veri güvenliği ' 'ilkelerimiz — olduğu gibi, eksiksiz.', body_gizlilik, 'Gizlilik ve

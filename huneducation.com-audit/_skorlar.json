@@ -1,0 +1,47 @@
+{
+ "kategoriler": [
+  {
+   "ad": "Technical SEO",
+   "skor": 32,
+   "agirlik": 0.22,
+   "kaynak": "seo-technical ajanı"
+  },
+  {
+   "ad": "Content Quality",
+   "skor": 34,
+   "agirlik": 0.23,
+   "kaynak": "orkestratör (ajan kesildi)"
+  },
+  {
+   "ad": "On-Page SEO",
+   "skor": 25,
+   "agirlik": 0.2,
+   "kaynak": "orkestratör"
+  },
+  {
+   "ad": "Schema / Structured Data",
+   "skor": 6,
+   "agirlik": 0.1,
+   "kaynak": "seo-schema ajanı"
+  },
+  {
+   "ad": "Performance (CWV)",
+   "skor": 60,
+   "agirlik": 0.1,
+   "kaynak": "seo-performance ajanı (lab, yalnız ana sayfa)"
+  },
+  {
+   "ad": "AI Search Readiness (GEO)",
+   "skor": 33,
+   "agirlik": 0.1,
+   "kaynak": "seo-geo ajanı"
+  },
+  {
+   "ad": "Images",
+   "skor": 25,
+   "agirlik": 0.05,
+   "kaynak": "orkestratör"
+  }
+ ],
+ "saglik_skoru": 31
+}

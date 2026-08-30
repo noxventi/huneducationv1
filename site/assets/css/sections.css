@@ -1,0 +1,2338 @@
+/* ============================================================
+   Bölüm stilleri — ana sayfa
+   Scroll motoru CSS değişkeni yazar (--hp, --fp, --pp …),
+   görsel dönüşümü tamamen bu dosya yapar.
+   ============================================================ */
+
+/* ------------------------------------------------------------
+   0. Açılış perdesi
+   ------------------------------------------------------------ */
+.curtain {
+  position: fixed;
+  inset: 0;
+  z-index: 800;
+  display: grid;
+  place-items: center;
+  background: var(--navy-950);
+  color: var(--on-dark);
+  clip-path: inset(0 0 0 0);
+  transition: clip-path 1.05s var(--e-in-out);
+}
+.curtain.is-done {
+  clip-path: inset(0 0 100% 0);
+  pointer-events: none;
+}
+.curtain__inner {
+  position: relative;
+  display: grid;
+  place-items: center;
+  gap: 1.1rem;
+  transition: opacity 0.45s var(--e-out), transform 0.7s var(--e-out);
+}
+.curtain.is-done .curtain__inner {
+  opacity: 0;
+  transform: translateY(-26px);
+}
+/* Koyu perde üzerinde lockup tek renk beyaza döner */
+.curtain__logo {
+  width: clamp(168px, 26vw, 220px);
+  height: auto;
+  filter: brightness(0) invert(1);
+}
+.curtain__bar {
+  display: block;
+  width: clamp(168px, 26vw, 220px);
+  height: 2px;
+  background: color-mix(in oklab, #fff 16%, transparent);
+  overflow: hidden;
+}
+.curtain__bar i {
+  display: block;
+  height: 100%;
+  background: linear-gradient(90deg, var(--cobalt-400), var(--ember-500));
+  transform: scaleX(var(--load, 0));
+  transform-origin: left;
+  transition: transform 0.3s linear;
+}
+.curtain__pct {
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  color: var(--on-dark-mute);
+}
+.no-curtain .curtain {
+  display: none;
+}
+
+/* ------------------------------------------------------------
+   1. HERO
+   Sabit yükseklikli, akış içinde bir bölüm. Sticky sahne, parallax,
+   zoom ve parçacık katmanı yok — açılışta yalnız tek seferlik bir
+   fade-up dizisi çalışır.
+
+   Yerleşim mantığı: metin solda, öğrenciler sağda kalır. Metin
+   sütununun genişliği yüzdeyle sınırlanır — min(680px, 52%) — çünkü
+   sabit piksel değeri dar masaüstlerinde başlığın öğrencilerin
+   yüzüne binmesine yol açıyordu.
+   ------------------------------------------------------------ */
+.hero {
+  position: relative;
+  display: flex;
+  align-items: center;
+  min-height: clamp(720px, 84vh, 800px);
+  padding-top: var(--header-h);
+  background: var(--navy-950);
+  color: #fff;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.hero__media {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  /* Geniş masaüstünde görsel yatay olarak kırpılmadığı için öğrenciler
+     sabit bir yerde kalıyor ve metne yer bırakmıyordu. Medya kutusu sola
+     sabitlenip genişletilerek öğrenciler sağa ötelenir — brief'teki
+     "görseli gerekiyorsa sağa kaydır" yönergesinin karşılığı. */
+  width: 112%;
+  z-index: -1;
+}
+/* Seçici bilerek `.hero .hero__img`: Elementor'un frontend.min.css'i
+   `.elementor img { height: auto }` diyor ve tek sınıflı bir kuralı
+   yenip görseli kendi en-boy oranına düşürüyor (staging'de hero 896 px
+   yerine 211 px'e iniyordu). İki sınıflı seçici öne geçer; yerelde
+   davranış değişmez. */
+.hero .hero__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  /* Yatay genişletme dikey kırpmayı artırır; yüzler kadrajda kalsın */
+  object-position: center 42%;
+  /* Parallax: --hp hero'nun kaydırma ilerlemesi (0→1, JS yazar).
+     `translate` bilinçli olarak `transform`tan ayrı: giriş animasyonu
+     transform'u kullanıyor, ikisi çakışmadan birleşir. Görsel içerikten
+     yavaş akar; açılan üst boşluk her zaman viewport'un üstünde kalır
+     (kayan mesafe her an kaydırılan mesafeden küçük). */
+  translate: 0 calc(var(--hp, 0) * 7%);
+}
+
+/* ---- Fotoğrafın girişi: kadraj yavaşça oturur ----
+   Metin dizisi (data-hero) gelmeden fotoğraf %9 yakından başlar ve
+   2.2 sn'de yerine yerleşir; perde kalkarken sahne "nefes alır".
+   Yalnız opaklık + transform: kompozitörde kalır, boya maliyeti yok. */
+.js-on .hero__img {
+  opacity: 0.35;
+  transform: scale(1.09);
+}
+body.hero-in .hero__img {
+  animation: heroImgIn 2.2s var(--e-out) forwards;
+}
+@keyframes heroImgIn {
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Tek parça, kesintisiz overlay. Metnin arkasına ayrı kutu konmaz;
+   okunabilirlik soldan sağa açılan doğal bir gradyanla sağlanır. */
+.hero__veil {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(
+      100deg,
+      rgb(8 12 38 / 0.93) 0%,
+      rgb(8 12 38 / 0.88) 26%,
+      rgb(8 12 38 / 0.66) 46%,
+      rgb(8 12 38 / 0.3) 64%,
+      rgb(8 12 38 / 0.14) 82%,
+      rgb(8 12 38 / 0.18) 100%
+    ),
+    linear-gradient(180deg, rgb(8 12 38 / 0.34) 0%, transparent 26%, transparent 74%, rgb(8 12 38 / 0.42) 100%);
+}
+
+.hero__inner {
+  width: 100%;
+  max-width: 1280px;
+  margin-inline: auto;
+  padding-inline: clamp(1.25rem, 4vw, 3.25rem);
+  /* İçerik dikeyde merkeze yakın, hafifçe aşağıda */
+  padding-top: 1.5rem;
+}
+.hero__copy {
+  max-width: min(700px, 59%);
+}
+
+.hero__eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  /* Ölçülerek seçildi: --cobalt-300 bu overlay üzerinde 4.04:1 veriyordu,
+     WCAG AA normal metin eşiği 4.5:1. Bir kademe açık lavanta 5.2:1 verir. */
+  color: #b4bcff;
+}
+.hero__eyebrow::before {
+  content: '';
+  width: 28px;
+  height: 1px;
+  background: currentColor;
+  opacity: 0.6;
+  flex: none;
+}
+
+.hero__title {
+  margin-top: 1.25rem;
+  font-family: var(--font-display);
+  /* Boyut, başlığın ÜÇ SATIRDA kalmasına göre belirlendi. Türkçe
+     cümledeki uzun kelimeler ("Macaristan'da üniversite" tek satırda
+     24 karakter) 68-76 px'te dört-beş satıra taşıyordu. */
+  font-size: clamp(2.5rem, 4.24vw, 3.85rem);
+  font-weight: 800;
+  line-height: 1.04;
+  letter-spacing: -0.035em;
+  color: #fff;
+  text-wrap: balance;
+}
+
+.hero__desc {
+  margin-top: 1.625rem;
+  max-width: 640px;
+  font-size: clamp(1.0625rem, 1.35vw, 1.3125rem);
+  line-height: 1.5;
+  color: rgb(255 255 255 / 0.86);
+  text-wrap: pretty;
+}
+
+.hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.875rem;
+  margin-top: 2rem;
+}
+
+/* Hero butonları bilinçli olarak global .btn'den ayrıdır: burada
+   metin yuvarlanması, manyetik hareket ve dolgu süpürmesi yok —
+   sade, hızlı ve dönüşüm odaklı. */
+.hbtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5em;
+  min-height: 56px;
+  padding: 0 1.75rem;
+  border-radius: 14px;
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-weight: 650;
+  letter-spacing: -0.01em;
+  line-height: 1.2;
+  text-align: center;
+  transition:
+    transform 0.25s var(--e-out),
+    box-shadow 0.25s var(--e-out),
+    background-color 0.25s var(--e-out),
+    border-color 0.25s var(--e-out),
+    color 0.25s var(--e-out);
+}
+.hbtn--primary {
+  background: var(--cobalt-600);
+  color: #fff;
+  box-shadow: 0 8px 24px -10px rgb(44 55 180 / 0.75);
+}
+.hbtn--primary:hover {
+  background: var(--cobalt-500);
+  transform: translateY(-2px);
+  box-shadow: 0 14px 32px -10px rgb(44 55 180 / 0.85);
+}
+.hbtn--ghost {
+  background: rgb(8 12 38 / 0.28);
+  border: 1.5px solid rgb(255 255 255 / 0.55);
+  color: #fff;
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+}
+.hbtn--ghost:hover {
+  background: #fff;
+  border-color: #fff;
+  color: var(--navy-900);
+  transform: translateY(-2px);
+}
+.hbtn--ghost svg {
+  transition: transform 0.25s var(--e-out);
+}
+.hbtn--ghost:hover svg {
+  transform: translateX(3px);
+}
+.hbtn:focus-visible {
+  outline: 3px solid #fff;
+  outline-offset: 3px;
+}
+
+.hero__trust {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  margin-top: 1.625rem;
+  font-size: 0.9375rem;
+  line-height: 1.45;
+  color: rgb(255 255 255 / 0.78);
+}
+.hero__trust svg {
+  flex: none;
+  color: var(--cobalt-300);
+}
+.hero__trust-short {
+  display: none;
+}
+
+/* ---- Giriş animasyonu: tek seferlik, kısa, kademeli ----
+   `body.hero-in` perde kalkınca (perde yoksa hemen) eklenir; böylece
+   animasyon perdenin ardında harcanmaz. JS katkısı üç satırdır. */
+.js-on [data-hero] {
+  opacity: 0;
+  transform: translateY(14px);
+}
+body.hero-in [data-hero] {
+  animation: heroIn 0.52s var(--e-out) forwards;
+}
+body.hero-in [data-hero='1'] { animation-delay: 0ms; }
+body.hero-in [data-hero='2'] { animation-delay: 80ms; }
+body.hero-in [data-hero='3'] { animation-delay: 165ms; }
+body.hero-in [data-hero='4'] { animation-delay: 250ms; }
+body.hero-in [data-hero='5'] { animation-delay: 320ms; }
+@keyframes heroIn {
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .js-on [data-hero] {
+    opacity: 1;
+    transform: none;
+  }
+  body.hero-in [data-hero] {
+    animation: none;
+  }
+  .js-on .hero__img {
+    opacity: 1;
+    transform: none;
+    translate: none;
+  }
+  body.hero-in .hero__img {
+    animation: none;
+  }
+  .hbtn:hover {
+    transform: none;
+  }
+}
+
+/* ---- Tablet ---- */
+@media (max-width: 1199px) {
+  /* Dar masaüstü/tablette görsel dikey kırpmaya geçtiği için öğrenciler
+     sola kayıyordu; medya kutusu daha fazla genişletilerek sağda tutulur. */
+  .hero__media {
+    width: 132%;
+  }
+  .hero__copy {
+    max-width: min(640px, 64%);
+  }
+  .hero__veil {
+    background:
+      linear-gradient(
+        100deg,
+        rgb(8 12 38 / 0.94) 0%,
+        rgb(8 12 38 / 0.88) 34%,
+        rgb(8 12 38 / 0.6) 58%,
+        rgb(8 12 38 / 0.24) 80%,
+        rgb(8 12 38 / 0.2) 100%
+      ),
+      linear-gradient(180deg, rgb(8 12 38 / 0.34) 0%, transparent 28%, transparent 70%, rgb(8 12 38 / 0.5) 100%);
+  }
+}
+
+/* ---- Tablet-portre ve mobil: masaüstünün küçültülmüşü değil ----
+   Bu genişliklerde metni %64'lük bir sütuna sıkıştırmak başlığı dört
+   satıra çıkarıyordu. Bunun yerine kadraj sağa kayar (bir öğrencinin
+   yüzü görünür kalır), overlay yatay değil dikey çalışır ve metin tam
+   genişliği kullanır. */
+@media (max-width: 900px) {
+  .hero {
+    min-height: clamp(700px, 92svh, 760px);
+    align-items: flex-end;
+    padding-top: calc(var(--header-h) + 1rem);
+    padding-bottom: 2.5rem;
+  }
+  .hero__media {
+    width: 100%;
+    /* Kadraj yukarı taşınır: kutu hero'nun %20 üstüne uzatılınca cover
+       dikeyde de kırpar ve yüzler yukarı, başlığın ÜSTÜNDEKİ temiz
+       banda çıkar. Ölçüm (375×812): yüzler eskiden y 179–329'daydı,
+       metin bloğu 219'da başlıyordu — özne metnin arkasında kalıyordu.
+       Bu kaydırmayla yüz merkezleri y ≈ 90 ve 174'e geliyor.
+       Parallax'ın açtığı üst boşluğu da bu taşma karşılar. */
+    top: -20%;
+  }
+  /* Seçici taban kuralla aynı ağırlıkta (`.hero .hero__img`) olmalı;
+     tek sınıfla yazılırsa taban kural bunu ezer ve mobil kadraj
+     masaüstü değerine döner. */
+  .hero .hero__img {
+    /* %43: dar pencere (%23.6) Parlamento kubbesi (%35) ile kız
+       öğrencinin yüzünü (%48–56) birlikte içeride tutar; erkek öğrenci
+       kadraj dışında kalır. %44'ten sonra kubbe, %42'den önce yüz
+       kesilmeye başlıyor. Dikey değer önemsiz — cover bu oranda
+       dikeyde tam oturur. */
+    object-position: 43% 50%;
+  }
+  .hero__veil {
+    /* Rampa yeni kadraja göre yeniden ölçüldü: yüzler %9–27 bandında,
+       o bant açık bırakılır (0.16–0.24). Metin %29'dan başlar; koyuluk
+       %33'te 0.84'e ulaşır — eyebrow kontrastı eski örtüyle aynı kalır
+       (#b4bcff için ~5:1). */
+    background: linear-gradient(
+      180deg,
+      rgb(8 12 38 / 0.34) 0%,
+      rgb(8 12 38 / 0.16) 10%,
+      rgb(8 12 38 / 0.24) 22%,
+      rgb(8 12 38 / 0.84) 33%,
+      rgb(8 12 38 / 0.94) 44%,
+      rgb(8 12 38 / 0.96) 100%
+    );
+  }
+  .hero__inner {
+    padding-inline: 1.375rem;
+    padding-top: 0;
+  }
+  .hero__copy {
+    max-width: none;
+  }
+  .hero__eyebrow {
+    font-size: 0.75rem;
+    letter-spacing: 0.14em;
+    gap: 0.6rem;
+  }
+  .hero__eyebrow::before {
+    width: 20px;
+  }
+  .hero__title {
+    margin-top: 0.75rem;
+    /* Dört satır sınırına göre ölçüldü: en uzun satır olan
+       "güvenle planlayın." dar ekranda taşmadan sığmalı. */
+    font-size: clamp(2.2rem, 9.9vw, 2.875rem);
+    line-height: 1.06;
+  }
+  .hero__desc {
+    margin-top: 1rem;
+    font-size: 1.0625rem;
+  }
+  .hero__actions {
+    flex-direction: column;
+    gap: 0.7rem;
+    margin-top: 1.4rem;
+  }
+  .hbtn {
+    width: 100%;
+    min-height: 54px;
+  }
+  .hero__trust {
+    margin-top: 1.25rem;
+    font-size: 0.875rem;
+  }
+  .hero__trust-full {
+    display: none;
+  }
+  .hero__trust-short {
+    display: inline;
+  }
+}
+
+/* ---- Tablet-portre ince ayarı: alan var, buton dizilimi korunur ---- */
+@media (min-width: 561px) and (max-width: 900px) {
+  .hero {
+    padding-bottom: 3.5rem;
+  }
+  .hero__inner {
+    padding-inline: clamp(1.5rem, 4vw, 2.5rem);
+  }
+  .hero__title {
+    font-size: clamp(2.75rem, 5.4vw, 3.1rem);
+  }
+  .hero__desc {
+    font-size: 1.15rem;
+    max-width: 620px;
+  }
+  .hero__actions {
+    flex-direction: row;
+    gap: 0.875rem;
+  }
+  .hbtn {
+    width: auto;
+    min-height: 56px;
+  }
+  .hero__trust-full {
+    display: inline;
+  }
+  .hero__trust-short {
+    display: none;
+  }
+}
+/* ---- "Kısaca" özeti ----
+   Hero'dan sonraki ilk bölüm ve sayfanın ilk doğrulanabilir bilgi
+   bloğu. Tanım listesi sütunlara açılır; terim ile açıklama arasındaki
+   ilişki hem görsel hem semantik olarak korunur. Koyu zeminde durduğu
+   için metin renkleri on-dark kademelerinden alınır. */
+.brief-sec {
+  position: relative;
+  z-index: 2;
+  padding-block: clamp(3rem, 6vw, 5rem) var(--section-y);
+  /* Köşeler kare: yuvarlatılınca oyuğun arkasında sayfa zemini kalıyor
+     ve hero ile bölüm arasında iki beyaz üçgen görünüyordu. -1px, alt
+     piksel yuvarlamasından doğan saç teli çizgiyi kapatır. */
+  margin-top: -1px;
+}
+/* Başlık ile metin yan yana: başlık solda sabit bir sütun tutar, metin
+   sağda okuma genişliğinde akar. Dar ekranda tek sütuna iner. */
+.brief__head {
+  grid-area: bas;
+}
+.brief__body {
+  grid-area: govde;
+}
+
+/* Geniş ekranda başlık solda sabit bir sütun tutar, metin sağda okuma
+   genişliğinde akar; bilgi ızgarası ve not tam genişliğe yayılır. */
+@media (min-width: 900px) {
+  .brief {
+    display: grid;
+    grid-template-areas:
+      'bas govde'
+      'liste liste'
+      'not not';
+    /* 0.82fr'de baslik kolonu 1280px ekranda ~463px'e dusuyor ve
+       "Neden Macaristan'da" (49px'te ~470px) sigmayip ucuncu satir
+       aciyordu. 0.95fr basligi iki satirda tutar. */
+    grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
+    column-gap: clamp(2rem, 5vw, 4.5rem);
+    align-items: start;
+  }
+}
+.brief h2 {
+  margin: 0.3rem 0 0;
+  color: #fff;
+  text-wrap: balance;
+}
+/* Dar ekranda başlık ile gövde alt alta düşer; ızgaranın column-gap'i
+   burada devreye girmediği için aralarında hiç boşluk kalmıyordu.
+   Başlık metne yapışık duruyordu. */
+@media (max-width: 899px) {
+  .brief__head {
+    margin-bottom: clamp(1.1rem, 4vw, 1.6rem);
+  }
+}
+.brief__lead {
+  font-size: var(--step-0);
+  line-height: 1.62;
+  color: var(--on-dark-soft);
+}
+.brief__lead b {
+  color: #fff;
+  font-weight: 600;
+}
+.brief__sub {
+  margin-top: 0.9rem;
+  font-size: var(--step--1);
+  line-height: 1.6;
+  color: var(--on-dark-mute);
+}
+
+/* Bilgi satırları. Her satır kendi kartıdır: üstünde ince bir çizgi,
+   solunda beliriş anında büyüyen bir vurgu şeridi. Şerit scaleX ile
+   çizilir, genişlik animasyonu layout tetiklemesin diye. */
+
+.js-on .brief__facts > div.is-in::before {
+  transform: scaleY(1);
+}
+
+/* Son hücre çağrıdır: aynı ızgarada durur ama zemini vurgulanır. */
+
+/* ------------------------------------------------------------
+   3. PROGRAM BULUCU
+   ------------------------------------------------------------ */
+
+.fstep.is-active,
+.fstep.is-done {
+  opacity: 1;
+}
+
+.fstep.is-done .fstep__idx {
+  color: var(--ember-500);
+}
+
+[data-finder-go][aria-disabled='true'] {
+  opacity: 0.4;
+  pointer-events: none;
+}
+
+/* ------------------------------------------------------------
+   4. POPÜLER ALANLAR — yatay pin
+   ------------------------------------------------------------ */
+.fields {
+  position: relative;
+  height: var(--fields-h, 420vh);
+  background: var(--paper-dim);
+}
+.fields__pin {
+  position: sticky;
+  top: 0;
+  height: 100svh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: clamp(1.2rem, 3vw, 2.4rem);
+  overflow: hidden;
+  padding-block: clamp(4rem, 8vh, 7rem) 2rem;
+}
+.fields__head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 2rem;
+  flex: none;
+}
+.fields__head h2 {
+  margin-top: 0.7rem;
+}
+.fields__progress {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex: none;
+}
+.fields__progress-bar {
+  display: block;
+  width: clamp(80px, 16vw, 220px);
+  height: 2px;
+  background: var(--mist-300);
+  overflow: hidden;
+}
+.fields__progress-bar i {
+  display: block;
+  height: 100%;
+  background: var(--ember-500);
+  transform: scaleX(var(--fldp, 0));
+  transform-origin: left;
+}
+.fields__count {
+  font-size: var(--step--2);
+  color: var(--fg-mute);
+  letter-spacing: 0.1em;
+}
+.fields__count b {
+  color: var(--fg);
+  font-weight: 500;
+}
+
+.fields__track {
+  display: flex;
+  gap: clamp(1rem, 2vw, 1.8rem);
+  padding-left: var(--gutter);
+  padding-right: var(--gutter);
+  transform: translate3d(calc(var(--fldx, 0px)), 0, 0);
+  will-change: transform;
+}
+
+.fcard {
+  position: relative;
+  flex: none;
+  width: clamp(260px, 26vw, 380px);
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+  border-radius: var(--radius-l);
+  overflow: hidden;
+  border: 1px solid var(--line);
+  transition: box-shadow 0.5s var(--e-out), transform 0.5s var(--e-out);
+}
+.fcard:hover {
+  box-shadow: var(--sh-3);
+}
+.fcard__media {
+  position: relative;
+  aspect-ratio: 16 / 11;
+  overflow: hidden;
+  background: var(--mist-200);
+}
+.fcard__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 1.1s var(--e-out);
+}
+.fcard:hover .fcard__media img {
+  transform: scale(1.07);
+}
+.fcard__body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+  padding: clamp(1.1rem, 2vw, 1.5rem);
+  flex: 1;
+}
+.fcard__idx {
+  font-size: var(--step--2);
+  color: var(--ember-500);
+  letter-spacing: 0.12em;
+}
+.fcard__title {
+  font-size: var(--step-2);
+  letter-spacing: -0.035em;
+}
+.fcard__desc {
+  font-size: var(--step--1);
+  color: var(--fg-soft);
+  line-height: 1.5;
+}
+.fcard__facts {
+  display: grid;
+  gap: 0.35rem;
+  margin: 0.5rem 0 0.9rem;
+  padding-top: 0.8rem;
+  border-top: 1px solid var(--line);
+  font-size: var(--step--2);
+}
+.fcard__facts li {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+}
+.fcard__facts span {
+  color: var(--fg-mute);
+}
+.fcard__facts b {
+  font-family: var(--font-mono);
+  font-weight: 500;
+}
+.fcard__facts .pending {
+  color: #8a6206;
+  font-size: 0.92em;
+}
+.fcard .link {
+  margin-top: auto;
+  font-size: var(--step--1);
+  color: var(--cobalt-600);
+}
+.fcard--cta {
+  background: var(--navy-900);
+  color: var(--on-dark);
+  border-color: transparent;
+}
+.fcard--cta .fcard__body {
+  justify-content: center;
+  gap: 0.9rem;
+  padding: clamp(1.4rem, 2.6vw, 2rem);
+}
+.fcard--cta .fcard__idx {
+  font-size: 1.4rem;
+  color: var(--ember-500);
+}
+.fcard--cta .fcard__title {
+  font-size: var(--step-3);
+}
+.fcard--cta .fcard__desc {
+  color: var(--on-dark-soft);
+}
+.fcard--cta .btn {
+  margin-top: 0.6rem;
+  align-self: flex-start;
+}
+
+/* Mobil: pin yerine doğal yatay kaydırma (dokunmatik daha iyi hisseder) */
+@media (max-width: 860px) {
+  .fields {
+    height: auto;
+  }
+  .fields__pin {
+    position: static;
+    height: auto;
+    padding-block: var(--section-y);
+  }
+  .fields__head {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .fields__track {
+    transform: none !important;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    padding-bottom: 1rem;
+    scrollbar-width: thin;
+  }
+  .fcard {
+    width: min(78vw, 340px);
+    scroll-snap-align: start;
+  }
+}
+
+/* ------------------------------------------------------------
+   5. SÜREÇ
+   Sol kolon sabit kalır: adım değiştikçe fotoğraf çapraz geçiş yapar,
+   sayaç ve faz göstergesi (Türkiye → Macaristan) güncellenir.
+   Sağ kolon adımları taşır. Mobilde sabit medya kapanır — orada
+   metin listesi hem daha hızlı hem daha okunur.
+   ------------------------------------------------------------ */
+.process {
+  position: relative;
+  padding-block: var(--section-y);
+  overflow: clip;
+}
+.process__inner {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: minmax(300px, 0.9fr) minmax(0, 1.1fr);
+  gap: clamp(2rem, 5vw, 5rem);
+  /* `align-items: start` KULLANILMAZ: grid öğesini içeriği kadar kısaltır,
+     sticky de yalnız kendi ebeveyni boyunca hareket edebildiği için sol
+     kolon bölümün başında yukarı kayıp giderdi. Stretch ile sol sütun
+     satır yüksekliğini alır ve başlık bölüm boyunca sabit kalır. */
+  align-items: stretch;
+}
+.process__aside-in {
+  position: sticky;
+  top: calc(var(--header-h) + 3vh);
+  display: grid;
+  gap: 1.2rem;
+  justify-items: start;
+  align-content: start;
+}
+.process__aside h2 {
+  margin-top: 0.4rem;
+}
+.process__aside .lede {
+  max-width: 38ch;
+}
+
+/* ---- Bölümün arka planı: fotoğraf kutuda değil, ORTAM ----
+   Görsel tam ekranı kaplar ve sabit kalır; adımlar üzerinde akar.
+   Fotoğrafların "sonradan eklenmiş" durmaması için üç katman:
+     1) grade  — doygunluk ve parlaklık düşürülür, kontrast toplanır
+     2) tint   — mix-blend-mode:color ile lacivert tonlama; altı ayrı
+                 fotoğraf tek bir palette birleşir (duotone etkisi)
+     3) grain  — film dokusu; dijital düzlüğü kırar
+   Üstüne okunabilirlik için yönlü bir scrim biner. */
+.process__bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+.process__bg-in {
+  position: sticky;
+  top: 0;
+  height: 100svh;
+  overflow: hidden;
+  isolation: isolate;
+}
+.pbg__img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 42%;
+  filter: saturate(0.42) contrast(1.12) brightness(0.52);
+  opacity: 0;
+  transform: scale(1.1);
+  transition: opacity 1.1s var(--e-out), transform 2.6s var(--e-out);
+  will-change: opacity, transform;
+}
+.pbg__img.is-on {
+  opacity: 1;
+  transform: scale(1);
+}
+/* Hareket azaltıldığında yavaş zoom kapanır, çapraz geçiş kısalır */
+@media (prefers-reduced-motion: reduce) {
+  .pbg__img {
+    transform: none !important;
+    transition-duration: 1ms !important;
+  }
+}
+/* Tonlama: tüm kareler aynı lacivert ailede toplanır */
+.pbg__tint {
+  position: absolute;
+  inset: 0;
+  background: var(--navy-800);
+  mix-blend-mode: color;
+  opacity: 0.72;
+}
+/* Okunabilirlik + kenarlarda sayfaya erime */
+.pbg__scrim {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(94deg, rgb(8 12 38 / 0.96) 0%, rgb(8 12 38 / 0.9) 34%, rgb(8 12 38 / 0.66) 66%, rgb(8 12 38 / 0.82) 100%),
+    linear-gradient(180deg, var(--navy-950) 0%, rgb(8 12 38 / 0.35) 22%, rgb(8 12 38 / 0.45) 74%, var(--navy-950) 100%);
+}
+.pbg__grain {
+  position: absolute;
+  inset: 0;
+  opacity: 0.4;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E");
+}
+
+/* ---- Yolculuk göstergesi: Türkiye → Macaristan ---- */
+.pjourney {
+  display: grid;
+  gap: 0.55rem;
+  width: 100%;
+  max-width: 30rem;
+}
+.pjourney__ends {
+  display: flex;
+  justify-content: space-between;
+  font-size: 9px;
+  letter-spacing: 0.2em;
+}
+.pjourney__ends b {
+  font-weight: 500;
+  color: var(--on-dark-mute);
+  transition: color 0.5s var(--e-out);
+}
+.pjourney__ends b.is-on {
+  color: #fff;
+}
+.pjourney__rail {
+  position: relative;
+  display: block;
+  height: 2px;
+  background: color-mix(in oklab, #fff 14%, transparent);
+  border-radius: 2px;
+}
+.pjourney__fill {
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: calc(var(--pj, 0) * 100%);
+  background: linear-gradient(90deg, var(--cobalt-500), var(--cobalt-300));
+  border-radius: 2px;
+  transition: width 0.65s var(--e-out);
+}
+.pjourney__dot {
+  position: absolute;
+  top: 50%;
+  left: calc(var(--pj, 0) * 100%);
+  width: 11px;
+  height: 11px;
+  margin: -5.5px 0 0 -5.5px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 0 0 4px color-mix(in oklab, var(--cobalt-400) 40%, transparent);
+  transition: left 0.65s var(--e-out);
+}
+.pjourney__meta {
+  display: flex;
+  align-items: baseline;
+  gap: 0.7rem;
+  font-size: var(--step--1);
+  color: var(--on-dark-mute);
+}
+.pjourney__meta b {
+  font-weight: 500;
+  color: #fff;
+}
+.pjourney__meta i {
+  font-style: normal;
+}
+.pjourney__now {
+  color: var(--on-dark-soft);
+  line-height: 1.3;
+}
+
+/* ---- Adım kartları ---- */
+.process__list {
+  display: grid;
+  gap: clamp(1rem, 2vw, 1.4rem);
+}
+/* Kart destesi: her adım bir öncekinin 14px altına yapışır ve üst üste
+   toplanır. Gömülen kartlar hafifçe küçülür (--sc), böylece yığın
+   derinlik kazanır. Kart viewport'a sığmıyorsa JS `.is-flat` ekler ve
+   yapışkanlık kapanır — ekrandan uzun bir sticky kartın altına
+   scroll ile ulaşılamaz. */
+.pstep {
+  position: sticky;
+  top: calc(var(--header-h) + 1.1rem + var(--i, 0) * 14px);
+  display: grid;
+  grid-template-columns: 58px 1fr;
+  gap: clamp(1rem, 2vw, 1.8rem);
+  padding: clamp(1.3rem, 2.6vw, 2rem);
+  border-radius: var(--radius-l);
+  border: 1px solid color-mix(in oklab, #fff 12%, transparent);
+  background: color-mix(in oklab, var(--navy-950) 88%, transparent);
+  backdrop-filter: blur(16px) saturate(1.25);
+  -webkit-backdrop-filter: blur(16px) saturate(1.25);
+  box-shadow: 0 20px 50px -26px rgb(0 0 0 / 0.8);
+  transform: scale(var(--sc, 1));
+  transform-origin: 50% 0;
+  transition:
+    transform 0.3s linear,
+    border-color 0.6s var(--e-out),
+    box-shadow 0.6s var(--e-out);
+}
+.pstep.is-live {
+  border-color: color-mix(in oklab, var(--cobalt-400) 55%, transparent);
+  box-shadow: 0 30px 70px -28px rgb(0 0 0 / 0.9);
+}
+/* Sığmayan cihazlarda normal akışa dön */
+.process__list.is-flat .pstep {
+  position: static;
+  transform: none;
+}
+/* Ölçüm anında sticky geçici olarak kapatılır ki doğal konumlar okunabilsin */
+.process__list.is-measuring .pstep {
+  position: static;
+  transform: none;
+}
+.pstep__marker {
+  position: relative;
+  display: grid;
+  place-items: start center;
+}
+.pstep__marker span {
+  display: grid;
+  place-items: center;
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  border: 1px solid var(--line-dark);
+  font-size: var(--step--2);
+  color: var(--on-dark-mute);
+  background: var(--navy-950);
+  transition: all 0.6s var(--e-out);
+}
+.pstep.is-live .pstep__marker span {
+  border-color: var(--cobalt-500);
+  color: #fff;
+  background: var(--cobalt-500);
+  box-shadow: 0 0 0 6px color-mix(in oklab, var(--cobalt-500) 22%, transparent);
+}
+.pstep__phase {
+  font-size: 9px;
+  letter-spacing: 0.2em;
+  color: var(--cobalt-300);
+  margin-bottom: 0.4rem;
+}
+.pstep__body h3 {
+  font-size: var(--step-2);
+  letter-spacing: -0.032em;
+  margin-bottom: 0.6rem;
+}
+.pstep__desc {
+  color: var(--on-dark-soft);
+  font-size: var(--step--1);
+  line-height: 1.6;
+  max-width: 56ch;
+}
+.pstep__desc b {
+  color: #fff;
+  font-weight: 600;
+}
+
+/* "Bu adımda siz / biz" — sorumluluk dağılımı görünür olsun (PRD §7.5) */
+.pstep__split {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  gap: 0.7rem;
+  margin: 1rem 0 0;
+  padding: 0.9rem 0 0;
+  border-top: 1px solid var(--line-dark);
+}
+.pstep__split > div {
+  display: grid;
+  gap: 0.22rem;
+}
+.pstep__split dt {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--on-dark-mute);
+}
+.pstep__split dd {
+  margin: 0;
+  font-size: var(--step--1);
+  line-height: 1.45;
+  color: var(--on-dark);
+}
+.pstep__split > div:first-child dd {
+  color: var(--cobalt-300);
+}
+
+.pstep__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-top: 0.9rem;
+}
+.pstep__tags li {
+  padding: 0.25em 0.7em;
+  border-radius: 999px;
+  border: 1px solid var(--line-dark);
+  font-family: var(--font-mono);
+  font-size: var(--step--2);
+  color: var(--on-dark-mute);
+}
+.process__disclaimer {
+  margin-top: clamp(2.5rem, 5vw, 4rem);
+  padding-top: 1.4rem;
+  border-top: 1px solid var(--line-dark);
+  max-width: 76ch;
+  font-size: var(--step--2);
+  color: var(--on-dark-mute);
+}
+
+/* ---- Mobilde bileşik katman maliyeti düşürülür ----
+   Bu bölümde aynı anda 6 tam ekran fotoğraf (her biri filter'lı), iki
+   tam ekran karışım katmanı (mix-blend-mode: color / overlay) ve 6
+   kartta backdrop-filter vardı. Telefonda bunların hepsi GPU'da ayrı
+   katman açıyor; bellek baskısı büyüyünce Safari sekmeyi düşürüp
+   yeniden yüklüyor. Görünüm neredeyse aynı kalacak şekilde: karışım
+   katmanları kapatılır, tonlama doğrudan fotoğrafın filtresine
+   gömülür, kartlar bulanık yerine dolu zemin kullanır. */
+@media (max-width: 900px) {
+  .pstep {
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    background: color-mix(in oklab, var(--navy-950) 95%, transparent);
+  }
+  .pbg__img {
+    filter: saturate(0.3) contrast(1.1) brightness(0.46) sepia(0.12) hue-rotate(190deg);
+  }
+  .pbg__tint,
+  .pbg__grain {
+    display: none;
+  }
+}
+
+@media (max-width: 1000px) {
+  .process__inner {
+    grid-template-columns: 1fr;
+  }
+  .process__aside-in {
+    position: static;
+  }
+  .pstep {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    top: calc(var(--header-h) + 0.7rem + var(--i, 0) * 8px);
+  }
+  .pstep__marker {
+    place-items: start;
+  }
+}
+
+/* ------------------------------------------------------------
+   6. MANİFESTO — scroll ile aydınlanan metin + çizilen ikonlar
+
+   Bölüm --wp (0→1) değerini bölümün kendisinden alır; her kart kendi
+   payını (--cp) ondan türetir. Kartlar 0.1 aralıkla açılır, böylece
+   dördü aynı anda değil, sırayla belirir ve bölüm bir ilerleme
+   çubuğu gibi okunur.
+
+   --wp tanımsızsa (JS yok/çöktü) yerine 1 geçer: içerik animasyon
+   uğruna gizlenmez, tam görünür.
+   ------------------------------------------------------------ */
+.manifesto {
+  background: var(--paper);
+}
+.manifesto__text {
+  --scrub-dim: color-mix(in oklab, var(--navy-900) 16%, transparent);
+  font-size: clamp(1.6rem, 3.7vw, 3.1rem);
+  font-weight: 600;
+  line-height: 1.22;
+  letter-spacing: -0.035em;
+  max-width: 22ch;
+  margin: 1.2rem 0 clamp(2.6rem, 6vw, 5rem);
+  color: var(--navy-900);
+}
+.manifesto__grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: clamp(1.4rem, 3vw, 2.4rem);
+}
+.mcard {
+  --cp: clamp(0, calc((var(--wp, 1) - var(--i) * 0.1) / 0.42), 1);
+  display: grid;
+  gap: 0.5rem;
+  align-content: start;
+  /* Açılırken kart hafifçe yükselir ve soluktan doluya geçer.
+     Taban 0.4'ün altına inmiyor: kart okuma alanına girmeden de
+     ekranda duruyor, metin o sırada da okunabilir kalmalı. */
+  opacity: calc(0.4 + var(--cp) * 0.6);
+  translate: 0 calc((1 - var(--cp)) * 14px);
+}
+/* Kartın üstündeki saç teli: gri çizgi kartın genişliğince durur,
+   ember dolgu --cp kadar ilerler. Dört kart yan yana olduğu için
+   bu satır bölümü baştan sona kat eden bir ölçek gibi okunur. */
+.mcard__rule {
+  position: relative;
+  display: block;
+  height: 1px;
+  margin-bottom: 1.1rem;
+  background: var(--line);
+}
+.mcard__rule::after {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: calc(var(--cp) * 100%);
+  background: var(--ember-500);
+}
+/* İkon konturu soldan sağa çizilir. Yolların hepsinde pathLength="1"
+   var; dash uzunluğu 1 birim olduğu için offset doğrudan (1 - pay).
+   Uzunluk JS'te ölçülmez, düzen değişse de doğru kalır. */
+.mcard__icon {
+  display: block;
+  color: var(--ember-500);
+}
+.mcard__icon svg {
+  display: block;
+  width: 34px;
+  height: 34px;
+}
+.mcard__icon :is(path, circle) {
+  stroke-dasharray: 1;
+  stroke-dashoffset: calc(1 - var(--cp));
+}
+.mcard__k {
+  margin-top: 0.35rem;
+  font-size: var(--step--2);
+  color: var(--fg-mute);
+  letter-spacing: 0.12em;
+}
+.mcard h3 {
+  font-size: var(--step-1);
+  letter-spacing: -0.03em;
+  text-wrap: balance;
+}
+.mcard p {
+  font-size: var(--step--1);
+  color: var(--fg-soft);
+  line-height: 1.6;
+  max-width: 30ch;
+}
+
+/* Hareket azaltıldığında çizim ve yükselme kapanır: kartlar hazır
+   hâlleriyle durur. */
+@media (prefers-reduced-motion: reduce) {
+  .mcard {
+    --cp: 1;
+    translate: none;
+  }
+}
+
+@media (max-width: 1000px) {
+  .manifesto__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: clamp(1.6rem, 4vw, 2.4rem);
+  }
+}
+@media (max-width: 560px) {
+  .manifesto__text {
+    max-width: none;
+  }
+  .manifesto__grid {
+    grid-template-columns: 1fr;
+  }
+  .mcard__rule {
+    margin-bottom: 0.9rem;
+  }
+}
+
+/* ------------------------------------------------------------
+   7. ÜNİVERSİTELER — harita
+   ------------------------------------------------------------ */
+.unis {
+  padding-block: var(--section-y);
+  /* Çip şeridi bilinçli olarak kenardan taşar (edge-to-edge kaydırma);
+     bu taşma sayfa genişliğine eklenmesin diye bölüm kırpar. */
+  overflow-x: clip;
+}
+.unis__head {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 0.85fr);
+  gap: clamp(1.5rem, 4vw, 4rem);
+  align-items: end;
+  margin-bottom: clamp(2.5rem, 5vw, 4rem);
+}
+.unis__head h2 {
+  margin-top: 0.8rem;
+}
+
+.unis__layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.25fr) minmax(300px, 0.9fr);
+  gap: clamp(1.5rem, 4vw, 3.5rem);
+  align-items: center;
+}
+
+.unis__map {
+  position: relative;
+  color: var(--cobalt-300);
+}
+.hu-map {
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+.hu-map__shape {
+  filter: drop-shadow(0 20px 50px rgb(70 80 224 / 0.22));
+  /* Sınır çizgisi scroll ile çizilir; uzunluk JS'te ölçülür (--len). */
+  stroke-dasharray: var(--len, 3400);
+  stroke-dashoffset: calc(var(--len, 3400) * (1 - var(--mp, 0)));
+}
+.hu-map__fill {
+  opacity: calc(var(--mp, 0) * var(--mp, 0));
+  transition: opacity 0.2s linear;
+}
+.pin {
+  cursor: pointer;
+  outline: none;
+}
+.pin__dot {
+  fill: #fff;
+  transition: fill 0.35s, r 0.35s var(--e-spring);
+}
+/* Radar sinyali: dolgu yerine genişleyen ince halka — harita rengini kirletmez */
+.pin__halo {
+  fill: none;
+  stroke: var(--ember-500);
+  stroke-width: 1.4;
+  opacity: 0;
+  transform-box: fill-box;
+  transform-origin: center;
+  transition: opacity 0.4s;
+}
+.pin.is-active .pin__halo {
+  animation: pinPulse 2.8s var(--e-out) infinite;
+}
+@keyframes pinPulse {
+  0% { transform: scale(0.2); opacity: 0.75; }
+  70% { opacity: 0.06; }
+  100% { transform: scale(1.15); opacity: 0; }
+}
+.pin.is-active .pin__dot {
+  fill: var(--ember-500);
+}
+.pin:hover .pin__dot,
+.pin:focus-visible .pin__dot {
+  fill: var(--gold-400);
+}
+.pin:focus-visible .pin__halo {
+  opacity: 0.3;
+}
+.pin__t {
+  font-family: var(--font-mono);
+  font-size: 19px;
+  fill: var(--on-dark-soft);
+  letter-spacing: 0.02em;
+  pointer-events: none;
+  transition: fill 0.35s;
+  /* Halo: harita dolgusu ve komşu öğeler üstünde etiket her zaman okunur */
+  paint-order: stroke fill;
+  stroke: var(--navy-950);
+  stroke-width: 5px;
+  stroke-linejoin: round;
+}
+/* Batı yönlü etiket — sağında komşusu olan pinler için (çakışma önleme) */
+.pin__t--w {
+  text-anchor: end;
+}
+.pin.is-active .pin__t {
+  fill: #fff;
+}
+/* Başkent: kalıcı vurgu — en çok üniversite burada */
+.pin--capital .pin__t {
+  font-weight: 700;
+  font-size: 21px;
+}
+.pin--capital .pin__dot {
+  fill: var(--cobalt-300);
+}
+.unis__map-hint {
+  position: absolute;
+  right: 0;
+  bottom: -0.5rem;
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--on-dark-mute);
+}
+
+/* Mobil şehir çipleri — masaüstünde gizli, seçim haritadan yapılır */
+.unis__chips {
+  display: none;
+}
+.mchip {
+  flex: none;
+  min-height: 44px;
+  padding: 0.55rem 1.05rem;
+  border-radius: 999px;
+  border: 1px solid var(--line-dark);
+  background: color-mix(in oklab, #fff 5%, transparent);
+  color: var(--on-dark-soft);
+  font-size: var(--step--1);
+  font-weight: 500;
+  white-space: nowrap;
+  scroll-snap-align: center;
+  transition: background 0.3s var(--e-out), color 0.3s, border-color 0.3s, transform 0.3s var(--e-out);
+}
+.mchip.is-on {
+  background: var(--cobalt-500);
+  border-color: var(--cobalt-500);
+  color: #fff;
+  font-weight: 600;
+}
+.mchip:active {
+  transform: scale(0.96);
+}
+
+/* Panel yüksekliği ŞEHRE GÖRE DEĞİŞMEZ: Budapeşte'nin 10 üniversitesi ile
+   Kecskemét'in 1 üniversitesi aynı çerçevede durur. Uzun listeler panel
+   içinde kayar; böylece harita ile panel hizası hiç bozulmaz. */
+.unis__panel {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  height: min(540px, 72svh);
+  padding: clamp(1.4rem, 3vw, 2.2rem);
+  border-radius: var(--radius-l);
+  border: 1px solid var(--line-dark);
+  background: color-mix(in oklab, #fff 4%, transparent);
+  backdrop-filter: blur(6px);
+}
+.upanel__city {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 0.4rem;
+}
+.upanel__city h3 {
+  font-size: var(--step-3);
+  letter-spacing: -0.04em;
+}
+.upanel__city span {
+  font-family: var(--font-mono);
+  font-size: var(--step--2);
+  color: var(--on-dark-mute);
+}
+.upanel__note {
+  font-size: var(--step--1);
+  color: var(--on-dark-soft);
+  line-height: 1.5;
+  margin-bottom: 0.9rem;
+  padding-bottom: 0.9rem;
+  border-bottom: 1px solid var(--line-dark);
+  /* Not iki satırla sınırlı: panelin asıl işi üniversite listesi */
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.upanel__list {
+  display: grid;
+  gap: 0.7rem;
+  align-content: start;
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  padding-right: 6px;
+  scrollbar-width: thin;
+  scrollbar-color: color-mix(in oklab, var(--cobalt-400) 55%, transparent) transparent;
+  /* Devamı olduğunu hissettiren alt solma; kaydırınca içerik netleşir */
+  mask-image: linear-gradient(180deg, #000 calc(100% - 26px), transparent);
+  -webkit-mask-image: linear-gradient(180deg, #000 calc(100% - 26px), transparent);
+  padding-bottom: 18px;
+}
+.upanel__list::-webkit-scrollbar {
+  width: 4px;
+}
+.upanel__list::-webkit-scrollbar-thumb {
+  background: color-mix(in oklab, var(--cobalt-400) 55%, transparent);
+  border-radius: 2px;
+}
+.upanel__count {
+  font-family: var(--font-mono);
+  font-size: var(--step--2);
+  color: var(--cobalt-300);
+  white-space: nowrap;
+}
+.ucard {
+  display: grid;
+  gap: 0.25rem;
+  padding: 0.7rem 0.95rem;
+  border-radius: var(--radius-m);
+  border: 1px solid var(--line-dark);
+  background: color-mix(in oklab, var(--navy-950) 55%, transparent);
+  transition: border-color 0.35s, transform 0.4s var(--e-out), background 0.35s;
+}
+.ucard:hover {
+  border-color: var(--cobalt-400);
+  transform: translateX(4px);
+}
+.ucard__name {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: var(--step-0);
+  letter-spacing: -0.025em;
+}
+.ucard__meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem 0.9rem;
+  font-family: var(--font-mono);
+  font-size: var(--step--2);
+  color: var(--on-dark-mute);
+}
+.upanel__cta {
+  flex: none;
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--line-dark);
+}
+/* panel geçişi */
+.upanel-anim > * {
+  opacity: 0;
+  transform: translateY(14px);
+  animation: upIn 0.55s var(--e-out) forwards;
+}
+.upanel-anim > *:nth-child(1) { animation-delay: 0.02s; }
+.upanel-anim > *:nth-child(2) { animation-delay: 0.07s; }
+.upanel-anim > *:nth-child(3) { animation-delay: 0.12s; }
+.upanel-anim > *:nth-child(4) { animation-delay: 0.17s; }
+@keyframes upIn {
+  to { opacity: 1; transform: none; }
+}
+.unis__notice {
+  margin-top: clamp(2rem, 4vw, 3rem);
+}
+
+@media (max-width: 900px) {
+  .unis__head,
+  .unis__layout {
+    /* minmax(0, …): harita SVG'si ve panel min-content genişlikleriyle
+       sütunu şişirip sayfayı yatay kaydırıyordu. */
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .unis__panel {
+    height: auto;
+    max-height: 62svh;
+  }
+  .pin__t {
+    font-size: 24px;
+    stroke-width: 6px;
+  }
+  .pin--capital .pin__t {
+    font-size: 26px;
+  }
+  /* Harita mobilde görsel bir katman: seçim çiplerden yapılır */
+  .unis__map {
+    pointer-events: none;
+  }
+  .unis__map-hint {
+    display: none;
+  }
+  .unis__chips {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 1.1rem;
+    overflow-x: auto;
+    scroll-snap-type: x proximity;
+    scrollbar-width: none;
+    /* Kenarlardan taşarak kaydırılabilir olduğunu gösterir */
+    margin-inline: calc(var(--gutter) * -1);
+    padding-inline: var(--gutter);
+    padding-block: 2px;
+  }
+  .unis__chips::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/* ------------------------------------------------------------
+   8. ÖĞRENCİ HİKÂYELERİ
+   ------------------------------------------------------------ */
+
+.stories__row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: clamp(1.2rem, 2.5vw, 2rem);
+}
+
+/* Öğrenci alıntı kartı — fotoğraf yok: stok görseli gerçek öğrenci
+   gibi sunmamak için bilinçli bir karar. Sözü tipografi taşıyor. */
+.quote {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  margin: 0;
+  padding: clamp(1.4rem, 3vw, 2rem);
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-l);
+  overflow: hidden;
+  transition: transform 0.5s var(--e-out), box-shadow 0.5s var(--e-out), border-color 0.4s;
+}
+.quote:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--sh-3);
+  border-color: transparent;
+}
+.quote__mark {
+  position: absolute;
+  top: -0.32em;
+  right: 0.12em;
+  font-family: var(--font-display);
+  font-size: 9rem;
+  font-weight: 800;
+  line-height: 1;
+  color: color-mix(in oklab, var(--cobalt-500) 10%, transparent);
+  pointer-events: none;
+}
+.quote blockquote {
+  margin: 0;
+  position: relative;
+}
+.quote blockquote p {
+  font-family: var(--font-display);
+  font-size: var(--step-1);
+  font-weight: 600;
+  line-height: 1.35;
+  letter-spacing: -0.028em;
+  text-wrap: pretty;
+}
+.quote__who {
+  display: grid;
+  gap: 0.2rem;
+  margin-top: auto;
+  padding-top: 1rem;
+  border-top: 1px solid var(--line);
+  font-size: var(--step--1);
+}
+.quote__who b {
+  font-family: var(--font-display);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+.quote__who span {
+  color: var(--fg-soft);
+}
+.quote__who .num-mono {
+  font-size: var(--step--2);
+  color: var(--fg-mute);
+}
+.quote--accent {
+  background: var(--navy-900);
+  color: var(--on-dark);
+  border-color: transparent;
+}
+.quote--accent .quote__mark {
+  color: color-mix(in oklab, var(--ember-500) 34%, transparent);
+}
+.quote--accent .quote__who {
+  border-color: var(--line-dark);
+}
+.quote--accent .quote__who span {
+  color: var(--on-dark-soft);
+}
+.quote--accent .quote__who .num-mono {
+  color: var(--on-dark-mute);
+}
+
+.story--brief .link {
+  color: var(--gold-400);
+  margin-top: 0.4rem;
+}
+
+/* ------------------------------------------------------------
+   9. MALİYET
+   ------------------------------------------------------------ */
+.cost {
+  background: var(--paper-dim);
+}
+.cost__inner {
+  display: grid;
+  grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
+  gap: clamp(2rem, 5vw, 4.5rem);
+  align-items: start;
+}
+.cost__left {
+  display: grid;
+  gap: 1.2rem;
+  justify-items: start;
+  position: sticky;
+  top: calc(var(--header-h) + 4vh);
+}
+.cost__left h2 {
+  margin-top: 0.3rem;
+}
+@media (max-width: 900px) {
+  .cost__inner {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1.8rem;
+  }
+  .cost__left {
+    /* Tek sütuna inince yapışkanlık anlamsız: kart hemen altında */
+    position: static;
+    justify-items: stretch;
+  }
+  .cost__left .btn {
+    justify-self: start;
+  }
+}
+/* ---- Maliyet kartı ----
+   Tek bir "teklif kartı" gibi okunur: önce cevap (toplam), sonra
+   senaryoyu değiştiren iki kontrol, sonra döküm. Onay kutusu yok —
+   yaşam gideri ya da sigorta kapatmak gerçek bir senaryo üretmiyordu. */
+.ccard {
+  /* Kart, viewport'tan bağımsız olarak kendi genişliğine göre yerleşir:
+     1440px'te iki sütunlu ızgara içinde 617px, 800px'te 390px oluyor —
+     bu yüzden kırılım noktası viewport değil konteyner genişliği. */
+  container-type: inline-size;
+  min-width: 0;
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--sh-2);
+  overflow: hidden;
+}
+
+/* Cevap önce gelir */
+.ccard__head {
+  display: grid;
+  gap: 0.15rem;
+  padding: clamp(1.1rem, 2.4vw, 1.6rem) clamp(1.1rem, 2.4vw, 1.6rem) clamp(0.9rem, 2vw, 1.2rem);
+  background: linear-gradient(180deg, color-mix(in oklab, var(--cobalt-500) 11%, #fff), #fff);
+  border-bottom: 1px solid var(--line);
+}
+.ccard__label {
+  font-family: var(--font-mono);
+  font-size: var(--step--2);
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--cobalt-600);
+}
+.ccard__total {
+  font-size: clamp(1.9rem, 4.2vw, 2.75rem);
+  font-weight: 500;
+  letter-spacing: -0.035em;
+  line-height: 1.05;
+  color: var(--navy-900);
+}
+.ccard__scenario {
+  font-size: var(--step--2);
+  color: var(--fg-mute);
+}
+
+/* Kontroller: tek etkileşim modeli, satır içi segment */
+.ccard__controls {
+  display: grid;
+  gap: 0.55rem;
+  padding: clamp(0.9rem, 2vw, 1.15rem) clamp(1.1rem, 2.4vw, 1.6rem);
+  border-bottom: 1px solid var(--line);
+}
+.cpickrow {
+  display: grid;
+  grid-template-columns: 7.5rem minmax(0, 1fr);
+  align-items: center;
+  gap: 0.8rem;
+}
+.cpickrow__label {
+  font-size: var(--step--1);
+  font-weight: 600;
+  color: var(--fg-soft);
+}
+.cpickrow__opts {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 3px;
+  padding: 3px;
+  background: var(--paper-dim);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+}
+.cpick {
+  min-width: 0;
+  min-height: 40px;
+  padding: 0 0.5rem;
+  border-radius: 7px;
+  font-size: var(--step--2);
+  font-weight: 500;
+  line-height: 1.2;
+  color: var(--fg-soft);
+  transition: background var(--t-base) var(--e-out), color var(--t-base), box-shadow var(--t-base);
+}
+.cpick:hover {
+  color: var(--navy-900);
+}
+.cpick.is-on {
+  background: #fff;
+  color: var(--navy-900);
+  font-weight: 700;
+  box-shadow: 0 1px 2px rgb(8 12 38 / 0.1), 0 0 0 1px var(--cobalt-500) inset;
+}
+.cpick:focus-visible {
+  outline: 3px solid var(--cobalt-500);
+  outline-offset: 1px;
+}
+
+/* Döküm.
+   Satır ayıracı aynı zamanda ölçü çubuğu: gri kısım toplamı, kobalt
+   kısım o kalemin toplam içindeki payını gösterir. Zemini boyamak
+   yerine bunu seçtim — zemin dolgusu vurgu gibi okunuyor, alt çizgi
+   ise doğrudan grafik gibi okunuyor ve metnin kontrastını bozmuyor. */
+.ccard__rows {
+  display: grid;
+  padding: 0.2rem clamp(1.1rem, 2.4vw, 1.6rem) 0.5rem;
+}
+.crow {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 0.8rem;
+  padding: 0.6rem 0 0.65rem;
+}
+.crow::after {
+  /* iz */
+  content: '';
+  position: absolute;
+  inset: auto 0 0 0;
+  height: 2px;
+  border-radius: 99px;
+  background: color-mix(in oklab, var(--navy-900) 8%, transparent);
+}
+.crow::before {
+  /* pay */
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  z-index: 1;
+  height: 2px;
+  width: var(--pay, 0%);
+  border-radius: 99px;
+  background: var(--cobalt-500);
+  transition: width var(--t-slow) var(--e-out);
+}
+.crow__ad {
+  font-size: var(--step--1);
+  font-weight: 600;
+  line-height: 1.3;
+  color: var(--fg);
+}
+.crow__ad em {
+  display: block;
+  font-style: normal;
+  font-size: var(--step--2);
+  font-weight: 400;
+  color: var(--fg-mute);
+  margin-top: 1px;
+}
+.crow__val {
+  font-size: var(--step--1);
+  font-weight: 500;
+  line-height: 1.3;
+  color: var(--navy-900);
+  text-align: right;
+  white-space: nowrap;
+}
+.crow__val em {
+  display: block;
+  font-family: var(--font-sans);
+  font-style: normal;
+  font-size: var(--step--2);
+  font-weight: 400;
+  font-variant-numeric: normal;
+  color: var(--fg-mute);
+  margin-top: 1px;
+}
+
+.ccard__foot {
+  padding: clamp(0.8rem, 1.8vw, 1.05rem) clamp(1.1rem, 2.4vw, 1.6rem);
+  border-top: 1px solid var(--line);
+  /* paper-dim sıcak gri; kartın kobalt başlığıyla uyumsuz duruyordu */
+  background: color-mix(in oklab, var(--cobalt-500) 4%, #fff);
+  font-size: var(--step--2);
+  line-height: 1.55;
+  color: var(--fg-soft);
+}
+.ccard__foot b {
+  color: var(--navy-900);
+}
+.ccard__match {
+  color: var(--cobalt-600);
+}
+
+/* Kart daraldığında etiket üste çıkar; üç seçenek de tek satırda kalır,
+   aksi hâlde "Paylaşımlı oda" iki satıra bölünüp segment yamuk duruyor. */
+@container (max-width: 470px) {
+  .cpickrow {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0.3rem;
+  }
+  .cpickrow__label {
+    font-size: var(--step--2);
+    color: var(--fg-mute);
+  }
+}
+/* 320px'lik ekranda kart ~280px kalıyor; "8.455 – 13.905 €" o genişlikte
+   iki satıra bölünüyordu. Toplamı küçültmek satırı korumaktan daha iyi:
+   rakam hâlâ sayfadaki en büyük öge. */
+@container (max-width: 300px) {
+  .ccard__total {
+    font-size: 1.55rem;
+    letter-spacing: -0.045em;
+  }
+  .ccard__head,
+  .ccard__controls,
+  .ccard__rows,
+  .ccard__foot {
+    padding-inline: 0.85rem;
+  }
+  .crow {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0.1rem;
+  }
+  .crow__val {
+    text-align: left;
+    white-space: normal;
+  }
+}
+
+/* ------------------------------------------------------------
+   10. REHBER
+   ------------------------------------------------------------ */
+
+.gcard .card__title {
+  font-size: var(--step-1);
+  line-height: 1.2;
+}
+
+/* ------------------------------------------------------------
+   11. SSS
+   ------------------------------------------------------------ */
+.faq__inner {
+  display: grid;
+  grid-template-columns: minmax(260px, 0.8fr) minmax(0, 1.2fr);
+  gap: clamp(2rem, 5vw, 4.5rem);
+  align-items: start;
+}
+.faq__aside {
+  display: grid;
+  gap: 1rem;
+  justify-items: start;
+  position: sticky;
+  top: calc(var(--header-h) + 4vh);
+}
+.faq__aside h2 {
+  margin-top: 0.3rem;
+}
+@media (max-width: 900px) {
+  .faq__inner {
+    grid-template-columns: 1fr;
+  }
+  .faq__aside {
+    position: static;
+  }
+}
+
+/* ------------------------------------------------------------
+   12. FİNAL CTA
+   ------------------------------------------------------------ */
+.final {
+  position: relative;
+  padding-block: var(--section-y);
+  overflow: hidden;
+}
+.final__bg {
+  position: absolute;
+  inset: -12% 0;
+  z-index: 0;
+}
+.final__bg img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.2;
+  transform: translate3d(0, calc(var(--fnp, 0) * -8%), 0) scale(1.08);
+  filter: grayscale(0.35);
+}
+.final::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, var(--navy-950) 0%, rgb(8 12 38 / 0.72) 45%, var(--navy-950) 100%);
+  z-index: 0;
+}
+.final__inner {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(340px, 0.9fr);
+  gap: clamp(2rem, 5vw, 4.5rem);
+  align-items: center;
+}
+.final__copy h2 {
+  font-size: clamp(2.4rem, 5.4vw, 4.4rem);
+  margin: 0.9rem 0 1.2rem;
+  max-width: 15ch;
+}
+.final__form {
+  display: grid;
+  gap: 0.9rem;
+  padding: clamp(1.4rem, 3vw, 2.2rem);
+  background: #fff;
+  color: var(--fg);
+  border-radius: var(--radius-xl);
+  box-shadow: 0 40px 90px -30px rgb(0 0 0 / 0.6);
+  position: relative;
+}
+.final__form-title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: var(--step-1);
+  letter-spacing: -0.03em;
+  margin-bottom: 0.3rem;
+}
+.final__row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.9rem;
+}
+.final__submit {
+  width: 100%;
+  margin-top: 0.4rem;
+}
+.final__alt {
+  font-size: var(--step--1);
+  color: var(--fg-mute);
+  text-align: center;
+}
+.final__alt .link {
+  color: var(--cobalt-600);
+}
+.final__done {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  align-content: center;
+  justify-items: center;
+  gap: 0.7rem;
+  text-align: center;
+  padding: clamp(1.4rem, 3vw, 2.2rem);
+  background: #fff;
+  border-radius: var(--radius-xl);
+  animation: doneIn 0.6s var(--e-out);
+}
+@keyframes doneIn {
+  from { opacity: 0; transform: scale(0.97); }
+}
+.final__done svg {
+  width: 46px;
+  height: 46px;
+  padding: 11px;
+  border-radius: 50%;
+  color: #fff;
+  background: var(--wa-green);
+}
+.final__done h3 {
+  font-size: var(--step-2);
+}
+.final__done p {
+  font-size: var(--step--1);
+  color: var(--fg-soft);
+  max-width: 34ch;
+}
+
+@media (max-width: 900px) {
+  .final__inner {
+    grid-template-columns: 1fr;
+  }
+  .final__row {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ------------------------------------------------------------
+   13. FOOTER
+   ------------------------------------------------------------ */
+.ftr {
+  position: relative;
+  background: var(--navy-950);
+  color: var(--on-dark);
+  padding-top: clamp(3rem, 6vw, 5rem);
+  overflow: hidden;
+}
+.ftr__top {
+  display: grid;
+  grid-template-columns: minmax(230px, 1.4fr) repeat(2, minmax(140px, 0.7fr)) minmax(220px, 1fr);
+  gap: clamp(1.5rem, 3.5vw, 3rem);
+  padding-bottom: clamp(2.5rem, 5vw, 3.5rem);
+}
+.ftr__brand .hdr__logo img {
+  height: 52px;
+  max-width: 100%;
+}
+.ftr__brand p {
+  margin-top: 1.2rem;
+  font-size: var(--step--1);
+  color: var(--on-dark-soft);
+  max-width: 40ch;
+  line-height: 1.6;
+}
+.ftr__social {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 1.2rem;
+}
+.ftr__social a {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid var(--line-dark);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--on-dark-soft);
+  transition: background 0.35s, color 0.35s, transform 0.35s var(--e-out);
+}
+.ftr__social a:hover {
+  background: #fff;
+  color: var(--navy-950);
+  transform: translateY(-3px);
+}
+.ftr__col h3 {
+  font-size: var(--step--1);
+  font-family: var(--font-mono);
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--on-dark-mute);
+  margin-bottom: 1rem;
+}
+.ftr__col a {
+  display: block;
+  padding: 0.3rem 0;
+  font-size: var(--step--1);
+  color: var(--on-dark-soft);
+  width: max-content;
+  transition: color 0.25s, transform 0.35s var(--e-out);
+}
+.ftr__col a:hover {
+  color: #fff;
+  transform: translateX(4px);
+}
+.ftr__office {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: var(--step--1);
+  margin-bottom: 0.6rem;
+  color: var(--on-dark-soft);
+}
+.ftr__contact {
+  display: flex !important;
+  align-items: center;
+  gap: 0.6rem;
+}
+.ftr__contact span {
+  font-size: 9px;
+  letter-spacing: 0.14em;
+  color: var(--on-dark-mute);
+  border: 1px solid var(--line-dark);
+  border-radius: 3px;
+  padding: 0.15em 0.4em;
+}
+.ftr__hours {
+  margin-top: 0.8rem;
+  font-size: var(--step--2);
+  color: var(--on-dark-mute);
+}
+
+.ftr__legal {
+  display: grid;
+  gap: 1rem;
+  padding-block: clamp(1.5rem, 3vw, 2rem);
+  border-top: 1px solid var(--line-dark);
+}
+.ftr__disclaimer {
+  font-size: var(--step--2);
+  color: var(--on-dark-mute);
+  max-width: 92ch;
+  line-height: 1.6;
+}
+.ftr__links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem 1.4rem;
+  font-size: var(--step--2);
+}
+.ftr__links a {
+  color: var(--on-dark-soft);
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.3s, color 0.3s;
+}
+.ftr__links a:hover {
+  color: #fff;
+  border-color: currentColor;
+}
+.ftr__copy {
+  font-size: var(--step--2);
+  color: var(--on-dark-mute);
+}
+
+/* Dev logotype — footerda nefes alan büyük marka izi */
+.ftr__mega {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  padding-top: 1rem;
+  overflow: hidden;
+  line-height: 0.78;
+}
+.ftr__mega span {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(3rem, 15.5vw, 15rem);
+  letter-spacing: -0.055em;
+  white-space: nowrap;
+  color: transparent;
+  -webkit-text-stroke: 1px color-mix(in oklab, var(--cobalt-300) 26%, transparent);
+  transform: translate3d(0, calc(22% - var(--ftp, 0) * 22%), 0);
+  will-change: transform;
+}
+
+@media (max-width: 900px) {
+  .ftr__top {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .ftr__brand {
+    grid-column: 1 / -1;
+  }
+}
+
+/* Mobil CTA barı için taban boşluğu */
+@media (max-width: 1080px) {
+  .ftr {
+    padding-bottom: 72px;
+  }
+}
+
+/* ============================================================
+   MOBİL İNCE AYARLAR
+   Ölçülerek belirlendi; her kural bir bulguya karşılık gelir.
+   ============================================================ */
+@media (max-width: 760px) {
+  /* --- Footer: dikeyde 1422 px'e uzuyordu. Bağlantı kolonları iki
+     sütuna alınır, dev logo ve boşluklar kısalır. --- */
+  .ftr__top {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.6rem 1.2rem;
+    padding-bottom: 2rem;
+  }
+  .ftr__brand,
+  .ftr__col--contact {
+    grid-column: 1 / -1;
+  }
+  .ftr__brand p {
+    margin-top: 0.9rem;
+  }
+  .ftr__mega span {
+    -webkit-text-stroke-width: 0.75px;
+  }
+
+  /* --- Program bulucu: seçenekler tam genişlikte daha rahat okunur --- */
+
+  .finder__actions .btn {
+    width: 100%;
+  }
+
+  /* --- Yatay kart şeridi: kenardan kenara kayar, kesilen kart
+     "devamı var" sinyali verir --- */
+  .fields__track {
+    scroll-padding-left: var(--gutter);
+    padding-bottom: 0.5rem;
+  }
+  .fields__head {
+    gap: 1rem;
+  }
+
+  /* --- Maliyet kartı dar ekranda --- */
+  .cpick {
+    font-size: 0.72rem;
+    padding: 0 0.35rem;
+    min-height: 42px;
+  }
+
+  /* --- Alıntı kartları: tırnak işareti taşmasın --- */
+  .quote__mark {
+    font-size: 6rem;
+    top: -0.22em;
+  }
+
+  /* --- Süreç: yolculuk göstergesi okunur boyuta çıkar --- */
+  .pjourney__ends {
+    font-size: 10px;
+  }
+  .pstep__phase {
+    font-size: 10px;
+  }
+
+  /* --- Sabit CTA barının üstünü kapatmaması için son bölüm nefesi --- */
+  .final {
+    padding-bottom: calc(var(--section-y) + 1rem);
+  }
+
+  /* --- Footer yasal bağlantıları: 21 px'ti, WCAG 2.2 AA eşiği 24 px --- */
+  .ftr__links {
+    gap: 0.2rem 1.2rem;
+  }
+  .ftr__links a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+  }
+  .ftr__social a {
+    width: 44px;
+    height: 44px;
+  }
+  .ftr__legal {
+    gap: 0.6rem;
+  }
+
+  /* --- Süreç yolculuk etiketleri --- */
+  .pjourney__ends {
+    font-size: 11px;
+  }
+}
+
+/* Çok dar ekranlar (≤ 340 px) */
+@media (max-width: 340px) {
+  .fopt {
+    flex: 1 1 100%;
+  }
+  .ftr__top {
+    grid-template-columns: 1fr;
+  }
+  }

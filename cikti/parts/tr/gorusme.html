@@ -1,0 +1,75 @@
+<section class="final section--dark" id="gorusme" aria-labelledby="final-h">
+  <div class="final__bg" aria-hidden="true">
+    <img src="{ASSETS}/img/20-mezuniyet-ve-gelecek.webp" alt="" loading="lazy" decoding="async" srcset="{ASSETS}/img/20-mezuniyet-ve-gelecek-760.webp 760w, {ASSETS}/img/20-mezuniyet-ve-gelecek.webp 1672w" sizes="(max-width: 900px) 92vw, 640px" width="1672" height="941">
+  </div>
+  <div class="shell final__inner">
+    <div class="final__copy">
+      <p class="eyebrow" data-reveal="up-sm">Son adım</p>
+      <h2 class="display h-xl split-mask" id="final-h" data-split>Hangi programın size uygun olduğundan emin değil misiniz?</h2>
+      <p class="lede" data-reveal="up" data-reveal-delay="500">
+        Akademik geçmişinizi ve hedeflerinizi birlikte değerlendirelim. Ön görüşme ücretsizdir
+        ve sizi hiçbir şeye bağlamaz.
+      </p>
+    </div>
+
+    <form class="final__form" novalidate data-lead-form>
+      <p class="final__form-title">Ücretsiz ön görüşme talebi</p>
+
+      <div class="final__row">
+        <label class="field">
+          <span class="field__label">Ad soyad <span class="field__req" aria-hidden="true">*</span></span>
+          <input class="field__ctl" name="ad" type="text" autocomplete="name" required aria-describedby="err-ad">
+          <span class="field__err" id="err-ad" role="alert"></span>
+        </label>
+        <label class="field">
+          <span class="field__label">Telefon <span class="field__req" aria-hidden="true">*</span></span>
+          <input class="field__ctl" name="tel" type="tel" inputmode="tel" placeholder="+90 5XX XXX XX XX" autocomplete="tel" required aria-describedby="err-tel">
+          <span class="field__err" id="err-tel" role="alert"></span>
+        </label>
+      </div>
+
+      <div class="final__row">
+        <label class="field">
+          <span class="field__label">E-posta <span class="field__req" aria-hidden="true">*</span></span>
+          <input class="field__ctl" name="eposta" type="email" autocomplete="email" required aria-describedby="err-eposta">
+          <span class="field__err" id="err-eposta" role="alert"></span>
+        </label>
+        <label class="field">
+          <span class="field__label">İlgilendiğiniz seviye</span>
+          <select class="field__ctl" name="seviye">
+            <option value="">Seçiniz</option>
+            <option>Hazırlık</option><option>Lisans</option><option>Yüksek lisans</option><option>Tıp / diş / eczacılık</option><option>Henüz emin değilim</option>
+          </select>
+        </label>
+      </div>
+
+      <label class="check">
+        <input type="checkbox" name="kvkk" required>
+        <span>Kişisel verilerimin, ön görüşme talebimi değerlendirmek amacıyla işlenmesini kabul ediyorum.
+          <a href="{LINK:kvkk-aydinlatma}" target="_blank" rel="noopener">KVKK Aydınlatma Metni</a></span>
+      </label>
+      <span class="field__err" id="err-kvkk" role="alert"></span>
+
+      <button class="btn btn--primary btn--lg final__submit" type="submit" data-magnetic>
+        <span class="btn__label"><span data-t="Ücretsiz Ön Görüşme Al">Ücretsiz Ön Görüşme Al</span></span>
+      </button>
+
+      <p class="final__alt">
+        Yazmayı tercih ederseniz:
+        <a class="link" href="https://wa.me/" data-wa>WhatsApp'tan sorun</a>
+      </p>
+
+      <!-- Gizli attribution alanları — PRD §13 -->
+      <input type="hidden" name="ilk_kaynak"><input type="hidden" name="son_kaynak">
+      <input type="hidden" name="giris_sayfasi"><input type="hidden" name="lead_sayfasi">
+      <input type="hidden" name="ilgi_program"><input type="hidden" name="gclid">
+
+      <div class="final__done" data-form-done hidden role="status">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
+        <h3>Talebiniz alındı</h3>
+        <p>Danışmanımız çalışma saatleri içinde size dönecek. Dilerseniz görüşmeyi hemen WhatsApp'tan sürdürebilirsiniz.</p>
+        <a class="btn btn--wa" href="https://wa.me/" data-wa><span class="btn__label"><span data-t="WhatsApp'tan devam et">WhatsApp'tan devam et</span></span></a>
+      </div>
+    </form>
+  </div>
+</section>

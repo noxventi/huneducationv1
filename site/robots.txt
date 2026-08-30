@@ -1,0 +1,38 @@
+# https://huneducation.com/
+# Bu alan adi yalnizca Ingilizce icerigi sunar; diger dil ayri alan adinda.
+
+User-agent: *
+Allow: /
+
+# Filtre ve siralama varyasyonlari indekslenmez; kanonik sayfa
+# parametresiz surumdur (PRD 11.6).
+Disallow: /*?q=
+Disallow: /*?sirala=
+
+# Yapay zeka tarayicilari icin acik izin (GEO): iceriklerimizin
+# yanitlarda kaynak gosterilerek kullanilmasini istiyoruz.
+User-agent: GPTBot
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Claude-User
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+Sitemap: https://huneducation.com/sitemap.xml

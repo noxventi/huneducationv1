@@ -1,0 +1,498 @@
+{
+ "sehirler": {
+  "budapest": [
+   "Budapest",
+   "Budapeşte"
+  ],
+  "debrecen": [
+   "Debrecen",
+   "Debrecen"
+  ],
+  "szeged": [
+   "Szeged",
+   "Szeged"
+  ],
+  "pecs": [
+   "Pécs",
+   "Pécs"
+  ],
+  "miskolc": [
+   "Miskolc",
+   "Miskolc"
+  ],
+  "dunaujvaros": [
+   "Dunaújváros",
+   "Dunaújváros"
+  ],
+  "nyiregyhaza": [
+   "Nyíregyháza",
+   "Nyíregyháza"
+  ],
+  "kecskemet": [
+   "Kecskemét",
+   "Kecskemét"
+  ]
+ },
+ "alanlar": {
+  "tarim": [
+   "Agricultural and Food Sciences",
+   "Tarım ve Gıda Bilimleri"
+  ],
+  "sanat": [
+   "Art (Music & Visual Arts)",
+   "Sanat (Müzik ve Görsel Sanatlar)"
+  ],
+  "isletme": [
+   "Business and Economics",
+   "İşletme ve Ekonomi"
+  ],
+  "iletisim": [
+   "Communication and Media",
+   "İletişim ve Medya"
+  ],
+  "kultur": [
+   "Cultural Sciences and Education",
+   "Kültür Bilimleri ve Eğitim"
+  ],
+  "muhendislik": [
+   "Engineering and Architecture",
+   "Mühendislik ve Mimarlık"
+  ],
+  "saglik": [
+   "Health Sciences",
+   "Sağlık Bilimleri"
+  ],
+  "beseri-sosyal": [
+   "Humanities and Social Sciences",
+   "Beşeri ve Sosyal Bilimler"
+  ],
+  "uluslararasi": [
+   "International Relations",
+   "Uluslararası İlişkiler"
+  ],
+  "it": [
+   "IT (Information Technology)",
+   "IT (Bilgi Teknolojisi)"
+  ],
+  "dil": [
+   "Language Studies",
+   "Dil Bilimleri"
+  ],
+  "hukuk": [
+   "Law",
+   "Hukuk"
+  ],
+  "tipalan": [
+   "Medicine, Dentistry, Pharmacy",
+   "Tıp, Diş Hekimliği, Eczacılık"
+  ],
+  "pilot": [
+   "Pilot Training",
+   "Pilotaj"
+  ],
+  "hazirlikalan": [
+   "Preparatory",
+   "Hazırlık"
+  ],
+  "bilim": [
+   "Science (Maths, Biology, Chemistry)",
+   "Bilim (Matematik, Biyoloji, Kimya)"
+  ],
+  "spor": [
+   "Sport Sciences",
+   "Spor Bilimleri"
+  ],
+  "turizm": [
+   "Tourism",
+   "Turizm"
+  ]
+ },
+ "turler": {
+  "devlet": [
+   "State",
+   "Devlet"
+  ],
+  "devlet-vakif": [
+   "State and Foundation",
+   "Devlet ve Vakıf"
+  ],
+  "ozel": [
+   "Private",
+   "Özel"
+  ],
+  "belirtilmemis": [
+   "Not stated",
+   "Belirtilmemiş"
+  ]
+ },
+ "seviyeler": {
+  "yukseklisans": [
+   "Master's (MA/MSc)",
+   "Yüksek Lisans (MA/MSc)"
+  ],
+  "lisans": [
+   "Bachelor's (BA/BSc)",
+   "Lisans (BA/BSc)"
+  ],
+  "tip": [
+   "Medicine (M.D.)",
+   "Tıp (M.D.)"
+  ],
+  "dis": [
+   "Dentistry (D.M.D.)",
+   "Diş Hekimliği (D.M.D.)"
+  ],
+  "eczacilik": [
+   "Pharmacy (PharmD)",
+   "Eczacılık (PharmD)"
+  ],
+  "butunlesik": [
+   "One-tier Master",
+   "Bütünleşik Program"
+  ],
+  "hazirlik": [
+   "Foundation",
+   "Bölüm Hazırlık"
+  ],
+  "dilhazirlik": [
+   "English Language Preparatory",
+   "İngilizce Dil Hazırlık"
+  ],
+  "combo": [
+   "Combo Preparatory",
+   "Combo Hazırlık"
+  ],
+  "macarca": [
+   "Hungarian Language Preparatory",
+   "Macar Dili Hazırlık"
+  ]
+ },
+ "programSayisi": 490,
+ "universiteler": [
+  {
+   "id": 1276,
+   "en": "Budapest Business School (BGE)",
+   "tr": "Budapeşte Ekonomi Üniversitesi (BGE)",
+   "sehir": "budapest",
+   "tur": "devlet",
+   "kurulus": "1857",
+   "alanlar": [
+    "isletme",
+    "turizm",
+    "iletisim",
+    "uluslararasi"
+   ],
+   "programSayisi": 12
+  },
+  {
+   "id": 988,
+   "en": "Budapest Metropolitan University (METU)",
+   "tr": "Budapeşte Metropolitan Üniversitesi (METU)",
+   "sehir": "budapest",
+   "tur": "devlet",
+   "kurulus": "2000",
+   "alanlar": [
+    "isletme",
+    "hazirlikalan",
+    "sanat",
+    "iletisim",
+    "turizm",
+    "uluslararasi"
+   ],
+   "programSayisi": 25
+  },
+  {
+   "id": 3086,
+   "en": "Budapest University of Technology & Economics (BME)",
+   "tr": "Budapeşte Teknoloji ve Ekonomi Üniversitesi",
+   "sehir": "budapest",
+   "tur": "devlet",
+   "kurulus": "1782",
+   "alanlar": [
+    "muhendislik",
+    "bilim",
+    "isletme",
+    "sanat",
+    "pilot"
+   ],
+   "programSayisi": 32
+  },
+  {
+   "id": 991,
+   "en": "Corvinus University of Budapest",
+   "tr": "Budapeşte Corvinus Üniversitesi",
+   "sehir": "budapest",
+   "tur": "devlet-vakif",
+   "kurulus": "1920",
+   "alanlar": [
+    "isletme",
+    "kultur",
+    "hazirlikalan",
+    "iletisim",
+    "uluslararasi"
+   ],
+   "programSayisi": 28
+  },
+  {
+   "id": 1279,
+   "en": "Eötvös Loránd University (ELTE)",
+   "tr": "Eötvös Loránd Üniversitesi (ELTE)",
+   "sehir": "budapest",
+   "tur": "devlet",
+   "kurulus": "1634",
+   "alanlar": [
+    "beseri-sosyal",
+    "muhendislik",
+    "kultur",
+    "it",
+    "bilim",
+    "isletme",
+    "uluslararasi",
+    "hazirlikalan"
+   ],
+   "programSayisi": 57
+  },
+  {
+   "id": 987,
+   "en": "International Business School (IBS)",
+   "tr": "Budapeşte Uluslararası İşletme Okulu (IBS)",
+   "sehir": "budapest",
+   "tur": "ozel",
+   "kurulus": "1991",
+   "alanlar": [
+    "isletme",
+    "hazirlikalan",
+    "beseri-sosyal",
+    "it"
+   ],
+   "programSayisi": 19
+  },
+  {
+   "id": 1290,
+   "en": "John von Neumann University",
+   "tr": "John von Neumann Üniversitesi",
+   "sehir": "kecskemet",
+   "tur": "devlet",
+   "kurulus": "2016",
+   "alanlar": [
+    "muhendislik",
+    "tarim",
+    "isletme"
+   ],
+   "programSayisi": 7
+  },
+  {
+   "id": 3580,
+   "en": "Kodolanyi Janos University",
+   "tr": "Kodolanyi Janos Üniversitesi",
+   "sehir": "budapest",
+   "tur": "belirtilmemis",
+   "kurulus": "1992",
+   "alanlar": [
+    "isletme",
+    "turizm",
+    "muhendislik"
+   ],
+   "programSayisi": 8
+  },
+  {
+   "id": 3622,
+   "en": "McDaniel College Budapest",
+   "tr": "McDaniel College Budapest",
+   "sehir": "budapest",
+   "tur": "belirtilmemis",
+   "kurulus": "1994",
+   "alanlar": [
+    "tipalan",
+    "sanat",
+    "iletisim",
+    "uluslararasi",
+    "beseri-sosyal",
+    "isletme"
+   ],
+   "programSayisi": 8
+  },
+  {
+   "id": 986,
+   "en": "Semmelweis University (SOTE)",
+   "tr": "Semmelweis Üniversitesi (SOTE)",
+   "sehir": "budapest",
+   "tur": "belirtilmemis",
+   "kurulus": "1769",
+   "alanlar": [
+    "saglik",
+    "tipalan"
+   ],
+   "programSayisi": 19
+  },
+  {
+   "id": 10668,
+   "en": "The Hungarian University of Sports Science",
+   "tr": "Macaristan Spor Bilimleri Üniversitesi",
+   "sehir": "budapest",
+   "tur": "devlet",
+   "kurulus": "1925",
+   "alanlar": [
+    "spor"
+   ],
+   "programSayisi": 8
+  },
+  {
+   "id": 3569,
+   "en": "University of Debrecen",
+   "tr": "Debrecen Üniversitesi",
+   "sehir": "debrecen",
+   "tur": "devlet",
+   "kurulus": "1538",
+   "alanlar": [
+    "muhendislik",
+    "bilim",
+    "tarim",
+    "isletme",
+    "it",
+    "sanat",
+    "beseri-sosyal",
+    "kultur",
+    "hazirlikalan",
+    "hukuk"
+   ],
+   "programSayisi": 67
+  },
+  {
+   "id": 1286,
+   "en": "University of Dunaújváros (UOD)",
+   "tr": "Dunaújváros Üniversitesi (UOD)",
+   "sehir": "dunaujvaros",
+   "tur": "devlet",
+   "kurulus": "1951",
+   "alanlar": [
+    "muhendislik",
+    "isletme",
+    "iletisim",
+    "it"
+   ],
+   "programSayisi": 8
+  },
+  {
+   "id": 10506,
+   "en": "University of Miskolc",
+   "tr": "Miskolc Üniversitesi",
+   "sehir": "miskolc",
+   "tur": "devlet",
+   "kurulus": "1949",
+   "alanlar": [
+    "muhendislik",
+    "isletme",
+    "dil",
+    "saglik",
+    "sanat",
+    "kultur",
+    "uluslararasi"
+   ],
+   "programSayisi": 25
+  },
+  {
+   "id": 1288,
+   "en": "University of Nyíregyháza (NYE)",
+   "tr": "Nyíregyháza Üniversitesi (NYE)",
+   "sehir": "nyiregyhaza",
+   "tur": "devlet",
+   "kurulus": "2000",
+   "alanlar": [
+    "bilim",
+    "muhendislik",
+    "tarim",
+    "kultur",
+    "beseri-sosyal",
+    "hazirlikalan",
+    "sanat",
+    "isletme",
+    "it"
+   ],
+   "programSayisi": 17
+  },
+  {
+   "id": 989,
+   "en": "University of Pécs (PTE)",
+   "tr": "Peç Üniversitesi (PTE)",
+   "sehir": "pecs",
+   "tur": "devlet-vakif",
+   "kurulus": "1367",
+   "alanlar": [
+    "beseri-sosyal",
+    "sanat",
+    "bilim",
+    "saglik",
+    "muhendislik",
+    "isletme",
+    "tipalan",
+    "uluslararasi",
+    "kultur",
+    "hazirlikalan",
+    "it"
+   ],
+   "programSayisi": 81
+  },
+  {
+   "id": 9192,
+   "en": "University of Szeged (SZTE)",
+   "tr": "Szeged Üniversitesi (SZTE)",
+   "sehir": "szeged",
+   "tur": "devlet",
+   "kurulus": "1872",
+   "alanlar": [
+    "sanat",
+    "beseri-sosyal",
+    "muhendislik",
+    "bilim",
+    "saglik",
+    "isletme",
+    "hukuk",
+    "uluslararasi",
+    "turizm",
+    "tipalan",
+    "tarim",
+    "it"
+   ],
+   "programSayisi": 52
+  },
+  {
+   "id": 1272,
+   "en": "University of Veterinary Medicine (UNIVET)",
+   "tr": "Veteriner Hekimliği Üniversitesi (UNIVET)",
+   "sehir": "budapest",
+   "tur": "devlet",
+   "kurulus": "1787",
+   "alanlar": [
+    "saglik"
+   ],
+   "programSayisi": 1
+  },
+  {
+   "id": 943,
+   "en": "Wekerle Business School (WBS)",
+   "tr": "Wekerle Business School (WBS)",
+   "sehir": "budapest",
+   "tur": "ozel",
+   "kurulus": "2008",
+   "alanlar": [],
+   "programSayisi": 0
+  },
+  {
+   "id": 1283,
+   "en": "Óbuda University",
+   "tr": "Óbuda Üniversitesi",
+   "sehir": "budapest",
+   "tur": "devlet",
+   "kurulus": "1878",
+   "alanlar": [
+    "muhendislik",
+    "isletme",
+    "bilim",
+    "sanat",
+    "it"
+   ],
+   "programSayisi": 16
+  }
+ ]
+}

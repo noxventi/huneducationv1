@@ -1,0 +1,223 @@
+/* ============================================================
+   HUN EDUCATION — Design Tokens
+   Renk karakteri logodan türetildi (lacivert → kobalt geçişi).
+   Aksiyon rengi, lacivert üzerinde 4.5:1 üstü kontrast verecek
+   sıcak kor tonu olarak seçildi.
+   ============================================================ */
+
+/* ---- Self-hosted variable fonts (latin + latin-ext = tam TR desteği) ---- */
+@font-face {
+  font-family: 'Jakarta';
+  src: url('../fonts/jakarta-latin-ext.woff2') format('woff2');
+  font-weight: 200 800;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF,
+    U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020,
+    U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: 'Jakarta';
+  src: url('../fonts/jakarta-latin.woff2') format('woff2');
+  font-weight: 200 800;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
+    U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193,
+    U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'InterVar';
+  src: url('../fonts/inter-latin-ext.woff2') format('woff2');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF,
+    U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020,
+    U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: 'InterVar';
+  src: url('../fonts/inter-latin.woff2') format('woff2');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
+    U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193,
+    U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Mono';
+  src: url('../fonts/jbmono-latin-ext.woff2') format('woff2');
+  font-weight: 100 800;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF,
+    U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020,
+    U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: 'Mono';
+  src: url('../fonts/jbmono-latin.woff2') format('woff2');
+  font-weight: 100 800;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
+    U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193,
+    U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+:root {
+  /* ---------- Renk ---------- */
+  --void: #05071a;
+  --navy-950: #080c26;
+  --navy-900: #0d1338;
+  --navy-800: #141c4d;
+  --navy-700: #1d2769;
+  --cobalt-600: #2c37b4;
+  --cobalt-500: #4650e0;
+  --cobalt-400: #6f79f7;
+  --cobalt-300: #9aa2ff;
+
+  --ember-600: #e8431f;
+  --ember-500: #ff5a36;
+  --ember-400: #ff8158;
+  --gold-400: #f5b942;
+
+  --paper: #f7f6f2;
+  --paper-dim: #edece6;
+  --mist-200: #e3e7f2;
+  --mist-300: #ccd3e8;
+  --slate-500: #5b6488;
+
+  --wa-green: #25d366;
+
+  /* Semantik */
+  --bg: var(--paper);
+  --bg-deep: var(--navy-950);
+  --fg: var(--navy-900);
+  --fg-soft: #414a72;
+  /* #6d7699 beyaz üzerinde 4.47:1 ölçüyordu — küçük metin için AA sınırı
+     4.5:1. Bir tık koyulaştırıldı: 4.77:1. */
+  --fg-mute: #69728f;
+  --on-dark: #f2f4ff;
+  --on-dark-soft: #b6bddd;
+  --on-dark-mute: #7a83ad;
+  --line: color-mix(in oklab, var(--navy-900) 12%, transparent);
+  --line-dark: color-mix(in oklab, #ffffff 13%, transparent);
+  --accent: var(--ember-500);
+
+  /* ---------- Tipografi ---------- */
+  --font-display: 'Jakarta', 'Segoe UI', system-ui, sans-serif;
+  --font-body: 'InterVar', 'Segoe UI', system-ui, sans-serif;
+  --font-mono: 'Mono', ui-monospace, 'Cascadia Mono', monospace;
+
+  /* Akışkan ölçek — 360px → 1600px arası */
+  --step--2: clamp(0.72rem, 0.70rem + 0.10vw, 0.78rem);
+  --step--1: clamp(0.83rem, 0.79rem + 0.18vw, 0.94rem);
+  --step-0: clamp(1rem, 0.96rem + 0.20vw, 1.125rem);
+  --step-1: clamp(1.19rem, 1.11rem + 0.38vw, 1.44rem);
+  --step-2: clamp(1.41rem, 1.27rem + 0.66vw, 1.85rem);
+  --step-3: clamp(1.68rem, 1.44rem + 1.09vw, 2.37rem);
+  --step-4: clamp(2rem, 1.62rem + 1.71vw, 3.05rem);
+  --step-5: clamp(2.38rem, 1.79rem + 2.61vw, 3.9rem);
+  --step-6: clamp(2.83rem, 1.94rem + 3.9vw, 5rem);
+  --step-7: clamp(3.36rem, 2.03rem + 5.7vw, 6.4rem);
+  --step-8: clamp(4rem, 1.96rem + 8.4vw, 8.4rem);
+
+  /* ---------- Uzay ---------- */
+  --sp-1: 0.25rem;
+  --sp-2: 0.5rem;
+  --sp-3: 0.75rem;
+  --sp-4: 1rem;
+  --sp-5: 1.5rem;
+  --sp-6: 2rem;
+  --sp-7: 3rem;
+  --sp-8: 4rem;
+  --sp-9: 6rem;
+  --sp-10: 8rem;
+  --section-y: clamp(4.5rem, 9vw, 9.5rem);
+
+  /* ---------- Yerleşim ---------- */
+  --gutter: clamp(1.25rem, 4vw, 3.5rem);
+  --maxw: 1360px;
+  --maxw-text: 68ch;
+  --radius-s: 8px;
+  --radius-m: 14px;
+  --radius-l: 24px;
+  --radius-xl: 34px;
+  --header-h: 72px;
+
+  /* ---------- Logo ----------
+     logo2.png = 250×70 yatay lockup. Ölçülen iç geometri:
+       kuş  : y 0–69  → kutunun tamamı
+       yazı : y 27–53 → kutunun %39'u, cap-height 24/70
+       yazının optik merkezi y=40, kutu merkezi y=35 → %7,1 aşağıda
+     Boyut kutuya göre değil LOGOTYPE CAP-HEIGHT'ine göre seçildi:
+       menü metni 13,6px → cap-height ≈9,8px
+       40px kutu → logotype cap-height 13,7px = menünün 1,40 katı
+     (tipografik hiyerarşide markanın önerilen oranı 1,3–1,5×)
+     Tek sayıdan ayarlanır; genişlik ve hizalama kendiliğinden takip eder. */
+  --logo-h: 40px;
+  --logo-h-compact: 36px;
+  /* Yazıyı menüyle aynı optik hizaya getiren telafi (bkz. %7,1) */
+  --logo-optical: -7.1%;
+
+  /* ---------- Hareket ---------- */
+  --e-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --e-in-out: cubic-bezier(0.76, 0, 0.24, 1);
+  --e-soft: cubic-bezier(0.33, 1, 0.68, 1);
+  --e-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --t-fast: 150ms;
+  --t-base: 220ms;
+  --t-slow: 420ms;
+  --t-curtain: 900ms;
+
+  /* ---------- Gölge ---------- */
+  --sh-1: 0 1px 2px rgb(8 12 38 / 0.05), 0 2px 8px rgb(8 12 38 / 0.04);
+  --sh-2: 0 2px 6px rgb(8 12 38 / 0.06), 0 12px 28px -8px rgb(8 12 38 / 0.10);
+  --sh-3: 0 4px 12px rgb(8 12 38 / 0.08), 0 26px 60px -16px rgb(8 12 38 / 0.20);
+  /* Birincil aksiyon gölgesi — buton sistemiyle aynı mavi ailede */
+  --sh-glow: 0 10px 34px -12px rgb(44 55 180 / 0.55);
+  --sh-glow-strong: 0 16px 44px -12px rgb(44 55 180 / 0.68);
+
+  /* Scroll motoru tarafından yazılan global değişkenler */
+  --scroll-y: 0;
+  --scroll-vel: 0;
+  --vh: 1vh;
+}
+
+/* Küçük ekranda header daha kompakt */
+@media (max-width: 760px) {
+  :root {
+    --header-h: 64px;
+    --logo-h: 36px;
+    --logo-h-compact: 36px;
+
+    /* Mobilde en küçük iki kademe yükseltilir.
+       Masaüstünde 11,5 px'lik bir etiket sorun değil; telefonda kolda
+       tutulan bir ekranda aynı boyut okunmuyor. Bu iki değişken chip,
+       tablo alt bilgisi, footer ve meta metinlerinin tamamını besliyor. */
+    --step--2: 0.8rem;
+    --step--1: 0.875rem;
+
+    /* Bölüm nefesi mobilde bir tık daralır; ekranda daha çok içerik kalır */
+    --section-y: clamp(3.25rem, 11vw, 4.5rem);
+  }
+}
+@media (max-width: 420px) {
+  :root {
+    --logo-h: 32px;
+    --logo-h-compact: 32px;
+  }
+}
+
+/* Hareket azaltma: tüm scroll-bağlı hareket kapanır, içerik anında görünür. */
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --t-fast: 1ms;
+    --t-base: 1ms;
+    --t-slow: 1ms;
+    --t-curtain: 1ms;
+  }
+}
