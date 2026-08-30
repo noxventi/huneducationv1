@@ -1,0 +1,262 @@
+{
+  "summary": {
+    "health_score": 69,
+    "previous_score": 31,
+    "audit_date": "2026-08-30",
+    "business_type": "Education consultancy / programme catalogue (agency + publisher hybrid)",
+    "pages_sampled": 94,
+    "estimated_site_size": 1114,
+    "top_findings": [
+      "Otorite tavani: PageRank sirasi 19.666.393 - studyinhungary.hu 399.605. Bas terimlerde kisa vadede yarisilamaz.",
+      "965 basvuru tarihinin tamami gecmis; en yenisi 2026-06-30, bugunden iki ay once.",
+      "984 programin 338'inde hic icerik yok (50 karakterden kisa).",
+      "Turkce program sayfalarinin hicbirinde meta aciklama yok (olculen 18/18 bos).",
+      "44 render engelleyici stil dosyasi ve sayfa onbellegi yok; TTFB 0,74-1,23 s."
+    ],
+    "quick_wins": [
+      "~1.100 program ve universite sayfasina alan verisinden meta aciklama uret.",
+      "IndexNow kur; 58 yeni merkez sayfasi ve 506 degisen TR adresini gonder.",
+      "hreflang'i eksik iki TR program sayfasini tamamla.",
+      "Gorselleri WebP'ye cevir; dort gorsele width/height ekle.",
+      "http://www zincirini iki atlamadan bire indir."
+    ]
+  },
+  "categories": [
+    {
+      "name": "Technical SEO",
+      "score": 81,
+      "what_works": [
+        "Indekslenebilirlik neredeyse kusursuz: 13 sayfa tipinin hepsinde index/follow, kendine canonical, tam 1 H1, 3 hreflang",
+        "Parametreli URL'ler temiz adrese canonical'laniyor; kopya icerik riski yok",
+        "SSR: H1, JSON-LD ve canonical ham HTML'de; JS render riski yok",
+        "22/22 ic baglanti saglam; 404 gercekten 404 donuyor",
+        "Sitemap robots.txt'de bildirilmis: 563 EN + 551 TR URL"
+      ],
+      "findings": [
+        {
+          "title": "Sayfa onbellegi yok, TTFB 0,74-1,23 s",
+          "severity": "High",
+          "description": "Dort olcumun ucu Google'in 800 ms esiginin ustunde. Aktif onbellek eklentisi yok; her istek tam PHP calistiriyor. PixelYourSite her istekte session_start cagirdigi icin korlemesine onbellek acmak oturum sizintisi riski tasir.",
+          "recommendation": "Once oturumun gercekten gerekli olup olmadigini incele; ardindan oturum tasiyan istekleri muaf tutan bir onbellek kur."
+        },
+        {
+          "title": "44 render engelleyici stil dosyasi",
+          "severity": "High",
+          "description": "head icinde 44 stylesheet, sayfa genelinde 49. Ayrica 51 script ve 593 KB JS. preload 0, fetchpriority 0.",
+          "recommendation": "Elementor Improved CSS Loading ayarini ac; LCP gorseline preload ve fetchpriority=high ver."
+        },
+        {
+          "title": "IndexNow yapilandirilmamis",
+          "severity": "Medium",
+          "description": "/indexnow.txt 404 donuyor. Bing, Yandex ve Naver aninda indekslemeyi destekliyor.",
+          "recommendation": "Anahtar dosyasini kur; 58 yeni merkez sayfasi ve 506 degisen TR adresini gonder."
+        },
+        {
+          "title": "http://www iki atlamali yonlendirme",
+          "severity": "Low",
+          "description": "http://www once https://www adresine, sonra https:// adresine gidiyor. Diger uc varyant tek atlama.",
+          "recommendation": "Sunucu duzeyinde tek adima indir."
+        }
+      ]
+    },
+    {
+      "name": "Content Quality",
+      "score": 52,
+      "what_works": [
+        "Bilgi sayfalari guclu: EN ortalama 1.298, TR ortalama 1.316 kelime",
+        "Universite sayfalari 927-1.060 kelime",
+        "1999'dan beri tek ulkeye odaklanma net bir uzmanlik sinyali"
+      ],
+      "findings": [
+        {
+          "title": "338 programda hic icerik yok",
+          "severity": "Critical",
+          "description": "984 programin 338'inde post_content 50 karakterden kisa. Olculen program sayfalari 296-331 kelime; bu neredeyse tamamen sablon metni. Bu sayfalar kendi basliklari disinda hicbir sorgu icin yarisamaz.",
+          "recommendation": "Program basina 120-150 kelime ozgun metin: mufredat, giris sartlari, mezuniyet sonrasi. Once en yuksek hacimli 100 program."
+        },
+        {
+          "title": "965 basvuru tarihinin tamami gecmis",
+          "severity": "Critical",
+          "description": "course_application_deadline alani 984 programin 965'inde dolu; aralik 2023-07-31 ile 2026-06-30. Bugun 2026-08-30. Katalogun tamami ziyaretciye kapanmis donem gosteriyor. Bu bir siralama sorunu degil, dogrudan gelir kaybi.",
+          "recommendation": "2026-27 tarihlerini toplu guncelle. Bu ayrica hasCourseInstance semasini acar."
+        },
+        {
+          "title": "Basvuru baslangic tarihi neredeyse hic yok",
+          "severity": "Medium",
+          "description": "course_application_start 984 programin yalnizca 22'sinde dolu; en yenisi 2024-09-01.",
+          "recommendation": "Son basvuru tarihiyle birlikte guncelle."
+        }
+      ]
+    },
+    {
+      "name": "On-Page SEO",
+      "score": 68,
+      "what_works": [
+        "H1'ler hedef ifadeye cevrildi; her sayfada tam 1 adet",
+        "60 karakter ustu baslik EN tarafinda 47'de 3",
+        "Ic baglanti yogunlugu iyi: sayfa basina ortalama 30-45 ic baglanti"
+      ],
+      "findings": [
+        {
+          "title": "Turkce program sayfalarinda meta aciklama yok",
+          "severity": "High",
+          "description": "Olculen 18 TR program sayfasinin 18'inde de meta aciklama bos. Ingilizce tarafta 18'in yalnizca 6'sinda var. Ekstrapolasyon: yaklasik 1.100 sayfa aciklamasiz.",
+          "recommendation": "Arsivlerde kurulan desenin aynisiyla alan verisinden dile duyarli aciklama uret."
+        },
+        {
+          "title": "TR basliklari uzun",
+          "severity": "Low",
+          "description": "TR tarafinda 47 sayfanin 8'inde title 60 karakteri asiyor.",
+          "recommendation": "Uzun program adlarinda kisaltma kurali uygula."
+        },
+        {
+          "title": "Iki TR program sayfasinda hreflang eksik",
+          "severity": "Low",
+          "description": "makine-muhendisligi-miscolc ve neo-latin-dilleri-ve-kulturleri sayfalarinda karsilik yok.",
+          "recommendation": "Eksik cevirileri tamamla ya da hreflang'i tek dilli birak."
+        }
+      ]
+    },
+    {
+      "name": "Schema / Structured Data",
+      "score": 88,
+      "what_works": [
+        "Course semasi 18/18 program sayfasinda, iki dilde de",
+        "CollegeOrUniversity 6/6 universite sayfasinda",
+        "Organization, WebSite, BreadcrumbList, ContactPoint, PostalAddress her sayfada"
+      ],
+      "findings": [
+        {
+          "title": "hasCourseInstance yok",
+          "severity": "Medium",
+          "description": "Google'in Course zengin sonucu bunu istiyor ama gecerli olmasi icin gelecek tarihli donem bilgisi gerekiyor; 965 tarihin tamami gecmis. Uydurma veri basmaktansa alan bilerek atlandi.",
+          "recommendation": "2026-27 tarihleri girilince tek seferde ekle."
+        },
+        {
+          "title": "Review / AggregateRating yok",
+          "severity": "Medium",
+          "description": "Ogrenci gorusleri sayfasi var ama yapisal veriye bagli degil.",
+          "recommendation": "Gercek ve dogrulanabilir gorusleri Review semasiyla isaretle."
+        }
+      ]
+    },
+    {
+      "name": "Performance (CWV)",
+      "score": 55,
+      "what_works": [
+        "Sayfa agirliklari makul: 134-676 KB, Googlebot 2 MB sinirinin cok altinda"
+      ],
+      "findings": [
+        {
+          "title": "Gercek CWV olculemedi",
+          "severity": "Info",
+          "description": "CrUX saha verisi API anahtari olmadigi icin alinamadi. 55 puan gercek CWV degil; TTFB, render engelleyici varlik sayisi ve JS agirligi gibi vekil gostergelerin skorudur.",
+          "recommendation": "GOOGLE_API_KEY tanimla; saha verisi acilir ve bu kategori tahmin olmaktan cikar."
+        }
+      ]
+    },
+    {
+      "name": "AI Search Readiness (GEO)",
+      "score": 82,
+      "what_works": [
+        "llms.txt iki dilde, 200 ile ve yonlendirmesiz",
+        "Varlik tanimi net: Organization, legalName, foundingDate, adres, sameAs",
+        "SSR sayesinde tum icerik ham HTML'de",
+        "Tum yapay zeka tarayicilarina izin veriliyor"
+      ],
+      "findings": [
+        {
+          "title": "Alintilanabilir olgusal blok az",
+          "severity": "Medium",
+          "description": "Program sayfalari uretken motorlarin alintilayacagi yogunlukta olgu tasimiyor; ucret, sure ve sehir disinda veri yok.",
+          "recommendation": "Giris sartlari ve mezuniyet ciktilarini kisa, olgusal cumlelerle ekle."
+        }
+      ]
+    },
+    {
+      "name": "Images",
+      "score": 70,
+      "what_works": [
+        "15/15 gorselde alt metni var",
+        "12/15 lazy yukleme"
+      ],
+      "findings": [
+        {
+          "title": "Modern format kullanilmiyor",
+          "severity": "Medium",
+          "description": "Olculen 15 gorselin hicbiri WebP veya AVIF degil.",
+          "recommendation": "WebP'ye cevir; ayni kalitede yuzde 25-35 kuculme."
+        },
+        {
+          "title": "Dort gorselde boyut belirtilmemis",
+          "severity": "Medium",
+          "description": "15 gorselin 11'inde width ve height var, dordunde yok - duzen kaymasi riski.",
+          "recommendation": "Tum gorsellere acik boyut ekle."
+        }
+      ]
+    }
+  ],
+  "action_plan": {
+    "phases": [
+      {
+        "name": "Faz 1: Varliklari yarisabilir hale getir",
+        "timeframe": "Bu hafta",
+        "items": [
+          "~1.100 program ve universite sayfasina alan verisinden meta aciklama uret",
+          "IndexNow kur; 58 merkez sayfasi ve 506 degisen TR adresini gonder",
+          "Iki TR program sayfasinin hreflang'ini tamamla",
+          "Gorselleri WebP'ye cevir, eksik width/height ekle",
+          "http://www zincirini bire indir"
+        ]
+      },
+      {
+        "name": "Faz 2: Donusumu ve icerigi ac",
+        "timeframe": "2-4 hafta",
+        "items": [
+          "2026-27 basvuru tarihlerini toplu guncelle (965 program)",
+          "Tarihler girilince hasCourseInstance semasini ekle",
+          "Icerigi bos 338 programin en yuksek hacimli 100'une 120-150 kelime ozgun metin",
+          "Sayfa onbellegini oturum guvenli bicimde devreye al",
+          "44 render engelleyici stil dosyasini azalt"
+        ]
+      },
+      {
+        "name": "Faz 3: Otorite",
+        "timeframe": "2-6 ay",
+        "items": [
+          "Macar universite ortaklarindan geri baglanti (.hu ve .edu)",
+          "Turkiye'deki egitim dizinleri ve ogrenci platformlarinda kayit",
+          "Danisman kadrosu adlari ve kimlik bilgileri (E-E-A-T)",
+          "Gercek ogrenci goruslerini Review semasiyla isaretle"
+        ]
+      },
+      {
+        "name": "Faz 4: Olcum",
+        "timeframe": "Surekli",
+        "items": [
+          "Search Console'u iki alan adi icin dogrula",
+          "GOOGLE_API_KEY tanimla; CrUX saha verisini ac",
+          "Her degisiklikten sonra baseline.py ve fark.py ile regresyon kontrolu",
+          "Otorite gostergesini ceyrekte bir Common Crawl ile olc"
+        ]
+      }
+    ]
+  },
+  "authority": {
+    "source": "Common Crawl web graph, cc-main-2026-jan-feb-mar",
+    "huneducation.com": {"pagerank_rank": 19666393, "harmonic_centrality_rank": 13997358, "n_hosts": 3},
+    "benchmarks": {
+      "studyinhungary.hu": {"pagerank_rank": 399605, "harmonic_centrality_rank": 518353},
+      "unipage.net": {"pagerank_rank": 517537, "harmonic_centrality_rank": 518302},
+      "studyineurope.eu": {"pagerank_rank": 1361137, "harmonic_centrality_rank": 529098}
+    }
+  },
+  "limitations": [
+    "CrUX saha verisi ve Search Console indeksleme durumu olculemedi: Google API kimlik bilgisi yok.",
+    "Laboratuvar boyama metrikleri (LCP, FCP) yakalanamadi; tarayici bolmesi gorunur boyutta degil.",
+    "Backlink verisi yalnizca Common Crawl alan adi duzeyinde; Moz ve Bing anahtarlari yok, yonlendiren alan adi listesi cikarilamadi.",
+    "94 sayfalik temsili ornek olculdu, 1.114 URL'nin tamami degil.",
+    "Bugun yapilan degisikliklerin siralama etkisi henuz olculemez; yeniden tarama ve indeksleme haftalar alir."
+  ],
+  "artifacts": {"findings_dir": "findings/", "screenshots_dir": "screenshots/"}
+}

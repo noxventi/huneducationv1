@@ -560,3 +560,61 @@ bu istek icin acikca iptal ediliyor.
 
 Dogrulandi: iki alan adinda da 200, `Content-Type: text/plain`,
 `X-Robots-Tag: noindex`, her biri kendi dilinde 33 satir.
+
+---
+
+## Tur 14 — Program ve universite meta aciklamalari (30 Agustos 2026)
+
+### Sorun
+Yoast'in `course` ve `university` icin `metadesc` sablonlari BOS. Sonuc: 984
+programin 846'sinda meta aciklama yok. Olculdu: Turkce program sayfalarinin
+18/18'inde bos, Ingilizce tarafta 18'in yalnizca 6'sinda var.
+
+### Cozum
+`hun-seo-meta-aciklamalar.php` - alan verisinden dile duyarli aciklama uretir.
+
+**Iki kural:**
+1. **Elle yazilmisa dokunulmaz.** 138 program ve 33 universitede insan eliyle
+   yazilmis Yoast aciklamasi var. Filtre yalnizca gelen deger BOSSA devreye
+   girer. Canlida dogrulandi: `medicine-bsc`, `tip-lisans`,
+   `2-semester-english-course-metropolitan` ve universite sayfalari kendi
+   metinlerini korudu.
+2. **Uydurma yok.** Metin yalnizca kayitli alanlardan kurulur: seviye,
+   universite (WPML ile dogru dilde), sehir, donem sayisi, ucret, para birimi,
+   kurulus yili, universite tipi. Verisi olmayan parca cumleye hic girmez.
+
+Son basvuru tarihi BILEREK kullanilmadi - 965 tarihin tamami gecmis.
+
+### Olculen sonuc
+| | Once | Sonra |
+|---|---|---|
+| huneducation.com (20 ornek) | 10/20 | **20/20** |
+| tr.huneducation.com (20 ornek) | 6/20 | **19/20** |
+
+Ortalama uzunluk: EN 131, TR 141 karakter.
+
+---
+
+## Tur 15 — Icerik tipi arsivleri indeks disi (30 Agustos 2026)
+
+Meta aciklama olcumu bir bosluk gosterdi: `/universite/` arsivinde aciklama
+yoktu. Incelendi ve daha buyuk bir sorun cikti.
+
+**Dort arsiv sayfasi** (`/course/`, `/university/`, `/kurs/`, `/universite/`):
+- Sitemap'te BIRINCI sirada
+- Ama ic baglanti sayisi **SIFIR** - hicbir sayfadan baglanti almiyorlar
+- Basliklari Turkce alan adinda bile Ingilizce: "Courses Archive - HunEducation"
+- H1'leri WordPress varsayilani: "Arsivler: Courses"
+- Meta aciklamalari yok
+- Ve `/courses/` ile `/kurslar/` curated sayfalariyla AYNI niyeti hedefliyorlar
+
+Yani kendi para sayfamizin zayif kopyasi indeksleniyordu.
+
+**Yapilan:** `noindex-ptarchive-course` ve `noindex-ptarchive-university`
+true yapildi. Yoast bunlari hem noindex isaretler hem sitemap'ten dusurur.
+
+**Dogrulandi:** arsivler `noindex, follow`; sitemap ilk girisi artik gercek bir
+program; `/courses/` ve `/kurslar/` etkilenmedi (hala `index, follow` ve bugun
+konulan H1'leriyle).
+
+Yedek: `wp-content/uploads/_seo-geri-alma-ptarchive.json`

@@ -1,0 +1,29 @@
+{
+  "url": "https://huneducation.com/",
+  "status_code": 200,
+  "render_error": null,
+  "html_findings": {
+    "real_buttons": 6,
+    "real_anchors": 169,
+    "div_onclick_widgets": 0,
+    "semantic_landmarks": 7,
+    "inputs_without_aria": 18,
+    "inputs_without_label": 0
+  },
+  "a11y_findings": {
+    "tree_present": true,
+    "total_nodes": 1825,
+    "interactive_nodes": 161,
+    "role_button": 39,
+    "role_link": 111,
+    "role_generic": 261,
+    "unnamed_interactive": 1
+  },
+  "score": 97,
+  "score_status": "complete",
+  "partial": false,
+  "partial_reasons": [],
+  "issues": [
+    "1 interactive node(s) without accessible name (-3)"
+  ]
+}

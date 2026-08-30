@@ -1,0 +1,11 @@
+BIZ  macaristanda-universite-okumak      7283
+BIZ  kurslar (katalog)                  40282
+BIZ  macaristan-universiteleri           8220
+elt.com.tr                               9133
+macaristandauniversite.com               5007
+gedu.com.tr                             11910
+iecc.com.tr                              6099
+unioku.com                               5800
+icesturkey.com                          20510
+academix.com.tr                         14805
+deltaegitim.com.tr                      30173

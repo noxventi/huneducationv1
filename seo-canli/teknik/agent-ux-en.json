@@ -1,0 +1,24 @@
+{
+  "url": "https://huneducation.com/",
+  "status_code": 200,
+  "render_error": null,
+  "html_findings": {
+    "real_buttons": 6,
+    "real_anchors": 169,
+    "div_onclick_widgets": 0,
+    "semantic_landmarks": 7,
+    "inputs_without_aria": 18,
+    "inputs_without_label": 0
+  },
+  "a11y_findings": {
+    "tree_present": false,
+    "total_nodes": 0,
+    "interactive_nodes": 0,
+    "role_button": 0,
+    "role_link": 0,
+    "role_generic": 0,
+    "unnamed_interactive": 0
+  },
+  "score": 100,
+  "issues": []
+}

@@ -1,0 +1,18 @@
+{
+ "huneducation.com": {
+  "olculen": 20,
+  "aciklamasi_var": 20,
+  "yok": 0,
+  "ort_uzunluk": 131,
+  "min": 119,
+  "max": 157
+ },
+ "tr.huneducation.com": {
+  "olculen": 20,
+  "aciklamasi_var": 19,
+  "yok": 1,
+  "ort_uzunluk": 141,
+  "min": 111,
+  "max": 168
+ }
+}
