@@ -711,3 +711,58 @@ girince bu blok kaldirilmali.
 Site, arama motorlarinin ziyaretini kaldiramiyor. SEO'nun tum amaci o ziyareti
 cogaltmak oldugu icin bu, icerik veya otorite calismasindan once cozulmesi
 gereken bir tavan. Onbellek Faz 4'ten Faz 1'e tasindi.
+
+---
+
+## Tur 17 — Staging ortami silindi (30 Agustos 2026)
+
+### Neden
+Kullanici cPanel ekranini paylasti: **Disk %103 (4,12 GB / 4 GB), veritabani
+%100 (577,22 / 577,22 MB).** Yani MySQL yazamiyor, disk yeni dosya kabul
+etmiyor.
+
+Bu, gunun kararsizligini da acikliyor: PixelYourSite her istekte oturum dosyasi
+acmaya calisiyor - dolu diske. Tarama dalgasi cokusu tetikledi ama zemin zaten
+kaygandi. Uc sey ust uste geldi: dolu disk + onbelleksiz agir yigin + IndexNow
+sonrasi bot dalgasi.
+
+### Olculen tuketiciler
+| Ne | Boyut |
+|---|---|
+| `/staging/` dosyalari | 1.168,8 MB / 44.886 dosya |
+| `stg_` tablolari (91 adet) | 280,3 MB |
+| `uploads/wp-file-manager-pro/fm_backup/` | 173,1 MB (9 Mart 2026 tarihli, 4 dosya) |
+
+Karsilastirma: canli sitenin tum tablolari 297 MB. Staging, canli site kadar
+veritabani yiyordu.
+
+### Silmeden once dogrulama (alti kilit)
+`rm -rf` ile yanlis yola dokunmak canli siteyi goturur. Su alti kosulun hepsi
+gecmeden silme calismadi:
+- realpath tam olarak `/home/huneduca/public_html/staging`
+- kisayol (symlink) degil
+- canli kokten farkli
+- kendi `wp-config.php`'si var
+- o config'de `table_prefix = 'stg_'`
+- yol `/staging` ile bitiyor
+
+Tablo silmede de her ad tek tek dogrulandi: `stg_` ile baslamali, `wp_` ile
+baslamamali.
+
+### Sonuc
+| | Once | Sonra |
+|---|---|---|
+| public_html | 2.475,6 MB | **1.306,8 MB** |
+| Veritabani | 577,3 MB | **297,0 MB** |
+
+91 tablo silindi, hata yok. Canli sitenin 91 tablosu yerinde.
+Dogrulandi: 28 sayfa, 984 program, 40 universite, 22 eklenti, 7 mu-plugin,
+2 dil. Tum sayfalar 200. Sitemap, llms.txt, robots.txt calisiyor.
+`/staging/` artik 404.
+
+### Hala duran, artik acil olmayan
+- `uploads/wp-file-manager-pro/fm_backup/` 173,1 MB - alti aylik yedek arsivi.
+  Icinde veritabani dokumu var ve web'den servis edilen dizinde duruyor.
+- Veritabaninda 7.384 revizyon (~36 MB), parcalanmis bos alan,
+  `wp_cbnetpo_ping_optimizer` (31.965 satir), Action Scheduler gunlukleri.
+  Bunlar artik guvenle temizlenebilir - disk bosaldi.
