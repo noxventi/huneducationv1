@@ -659,3 +659,55 @@ Incelendi: ikisinde de `hreflang="tr"` kendine referansi ve dogru canonical
 var. Ingilizce karsiliklari olmadigi icin `en` alternatifi bulunmamasi DOGRU
 davranistir. Olcumum `hreflang>=2` esigi kullandigi icin tek dilli sayfalari
 hatali sayiyordu. Duzeltilecek bir sey yok.
+
+---
+
+## OLAY KAYDI — 30 Agustos 2026, IndexNow kaynakli kesinti
+
+### Ne oldu
+IndexNow'a 1.110 URL bildirildikten **bir dakika sonra** site 508 vermeye
+basladi ve yaklasik 15 dakika boyunca yarisi basarisiz olacak sekilde
+dalgalandi. Kullanici kesintiyi bildirdi.
+
+### Olculen sebep (SSL gunlugu, sunucu saati)
+| Dakika | Istek | Kim |
+|---|---|---|
+| 20:52-20:56 | 60-86 | normal seyir |
+| 20:57 | 193 | IndexNow gonderimi bu dakikada bitti |
+| **20:58** | **480** | **YandexBot 239, bingbot 70** |
+| **20:59** | **486** | **YandexBot 237, bingbot 91** |
+| 21:00 | 479 | YandexBot 105 |
+
+Trafik 6 kat artti. Sayfa onbellegi olmayan ve TTFB'si ~1 sn olan sitede bu,
+saniyede 8 tam PHP render'i demek. Barindirma hesabinin kaynak siniri asildi.
+
+### Iki yanlis teshis - ikisi de benim
+1. **Once zararli tarayiciyi sucladim.** Erisim gunlugunde webshell arayan bir
+   Azure IP'si gordum. Ama yanlis dosyaya bakiyordum: `huneducation.com`
+   (22 KB, HTTP) yerine `huneducation.com-ssl_log` (12 MB) okunmaliydi.
+   HTTP gunlugundeki 164 istegin tamami 301'di - yani hicbiri gercek yuk degil.
+2. **Sonra WPML String Translation'i sucladim ve KAPATTIM.** Sebep o degildi;
+   gereksiz yere bugunku ceviri isini geri aldim. Kullanici "indexnow adimindan
+   sonra oldu" dedi ve hakliydi. ST geri acildi, ceviriler dogrulandi.
+
+**Ders:** gunlugu okumadan once hangi gunlugu okudugunu dogrula. Dosya
+boyutu (22 KB'a karsi 12 MB) bunu ilk bakista soyluyordu.
+
+### Alinan onlem
+`hun-seo-duzeltmeleri.php` icine `robots_txt` filtresiyle Crawl-delay eklendi:
+YandexBot, bingbot, Amazonbot, SeznamBot 10 sn; PetalBot 20; SemrushBot ve
+AhrefsBot 30. Yandex ve Bing bu direktifi dikkate alir. Google almaz ama zaten
+kendi hizini sunucu yanitina gore ayarliyor.
+
+Olculen sonuc: 18/18 basarili istek, 0,87-1,22 sn. ST geri acildiktan sonra
+12/12 basarili, 1,2-2,0 sn.
+
+### BU GECICI BIR ONLEMDIR
+Crawl-delay, bugun degistirilen her seyin yeniden taranmasini YAVASLATIR -
+yani SEO hedefine karsi calisir. Asil cozum sayfa onbellegi. Onbellek devreye
+girince bu blok kaldirilmali.
+
+### Ortaya cikan asil sorun
+Site, arama motorlarinin ziyaretini kaldiramiyor. SEO'nun tum amaci o ziyareti
+cogaltmak oldugu icin bu, icerik veya otorite calismasindan once cozulmesi
+gereken bir tavan. Onbellek Faz 4'ten Faz 1'e tasindi.
